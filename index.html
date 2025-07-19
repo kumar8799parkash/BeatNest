@@ -14,6 +14,12 @@
     <link rel="stylesheet" href="index.css">
 
     <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+
         .logo-cont {
             display: flex;
             align-items: center;
@@ -28,6 +34,7 @@
 
         .logo-text {
             font-weight: bold;
+            margin-right: 50px;
 
         }
 
@@ -41,14 +48,19 @@
         }
 
         .home-logo-cont img {
-            filter: invert(1);
+            filter: invert(0.5);
             width: 25px;
+            transition: filter 0.5s ease;
+        }
+
+        .home-logo-cont img:hover {
+            filter: invert(0.8);
         }
 
         .home-logo-cont {
             background-color: #1f1f1f;
-            height: 50px;
-            width: 50px;
+            height: 45px;
+            width: 45px;
             border-radius: 50px;
             display: flex;
             justify-content: center;
@@ -56,7 +68,7 @@
         }
 
         .search-input-cont {
-            height: 50px;
+            height: 45px;
             background-color: #1f1f1f;
             width: 30vw;
             border-radius: 50px;
@@ -64,9 +76,35 @@
             align-items: center;
             column-gap: 10px;
             padding: 0px 15px;
+            border: 2px solid transparent;
+            transition: background-color 0.3s ease, border 1s ease;
+            box-sizing: content-box;
+            position: relative;
         }
 
-        
+        @media (max-width : 1000px) {
+            .search-input-cont {
+                width: 65vw;
+            }
+        }
+
+        .search-input-cont img {
+            filter: invert(0.5) brightness(1);
+            width: 25px;
+            transition: filter 1s ease;
+        }
+
+
+        .search-input-cont:hover {
+            background-color: rgba(85, 85, 85, 0.453);
+            border-color: rgba(85, 85, 85, 0.716);
+        }
+
+
+        .search-input-cont:hover img {
+            filter: invert(0.8) brightness(1);
+        }
+
 
         .search-input-cont input {
             font-size: 16px;
@@ -79,38 +117,69 @@
 
         }
 
+        .outer-profile-cont {
+            height: 50px;
+            width: 50px;
+            border-radius: 50px;
+            background-color: #1f1f1f;
+
+        }
+
+        .right-nav-cont {
+            margin-right: 20px;
+            column-gap: 25px;
+        }
+
+
         .profile-cont {
             background-color: #509bf5;
-            height: 35px;
-            width: 35px;
+            height: 70%;
+            width: 70%;
             border-radius: 50px;
             display: flex;
             justify-content: center;
             align-items: center;
             color: black;
             font-weight: bold;
-            margin-right: 20px;
+            transition: height 0.2s ease, width 0.2s ease;
         }
 
-        .search-input-cont img{
-            filter: invert(0.5);
-            width: 25px;
+        .profile-cont:hover {
+            height: 73%;
+            width: 73%;
         }
 
-        .separation-cont{
+
+        .separation-cont {
             font-size: 30px;
             font-weight: 100;
             filter: invert(0.5);
         }
 
+        .bell-cont img {
+            height: 20px;
+            width: 20px;
+            filter: invert(0.5);
+            transition: filter 0.5s ease;
+        }
 
+        .bell-cont img:hover {
+            filter: invert(0.8);
+
+        }
+
+        .browse-img-cont {
+            position: absolute;
+            right: 15px;
+            gap: 10px;
+        }
     </style>
 </head>
 
 <body>
     <header>
         <div class="logo-cont">
-            <img src="images/logo.jpg" alt="">
+            <img class="cursor-pointer" src="images/logo.jpg" alt="">
             <div class="logo-text">BeatNest</div>
         </div>
 
@@ -121,15 +190,30 @@
             </div>
 
             <div class="search-input-cont">
-                <img src="search.svg" alt="">
+                <img class="cursor-pointer" src="search.svg" alt="">
                 <input type="text" placeholder="What do you want to play?">
-                <div class="separation-cont">|</div>
-                <img class="cursor-pointer" src="browse.svg" alt="">
+
+                <div class="browse-img-cont flex justify-content align-items">
+                    <div class="separation-cont">|</div>
+                    <img class=" cursor-pointer" src="browse.svg" alt="">
+                </div>
+
             </div>
         </div>
 
 
-        <div class="profile-cont">P</div>
+        <div class="right-nav-cont flex ">
+            <div class="bell-cont flex justify-content align-items">
+                <img class="cursor-pointer" src="bell.svg" alt="">
+            </div>
+
+            <div class="outer-profile-cont flex justify-content align-items">
+                <div class="profile-cont cursor-pointer">P</div>
+            </div>
+        </div>
+
+
+
     </header>
 
     <main>

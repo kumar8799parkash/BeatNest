@@ -17,4 +17,26 @@ main {
     height: 78vh;
     width: 100%;
     display: flex;
+    justify-content: space-between;
 }
+
+@media (max-width: 768px) {
+    .left-cont {
+        display: none;
+    }
+    .right-cont {
+        width: 100%;
+    }
+}
+
+/* @media (max-width: 1000px) {
+    .left-cont {
+        display: none;
+    }
+}
+
+@media (max-width: 1000px) {
+    .right-cont {
+        width: 100%;
+    }
+} */
