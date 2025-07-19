@@ -1,3 +1,23 @@
 .cursor-pointer{
     cursor: pointer;
 }
+
+.flex{
+    display: flex;
+}
+
+.justify-content{
+    justify-content: center;
+}
+
+.align-items{
+    align-items: center;
+}
+
+.invert5{
+    filter: invert(0.5);
+}
+
+.invert10{
+    filter: invert(1);
+}

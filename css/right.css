@@ -1,8 +1,18 @@
 .right-cont {
-    width: 72vw;
+    /* width: 72vw; */
+
+    width: 72%;
     height: 100%;
     background: linear-gradient(to bottom, #0c1b64, #000000);
     /* blue to black */
     border-radius: 8px;
     margin-right: 5px;
 }
+
+
+/* @media (max-width : 1000px) {
+    .right-cont{
+        width: 100%;
+    }
+} */
+
