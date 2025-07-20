@@ -10,33 +10,35 @@
 
 body {
     background-color: black;
-
+    width: 100%;
 }
 
 main {
     height: 78vh;
-    width: 100%;
+    width: 100vw;
     display: flex;
-    justify-content: space-between;
 }
 
-@media (max-width: 768px) {
+@media (max-width:1000px) {
     .left-cont {
         display: none;
     }
+
     .right-cont {
-        width: 100%;
+        flex-basis: 100%;
     }
+
+    .logo-text{
+        display: none;
+    }
+
 }
 
-/* @media (max-width: 1000px) {
-    .left-cont {
+
+@media (max-width:768px) {
+    .bell-cont{
         display: none;
     }
 }
 
-@media (max-width: 1000px) {
-    .right-cont {
-        width: 100%;
-    }
-} */
+
