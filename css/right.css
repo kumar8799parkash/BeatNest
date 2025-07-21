@@ -1,6 +1,6 @@
 .right-cont {
 
-    flex-basis: 72%;
+    width: 71.5vw;
     height: 100%;
     background: linear-gradient(to bottom, #0c1b64, #000000);
     border-radius: 8px;
