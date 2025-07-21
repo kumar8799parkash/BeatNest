@@ -60,6 +60,40 @@ header {
     align-items: center;
 }
 
+
+.hamburger-cont {
+    background-color: #1f1f1f;
+    height: 45px;
+    width: 45px;
+    border-radius: 50px;
+    display: none;
+    margin-left: 2vw;
+}
+
+.hamburger-cont img {
+    filter: invert(0.5);
+    width: 30px;
+    transition: filter 0.5s ease;
+}
+
+.hamburger-cont img:hover {
+    filter: invert(0.8);
+}
+
+@media (max-width:1000px) {
+    .hamburger-cont {
+        display: block;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .home-logo-cont {
+        display: none;
+    }
+
+}
+
 .search-input-cont input {
     font-size: 16px;
     width: 80%;
@@ -80,7 +114,7 @@ header {
     column-gap: 10px;
     padding: 0px 15px;
     border: 2px solid transparent;
-    transition: background-color 0.3s ease, border 0.3s ease , outline 0.3s ease;
+    transition: background-color 0.3s ease, border 0.3s ease, outline 0.3s ease;
     box-sizing: content-box;
     position: relative;
 }
@@ -99,7 +133,7 @@ header {
 
 @media (max-width:600px) {
     .search-input-cont {
-        width: 45vw;
+        width: 70vw;
     }
 
     .browse-img-cont {
