@@ -232,7 +232,7 @@
 }
 
 
-.recents-cont {
+.recents-button-cont {
     display: flex;
     column-gap: 7px;
     cursor: pointer;
@@ -245,12 +245,12 @@
     transition: font-size 0.1s ease, color 0.1s ease;
 }
 
-.recents-cont:hover .recent-text {
+.recents-button-cont:hover .recent-text {
     font-size: 15px;
     color: white;
 }
 
-.recents-cont:hover .recents-image {
+.recents-button-cont:hover .recents-image {
     width: 17.5px;
     filter: invert(1);
 }
