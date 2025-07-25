@@ -180,7 +180,7 @@ header {
     align-items: center;
     color: black;
     font-weight: bold;
-    transition: height 0.2s ease, width 0.2s ease;
+    transition: height 0.05s ease, width 0.05s ease;
 }
 
 .profile-cont:hover {
