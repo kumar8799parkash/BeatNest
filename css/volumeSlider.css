@@ -1,19 +1,25 @@
-.volume-cont{
+.volume-cont {
     position: absolute;
     width: 12%;
-    right: 100px;
+    left: 5vw;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.volume-cont img{
-    width: 15%;
+@media (max-width : 1000px) {
+    .volume-cont {
+        width: 20%;
+    }
+}
+
+.volume-cont img {
+    width: 15px;
     filter: invert(0.5);
     cursor: pointer;
 }
 
-.volume-cont img:hover{
+.volume-cont img:hover {
     filter: invert(1);
 }
 

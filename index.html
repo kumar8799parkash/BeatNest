@@ -16,114 +16,55 @@
     <link rel="stylesheet" href="css/volumeSlider.css">
 
     <style>
-
-/*         *{
-            outline: 1px solid red;
-        } */
-
-        footer {
-            height: 13vh;
+        .playlistPage-heading-cont {
+            height: 50%;
             width: 100%;
-            display: flex;
-        }
-
-        .left-footer-cont {
-            height: 100%;
-            width: 28vw;
+            padding: 25px;
             display: flex;
             align-items: center;
-            padding: 12px;
+            column-gap: 20px;
         }
 
-        .footer-image-cont {
-            height: 60px;
-            width: 60px;
-            border-radius: 5px;
-            cursor: pointer;
+        .playlistPage-heading-image-cont {
+            width: 200px;
+            height: 200px;
+            /*Makes it a perfect square */
+            border-radius: 10px;
             overflow: hidden;
         }
 
-        .playing-svg-cont {
-            width: 50px;
+        .playlistPage-heading-text-cont {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content:center ;
+            flex-direction: column;
         }
 
-        .footer-text-cont {
-            height: 100%;
-            width: calc(100% - 72px);
-            display: flex;
-            align-items: center;
-            padding-left: 7px;
-            font-size: 14px;
-            font-weight: 400;
+        .playlistPage-heading-text {
+            font-size: 45px;
+            font-weight: 800;
             color: rgb(255, 255, 255);
         }
 
-
-        .playing-svg-cont img {
-            width: 100%;
-            cursor: pointer;
-            filter: opacity(1);
+        .playlistPage-heading-desc {
+            font-size: 14px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.7);
         }
 
-        .footer-image-cont img {
+        .playlistPage-heading-image-cont img {
             height: 100%;
             width: 100%;
             object-fit: cover;
         }
 
-        .right-footer-cont {
-            height: 100%;
-            width: 72vw;
-        }
-
-        .top-footer-cont {
-            position: relative;
-            height: 60%;
+        .separation {
+            height: 5px;
             width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            column-gap: 20px;
+            background-color: gray;
+            filter: opacity(0.5);
         }
-
-        .buttons-cont {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            column-gap: 15px;
-        }
-
-        .buttons-cont img {
-            height: 30px;
-            width: 30px;
-            filter: invert(0.7);
-            cursor: pointer;
-            transition: filter, 0.2s ease;
-        }
-
-        .buttons-cont img:hover {
-            filter: invert(1);
-        }
-
-        .loop-button {
-            filter: invert(0.5);
-            height: 20px;
-            width: 20px;
-            cursor: pointer;
-            transition: filter, 0.2s ease;
-        }
-
-        .loop-button:hover {
-            filter: invert(1);
-        }
-
-        .bottom-footer-cont {
-            height: 40%;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
-
     </style>
 </head>
 
@@ -420,7 +361,7 @@
 
 
         <div class="right-cont">
-            <div class="recents-cont">
+            <!--             <div class="recents-cont">
 
                 <div class="recents-heading-cont">Your Favourites</div>
 
@@ -599,7 +540,28 @@
                         <div class="playlist-item-desc-cont">Pritam , Shilpa Rao, Scahin Jigar and more</div>
                     </div>
                 </div>
+            </div> -->
+
+
+
+
+            <div class="playlistPage-heading-cont">
+                <div class="playlistPage-heading-image-cont">
+                    <img class="playlistPage-heading-image" src="images/playlist images/playlistImages8.webp" alt="">
+                </div>
+
+                <div class="playlistPage-heading-text-cont">
+                    <div class="playlistPage-heading-text">Party Hindi Hits | New Dance Songs</div>
+                    <div class="playlistPage-heading-desc">Lorem ipsum, dolor sit amet consectetur adipisicing elit. At perferendis natus aut, corrupti eius ut similique. Fugit dolore et similique placeat reiciendis incidunt soluta impedit. Sequi a unde veritatis vero.</div>
+                </div>
             </div>
+
+            <div class="separation"></div>
+
+
+
+
+
         </div>
     </main>
 

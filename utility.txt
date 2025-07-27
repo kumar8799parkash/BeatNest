@@ -11,3 +11,6 @@ xmlns="http://www.w3.org/2000/svg"
 
 
 there are only two elements(div) inside my flex container having width in percentage i want that the percentage of remains same when viewport width reduced
+
+
+Party Hindi Hits | New Dance Songs
