@@ -16,35 +16,79 @@
     <link rel="stylesheet" href="css/volumeSlider.css">
 
     <style>
+        /*         * {
+            outline: 1px solid red;
+        } */
+
+        .home-bg {
+            background: linear-gradient(to bottom, #0c1b64d1, #270000);
+        }
+
+        .palylist-bg {
+
+            background-color: #121212;
+            overflow-y: auto;
+        }
+
+        .top-gradient {
+            position: sticky;
+            top: 0;
+            height: 100%;
+            width: 71.5vw;
+            background: linear-gradient(to bottom,
+                    rgba(171, 90, 74, 1) 0%,
+                    rgba(171, 90, 74, 0.6) 50%,
+                    rgba(171, 90, 74, 0.5) 50%,
+                    rgba(171, 90, 74, 0) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
         .playlistPage-heading-cont {
             height: 50%;
             width: 100%;
-            padding: 25px;
             display: flex;
-            align-items: center;
-            column-gap: 20px;
         }
 
         .playlistPage-heading-image-cont {
-            width: 200px;
-            height: 200px;
-            /*Makes it a perfect square */
-            border-radius: 10px;
-            overflow: hidden;
+            width: 225px;
+            height: 100%;
+            display: inline;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-left: 25px;
         }
+
+        .playlistPage-heading-image-original-cont {
+            height: 200px;
+            width: 200px;
+            overflow: hidden;
+            border-radius: 5px;
+        }
+
+
+        .playlistPage-heading-image-original-cont img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+
 
         .playlistPage-heading-text-cont {
             height: 100%;
-            width: 100%;
+            width: calc(100%-225px);
+            padding-right: 25px;
             display: flex;
-            justify-content:center ;
+            justify-content: center;
             flex-direction: column;
+            padding-left: 25px;
         }
 
         .playlistPage-heading-text {
             font-size: 45px;
             font-weight: 800;
-            color: rgb(255, 255, 255);
+            color: rgb(243, 243, 243);
         }
 
         .playlistPage-heading-desc {
@@ -53,17 +97,128 @@
             color: rgba(255, 255, 255, 0.7);
         }
 
-        .playlistPage-heading-image-cont img {
-            height: 100%;
-            width: 100%;
-            object-fit: cover;
+        @media (max-width: 768px) {
+            .playlistPage-heading-desc {
+                display: none;
+            }
+
+            .playlistPage-heading-text {
+                font-size: 35px;
+                font-weight: 700;
+            }
         }
 
-        .separation {
-            height: 5px;
+        @media (max-width: 500px) {
+
+            .playlistPage-heading-cont {
+                height: 30%;
+            }
+
+            .playlistPage-heading-cont {
+                flex-direction: column;
+            }
+
+            .playlistPage-heading-image-cont {
+                height: 150px;
+                width: 125px;
+                margin: auto;
+                padding-top: 25px;
+                padding-left: 0px;
+            }
+
+            .playlistPage-heading-image-original-cont {
+                height: 100%;
+                width: 100%;
+            }
+
+            .playlistPage-heading-text {
+                font-size: 14px;
+                color: rgba(255, 255, 255, 0.7);
+            }
+
+            .playlistPage-heading-text-cont {
+                padding-left: 5px;
+            }
+
+            .top-gradient {
+                position: sticky;
+                top: 0;
+                height: 100%;
+                width: 71.5vw;
+                background: linear-gradient(to bottom,
+                        rgba(171, 90, 74, 1) 0%,
+                        rgba(171, 90, 74, 0.6) 30%,
+                        rgba(171, 90, 74, 0.5) 30%,
+                        rgba(171, 90, 74, 0) 100%);
+                pointer-events: none;
+            }
+        }
+
+        .songs-cont {
             width: 100%;
-            background-color: gray;
-            filter: opacity(0.5);
+            border: 1px solid white;
+            padding: 0px 25px;
+        }
+
+        .songs-heading-cont {
+            height: 80px;
+            width: 100%;
+            border: 2px solid red;
+        }
+
+        .song-items-cont {
+            height: 100%;
+            width: 100%;
+            border: 2px solid blue;
+        }
+
+        .song-item {
+            position: relative;
+            height: 50px;
+            width: 100%;
+            border: 2px solid green;
+            display: flex;
+            z-index: 100;
+            background-color: red;
+        }
+
+        .song-cover-cont {
+            position: absolute;
+            left: 0px;
+            height: 50px;
+            width: 50px;
+            border: 1px solid white;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .song-cover-cont img {
+            height: 100%;
+            width: 100%;
+        }
+
+        .song-name-cont {
+            height: 100%;
+            width: calc(100% - 120px);
+            margin-left: 50px;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+            color: rgb(218, 218, 218);
+        }
+
+        .song-duration-cont {
+            position: absolute;
+            right: 0px;
+            border: 1px solid white;
+            height: 50px;
+            width: 70px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 400;
+            color: rgb(179, 179, 179);
         }
     </style>
 </head>
@@ -360,7 +515,7 @@
 
 
 
-        <div class="right-cont">
+        <div class="right-cont palylist-bg top-gradient">
             <!--             <div class="recents-cont">
 
                 <div class="recents-heading-cont">Your Favourites</div>
@@ -547,16 +702,34 @@
 
             <div class="playlistPage-heading-cont">
                 <div class="playlistPage-heading-image-cont">
-                    <img class="playlistPage-heading-image" src="images/playlist images/playlistImages8.webp" alt="">
+                    <div class="playlistPage-heading-image-original-cont">
+                        <img class="playlistPage-heading-image" src="images/playlist images/playlistImages8.webp"
+                            alt="">
+                    </div>
                 </div>
 
                 <div class="playlistPage-heading-text-cont">
                     <div class="playlistPage-heading-text">Party Hindi Hits | New Dance Songs</div>
-                    <div class="playlistPage-heading-desc">Lorem ipsum, dolor sit amet consectetur adipisicing elit. At perferendis natus aut, corrupti eius ut similique. Fugit dolore et similique placeat reiciendis incidunt soluta impedit. Sequi a unde veritatis vero.</div>
+                    <div class="playlistPage-heading-desc">Lorem ipsum, dolor sit amet consectetur adipisicing elit. At
+                        perferendis natus aut, corrupti eius ut similique. Fugit dolore et similique placeat reiciendis
+                        incidunt soluta impedit. Sequi a unde veritatis vero.</div>
                 </div>
             </div>
 
-            <div class="separation"></div>
+            <div class="songs-cont">
+                <div class="songs-heading-cont"></div>
+
+                <div class="song-items-cont">
+
+                    <div class="song-item">
+                        <div class="song-cover-cont"> <img src="images/recents images/image4.jpeg" alt=""> </div>
+                        <div class="song-name-cont">Heer Ranjha - Bhuvan bam</div>
+                        <div class="song-duration-cont">4:21</div>
+                    </div>
+
+                </div>
+            </div>
+
 
 
 
