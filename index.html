@@ -6,220 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BeatNest</title>
 
-    <link rel="stylesheet" href="utility.css">
+    <link rel="stylesheet" href="css/utility.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/left.css">
     <link rel="stylesheet" href="css/right.css">
     <link rel="stylesheet" href="css/footer.css">
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/mainSlider.css">
     <link rel="stylesheet" href="css/volumeSlider.css">
+    <link rel="stylesheet" href="css/playlistPage.css">
 
     <style>
-        /*         * {
-            outline: 1px solid red;
-        } */
 
-        .home-bg {
-            background: linear-gradient(to bottom, #0c1b64d1, #270000);
-        }
-
-        .palylist-bg {
-
-            background-color: #121212;
-            overflow-y: auto;
-        }
-
-        .top-gradient {
-            position: sticky;
-            top: 0;
-            height: 100%;
-            width: 71.5vw;
-            background: linear-gradient(to bottom,
-                    rgba(171, 90, 74, 1) 0%,
-                    rgba(171, 90, 74, 0.6) 50%,
-                    rgba(171, 90, 74, 0.5) 50%,
-                    rgba(171, 90, 74, 0) 100%);
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .playlistPage-heading-cont {
-            height: 50%;
-            width: 100%;
-            display: flex;
-        }
-
-        .playlistPage-heading-image-cont {
-            width: 225px;
-            height: 100%;
-            display: inline;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding-left: 25px;
-        }
-
-        .playlistPage-heading-image-original-cont {
-            height: 200px;
-            width: 200px;
-            overflow: hidden;
-            border-radius: 5px;
-        }
-
-
-        .playlistPage-heading-image-original-cont img {
-            height: 100%;
-            width: 100%;
-            object-fit: cover;
-        }
-
-
-        .playlistPage-heading-text-cont {
-            height: 100%;
-            width: calc(100%-225px);
-            padding-right: 25px;
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            padding-left: 25px;
-        }
-
-        .playlistPage-heading-text {
-            font-size: 45px;
-            font-weight: 800;
-            color: rgb(243, 243, 243);
-        }
-
-        .playlistPage-heading-desc {
-            font-size: 14px;
-            font-weight: 400;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        @media (max-width: 768px) {
-            .playlistPage-heading-desc {
-                display: none;
-            }
-
-            .playlistPage-heading-text {
-                font-size: 35px;
-                font-weight: 700;
-            }
-        }
-
-        @media (max-width: 500px) {
-
-            .playlistPage-heading-cont {
-                height: 30%;
-            }
-
-            .playlistPage-heading-cont {
-                flex-direction: column;
-            }
-
-            .playlistPage-heading-image-cont {
-                height: 150px;
-                width: 125px;
-                margin: auto;
-                padding-top: 25px;
-                padding-left: 0px;
-            }
-
-            .playlistPage-heading-image-original-cont {
-                height: 100%;
-                width: 100%;
-            }
-
-            .playlistPage-heading-text {
-                font-size: 14px;
-                color: rgba(255, 255, 255, 0.7);
-            }
-
-            .playlistPage-heading-text-cont {
-                padding-left: 5px;
-            }
-
-            .top-gradient {
-                position: sticky;
-                top: 0;
-                height: 100%;
-                width: 71.5vw;
-                background: linear-gradient(to bottom,
-                        rgba(171, 90, 74, 1) 0%,
-                        rgba(171, 90, 74, 0.6) 30%,
-                        rgba(171, 90, 74, 0.5) 30%,
-                        rgba(171, 90, 74, 0) 100%);
-                pointer-events: none;
-            }
-        }
-
-        .songs-cont {
-            width: 100%;
-            border: 1px solid white;
-            padding: 0px 25px;
-        }
-
-        .songs-heading-cont {
-            height: 80px;
-            width: 100%;
-            border: 2px solid red;
-        }
-
-        .song-items-cont {
-            height: 100%;
-            width: 100%;
-            border: 2px solid blue;
-        }
-
-        .song-item {
-            position: relative;
-            height: 50px;
-            width: 100%;
-            border: 2px solid green;
-            display: flex;
-            z-index: 100;
-            background-color: red;
-        }
-
-        .song-cover-cont {
-            position: absolute;
-            left: 0px;
-            height: 50px;
-            width: 50px;
-            border: 1px solid white;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .song-cover-cont img {
-            height: 100%;
-            width: 100%;
-        }
-
-        .song-name-cont {
-            height: 100%;
-            width: calc(100% - 120px);
-            margin-left: 50px;
-            display: flex;
-            align-items: center;
-            padding-left: 10px;
-            color: rgb(218, 218, 218);
-        }
-
-        .song-duration-cont {
-            position: absolute;
-            right: 0px;
-            border: 1px solid white;
-            height: 50px;
-            width: 70px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 14px;
-            font-weight: 400;
-            color: rgb(179, 179, 179);
-        }
     </style>
 </head>
 
@@ -515,227 +313,8 @@
 
 
 
-        <div class="right-cont palylist-bg top-gradient">
-            <!--             <div class="recents-cont">
+        <div class="right-cont" id="right-cont"></div>
 
-                <div class="recents-heading-cont">Your Favourites</div>
-
-                <div class="recents-items-cont">
-
-                    <div class="recents-item">
-                        <div class="recents-item-image-cont"><img src="images/recents images/image1.webp" alt=""></div>
-                        <div class="recents-item-text-cont normal">Party Hindi-Hits | New Dance Songs</div>
-                    </div>
-
-                    <div class="recents-item">
-                        <div class="recents-item-image-cont"><img src="images/recents images/image2.webp" alt=""></div>
-                        <div class="recents-item-text-cont normal">Neha Kakkar</div>
-                    </div>
-
-                    <div class="recents-item">
-                        <div class="recents-item-image-cont"><img src="images/recents images/image3.jpeg" alt=""></div>
-                        <div class="recents-item-text-cont normal">Heaven & Hell</div>
-                    </div>
-
-                    <div class="recents-item">
-                        <div class="recents-item-image-cont"><img src="images/recents images/image4.jpeg" alt=""></div>
-                        <div class="recents-item-text-cont normal">Bhuvan Bam</div>
-                    </div>
-
-                    <div class="recents-item">
-                        <div class="recents-item-image-cont"><img src="images/recents images/image5.jpeg" alt=""></div>
-                        <div class="recents-item-text-cont normal">Adele</div>
-                    </div>
-
-                    <div class="recents-item">
-                        <div class="recents-item-image-cont"><img src="images/recents images/image6.jpeg" alt=""></div>
-                        <div class="recents-item-text-cont normal">Arijit Singh</div>
-                    </div>
-
-                    <div class="recents-item">
-                        <div class="recents-item-image-cont"><img src="images/recents images/image7.jpeg" alt=""></div>
-                        <div class="recents-item-text-cont normal">Superhero</div>
-                    </div>
-
-                    <div class="recents-item">
-                        <div class="recents-item-image-cont"><img src="images/recents images/image8.jpeg" alt=""></div>
-                        <div class="recents-item-text-cont normal">Dreams pt. 2</div>
-                    </div>
-
-
-                </div>
-
-            </div>
-
-
-            <div class="playlist-cont">
-                <div class="playlist-heading-cont">Your Playlists</div>
-
-                <div class="playlist-item-cont">
-                    <div class="playlist-item">
-                        <div class="playlist-item-image-cont"><img src="images/playlist images/playlistImage.jpeg"
-                                alt=""></div>
-                        <div class="playlist-item-desc-cont">Pritam , Shilpa Rao, Scahin Jigar and more</div>
-                    </div>
-
-                    <div class="playlist-item">
-                        <div class="playlist-item-image-cont"><img src="images/playlist images/playlistImage2.jpeg"
-                                alt=""></div>
-                        <div class="playlist-item-desc-cont">Pritam , Shilpa Rao, Scahin Jigar and more</div>
-                    </div>
-
-                    <div class="playlist-item">
-                        <div class="playlist-item-image-cont"><img src="images/playlist images/playlistImage3.jpeg"
-                                alt=""></div>
-                        <div class="playlist-item-desc-cont">Pritam , Shilpa Rao, Scahin Jigar and more</div>
-                    </div>
-
-                    <div class="playlist-item">
-                        <div class="playlist-item-image-cont"><img src="images/playlist images/playlistImage4.jpeg"
-                                alt=""></div>
-                        <div class="playlist-item-desc-cont">Pritam , Shilpa Rao, Scahin Jigar and more</div>
-                    </div>
-
-
-                    <div class="playlist-item">
-                        <div class="playlist-item-image-cont"><img src="images/playlist images/playlistImage5.jpeg"
-                                alt=""></div>
-                        <div class="playlist-item-desc-cont">Pritam , Shilpa Rao, Scahin Jigar and more</div>
-                    </div>
-
-                    <div class="playlist-item">
-                        <div class="playlist-item-image-cont"><img src="images/playlist images/playlistImage6.jpeg"
-                                alt=""></div>
-                        <div class="playlist-item-desc-cont">Pritam , Shilpa Rao, Scahin Jigar and more</div>
-                    </div>
-
-                    <div class="playlist-item">
-                        <div class="playlist-item-image-cont"><img src="images/playlist images/playlistImage7.jpeg"
-                                alt=""></div>
-                        <div class="playlist-item-desc-cont">Pritam , Shilpa Rao, Scahin Jigar and more</div>
-                    </div>
-
-                    <div class="playlist-item">
-                        <div class="playlist-item-image-cont"><img src="images/playlist images/playlistImages8.webp"
-                                alt=""></div>
-                        <div class="playlist-item-desc-cont">Pritam , Shilpa Rao, Scahin Jigar and more</div>
-                    </div>
-
-                    <div class="playlist-item">
-                        <div class="playlist-item-image-cont"><img src="images/playlist images/playlistImages9.webp"
-                                alt=""></div>
-                        <div class="playlist-item-desc-cont">Pritam , Shilpa Rao, Scahin Jigar and more</div>
-                    </div>
-
-                    <div class="playlist-item">
-                        <div class="playlist-item-image-cont"><img src="images/playlist images/playlistImage10.jpeg"
-                                alt=""></div>
-                        <div class="playlist-item-desc-cont">Pritam , Shilpa Rao, Scahin Jigar and more</div>
-                    </div>
-
-                    <div class="playlist-item">
-                        <div class="playlist-item-image-cont"><img src="images/playlist images/playlistImage.jpeg"
-                                alt=""></div>
-                        <div class="playlist-item-desc-cont">Pritam , Shilpa Rao, Scahin Jigar and more</div>
-                    </div>
-
-
-                    <div class="playlist-item">
-                        <div class="playlist-item-image-cont"><img src="images/playlist images/playlistImage2.jpeg"
-                                alt=""></div>
-                        <div class="playlist-item-desc-cont">Pritam , Shilpa Rao, Scahin Jigar and more</div>
-                    </div>
-
-                    <div class="playlist-item">
-                        <div class="playlist-item-image-cont"><img src="images/playlist images/playlistImage3.jpeg"
-                                alt=""></div>
-                        <div class="playlist-item-desc-cont">Pritam , Shilpa Rao, Scahin Jigar and more</div>
-                    </div>
-
-                    <div class="playlist-item">
-                        <div class="playlist-item-image-cont"><img src="images/playlist images/playlistImage4.jpeg"
-                                alt=""></div>
-                        <div class="playlist-item-desc-cont">Pritam , Shilpa Rao, Scahin Jigar and more</div>
-                    </div>
-
-
-                    <div class="playlist-item">
-                        <div class="playlist-item-image-cont"><img src="images/playlist images/playlistImage5.jpeg"
-                                alt=""></div>
-                        <div class="playlist-item-desc-cont">Pritam , Shilpa Rao, Scahin Jigar and more</div>
-                    </div>
-
-                    <div class="playlist-item">
-                        <div class="playlist-item-image-cont"><img src="images/playlist images/playlistImage6.jpeg"
-                                alt=""></div>
-                        <div class="playlist-item-desc-cont">Pritam , Shilpa Rao, Scahin Jigar and more</div>
-                    </div>
-
-                    <div class="playlist-item">
-                        <div class="playlist-item-image-cont"><img src="images/playlist images/playlistImage7.jpeg"
-                                alt=""></div>
-                        <div class="playlist-item-desc-cont">Pritam , Shilpa Rao, Scahin Jigar and more</div>
-                    </div>
-
-                    <div class="playlist-item">
-                        <div class="playlist-item-image-cont"><img src="images/playlist images/playlistImages8.webp"
-                                alt=""></div>
-                        <div class="playlist-item-desc-cont">Pritam , Shilpa Rao, Scahin Jigar and more</div>
-                    </div>
-
-                    <div class="playlist-item">
-                        <div class="playlist-item-image-cont"><img src="images/playlist images/playlistImages9.webp"
-                                alt=""></div>
-                        <div class="playlist-item-desc-cont">Pritam , Shilpa Rao, Scahin Jigar and more</div>
-                    </div>
-
-                    <div class="playlist-item">
-                        <div class="playlist-item-image-cont"><img src="images/playlist images/playlistImage10.jpeg"
-                                alt=""></div>
-                        <div class="playlist-item-desc-cont">Pritam , Shilpa Rao, Scahin Jigar and more</div>
-                    </div>
-                </div>
-            </div> -->
-
-
-
-
-            <div class="playlistPage-heading-cont">
-                <div class="playlistPage-heading-image-cont">
-                    <div class="playlistPage-heading-image-original-cont">
-                        <img class="playlistPage-heading-image" src="images/playlist images/playlistImages8.webp"
-                            alt="">
-                    </div>
-                </div>
-
-                <div class="playlistPage-heading-text-cont">
-                    <div class="playlistPage-heading-text">Party Hindi Hits | New Dance Songs</div>
-                    <div class="playlistPage-heading-desc">Lorem ipsum, dolor sit amet consectetur adipisicing elit. At
-                        perferendis natus aut, corrupti eius ut similique. Fugit dolore et similique placeat reiciendis
-                        incidunt soluta impedit. Sequi a unde veritatis vero.</div>
-                </div>
-            </div>
-
-            <div class="songs-cont">
-                <div class="songs-heading-cont"></div>
-
-                <div class="song-items-cont">
-
-                    <div class="song-item">
-                        <div class="song-cover-cont"> <img src="images/recents images/image4.jpeg" alt=""> </div>
-                        <div class="song-name-cont">Heer Ranjha - Bhuvan bam</div>
-                        <div class="song-duration-cont">4:21</div>
-                    </div>
-
-                </div>
-            </div>
-
-
-
-
-
-
-        </div>
     </main>
 
     <footer>
@@ -765,6 +344,40 @@
         </div>
 
     </footer>
+
+
+
+    
+
+    <script>
+
+        playlistItem = document.getElementsByClassName('playlist-item');
+        playlistItemArray = Array.from(playlistItem);
+
+        function loadRightCont(targetPage){
+            fetch(`html/${targetPage}.html`)
+            .then(response=>{
+                return response.text();
+            })
+            .then(data=>{
+                document.getElementById('right-cont').innerHTML = data;
+            })
+            .catch(error=>{
+                console.error("Error loading page:",error);
+            });
+        }
+
+        window.onload = ()=>{loadRightCont('home')}
+
+        playlistItemArray.forEach(playlistItem => {
+            playlistItem.addEventListener('click' , ()=>{
+                const targetPage = playlistItem.getAttribute('data-targetPage');
+                loadRightCont(targetPage);
+            })
+        });
+
+    </script>
+
 
 </body>
 
