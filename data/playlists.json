@@ -1,0 +1,19 @@
+[
+  {
+    "name": "Chill Vibes",
+    "cover": "songs/playlist1/cover.jpg",
+    "folder": "playlist1",
+    "songs": [
+      { "title": "Sunset", "file": "song1.mp3" },
+      { "title": "Ocean Breeze", "file": "song2.mp3" }
+    ]
+  },
+  {
+    "name": "Workout Mix",
+    "cover": "songs/playlist2/cover.jpg",
+    "folder": "playlist2",
+    "songs": [
+      { "title": "Pump Up", "file": "songA.mp3" }
+    ]
+  }
+]

@@ -110,6 +110,7 @@
     padding: 10px 10px;
 }
 
+
 .playlist-item:hover {
     background-color: rgba(68, 68, 68, 0.478);
 }
@@ -123,10 +124,13 @@
     margin-bottom: 10px;
 }
 
+
+
 .playlist-item-image-cont img {
     height: 100%;
     width: 100%;
     object-fit: cover;
+    margin: auto;
 }
 
 
@@ -137,6 +141,22 @@
     font-weight: 400;
     color: rgba(255, 255, 255, 0.541);
     overflow: hidden;
+}
+
+@media (max-width:480px) {
+    .playlist-item-image-cont {
+        height: 106px;
+        width: 106px;
+    }
+
+    .playlist-item-desc-cont {
+        width: 106px;
+    }
+
+    .playlist-item {
+        height: 182px;
+        width: 126px;
+    }
 }
 
 .right-cont::-webkit-scrollbar {
