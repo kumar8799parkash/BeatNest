@@ -1,0 +1,50 @@
+    <div class="recents-cont">
+
+        <div class="recents-heading-cont">Your Favourites</div>
+
+        <div class="recents-items-cont">
+
+            <div class="recents-item" data-targetPage = "playlistPage">
+                <div class="recents-item-image-cont"><img src="images/recents images/image1.webp" alt=""></div>
+                <div class="recents-item-text-cont normal">Party Hindi-Hits | New Dance Songs</div>
+            </div>
+
+            <div class="recents-item" data-targetPage = "playlistPage">
+                <div class="recents-item-image-cont"><img src="images/recents images/image2.webp" alt=""></div>
+                <div class="recents-item-text-cont normal">Neha Kakkar</div>
+            </div>
+
+            <div class="recents-item" data-targetPage = "playlistPage">
+                <div class="recents-item-image-cont"><img src="images/recents images/image3.jpeg" alt=""></div>
+                <div class="recents-item-text-cont normal">Heaven & Hell</div>
+            </div>
+
+            <div class="recents-item" data-targetPage = "playlistPage">
+                <div class="recents-item-image-cont"><img src="images/recents images/image4.jpeg" alt=""></div>
+                <div class="recents-item-text-cont normal">Bhuvan Bam</div>
+            </div>
+
+            <div class="recents-item" data-targetPage = "playlistPage">
+                <div class="recents-item-image-cont"><img src="images/recents images/image5.jpeg" alt=""></div>
+                <div class="recents-item-text-cont normal">Adele</div>
+            </div>
+
+            <div class="recents-item" data-targetPage = "playlistPage">
+                <div class="recents-item-image-cont"><img src="images/recents images/image6.jpeg" alt=""></div>
+                <div class="recents-item-text-cont normal">Arijit Singh</div>
+            </div>
+
+            <div class="recents-item" data-targetPage = "playlistPage">
+                <div class="recents-item-image-cont"><img src="images/recents images/image7.jpeg" alt=""></div>
+                <div class="recents-item-text-cont normal">Superhero</div>
+            </div>
+
+            <div class="recents-item" data-targetPage = "playlistPage">
+                <div class="recents-item-image-cont"><img src="images/recents images/image8.jpeg" alt=""></div>
+                <div class="recents-item-text-cont normal">Dreams pt. 2</div>
+            </div>
+
+
+        </div>
+
+    </div>

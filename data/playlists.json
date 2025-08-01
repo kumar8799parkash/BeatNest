@@ -1,19 +1,23 @@
 [
   {
     "name": "Chill Vibes",
-    "cover": "songs/playlist1/cover.jpg",
+    "cover": "songs/playlist1/cover.jpeg",
     "folder": "playlist1",
     "songs": [
-      { "title": "Sunset", "file": "song1.mp3" },
-      { "title": "Ocean Breeze", "file": "song2.mp3" }
+      { "title": "Ek Din", "file": "ekDin.mp3" },
+      { "title": "Krishna Flute", "file": "krishnaFlute.mp3" },
+      { "title": "Royalty Free", "file": "royaltyFree.mp3" }
     ]
   },
+
   {
-    "name": "Workout Mix",
-    "cover": "songs/playlist2/cover.jpg",
+    "name": "Hangover",
+    "cover": "songs/playlist2/cover.jpeg",
     "folder": "playlist2",
     "songs": [
-      { "title": "Pump Up", "file": "songA.mp3" }
+      { "title": "Fun Adventure", "file": "funAdventure.mp3" },
+      { "title": "Rajasthani Folk music", "file": "rajasthaniFolk.mp3" }
     ]
   }
+
 ]
