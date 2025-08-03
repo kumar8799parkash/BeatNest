@@ -1,11 +1,44 @@
+
+
 fetch('data/playlists.json')
 .then(res=>res.json())
 .then(playlists=>{
-    const playlistItemCont = document.getElementById('playlist-item-cont');
 
-    playlists.forEach(playlist => {
+
+    function loadPlayListPage(index){
+        const songItemsCont = document.getElementById('song-items-cont');
+        const songsArray = playlists[index].songs;
+        songsArray.forEach((song , songIndex)=>{
+            const songItem = document.createElement('div');
+            songItem.classList.add('song-item');
+            
+            const songNumberCont = document.createElement('div');
+            songNumberCont.classList.add('song-number-cont');
+            songNumberCont.textContent = `${songIndex}`;
+
+            const songCoverCont = document.createElement('div');
+            songCoverCont.classList.add('song-cover-cont');
+            const songCoverImage = document.createElement('img');
+            songCoverImage.src = 
+
+            const songNameCont = document.createElement('div');
+            songNameCont.classList.add('song-name-cont');
+
+            const songDurationCont = document.createElement('div');
+            songDurationCont.classList.add('song-duration-cont');
+
+            const songAddCont = document.createElement('div');
+            songAddCont.classList.add('song-add-cont');
+        })
+    }
+
+
+    const playlistItemCont = document.getElementById('playlist-item-cont');
+    playlists.forEach((playlist,index) => {
         const playlistItem = document.createElement('div');                      // playlistItem = div in CHATGPT
         playlistItem.classList.add('playlist-item');
+
+        playlistItem.dataset.playlistIndex = index;
 
         const playlistItemImageCont = document.createElement('div');
         playlistItemImageCont.classList.add('playlist-item-image-cont');
@@ -26,6 +59,7 @@ fetch('data/playlists.json')
     const playlistItems = document.getElementsByClassName('playlist-item');
     Array.from(playlistItems).forEach(playList => {
         playList.addEventListener('click' , ()=>{
+            const index = playList.dataset.playlistIndex;
             
         })
     });
