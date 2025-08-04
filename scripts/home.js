@@ -29,6 +29,15 @@ fetch('data/playlists.json')
 
             const songAddCont = document.createElement('div');
             songAddCont.classList.add('song-add-cont');
+            songAddCont.textContent = '+';
+
+            songItem.appendChild(songNumberCont);
+            songItem.appendChild(songCoverCont);
+            songItem.appendChild(songNameCont);
+            songItem.appendChild(songDurationCont);
+            songItem.appendChild(songAddCont);
+
+            songItemsCont.appendChild(songItem);
         })
     }
 
@@ -60,7 +69,8 @@ fetch('data/playlists.json')
     Array.from(playlistItems).forEach(playList => {
         playList.addEventListener('click' , ()=>{
             const index = playList.dataset.playlistIndex;
-            
+            loadRightCont('playlistPage');
+            loadPlayListPage(index);
         })
     });
 })

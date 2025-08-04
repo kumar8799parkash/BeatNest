@@ -4,9 +4,9 @@
     "cover": "songs/playlist1/cover.jpeg",
     "folder": "playlist1",
     "songs": [
-      { "title": "Ek Din", "file": "ekDin.mp3" },
-      { "title": "Krishna Flute", "file": "krishnaFlute.mp3" },
-      { "title": "Royalty Free", "file": "royaltyFree.mp3" }
+      { "title": "Ek Din", "file": "ekDin.mp3"  , "songCover":"ekDinCover.jpeg"},
+      { "title": "Krishna Flute", "file": "krishnaFlute.mp3" , "songCover":"krishnaFluteCover.jpeg"},
+      { "title": "Royalty Free", "file": "royaltyFree.mp3", "songCover":"royaltyFreeCover.jpeg" }
     ]
   },
 
@@ -15,8 +15,8 @@
     "cover": "songs/playlist2/cover.jpeg",
     "folder": "playlist2",
     "songs": [
-      { "title": "Fun Adventure", "file": "funAdventure.mp3" },
-      { "title": "Rajasthani Folk music", "file": "rajasthaniFolk.mp3" }
+      { "title": "Fun Adventure", "file": "funAdventure.mp3", "songCover":"funAdventureCover.jpeg" },
+      { "title": "Rajasthani Folk music", "file": "rajasthaniFolk.mp3", "songCover":"rajasthaniFolkCover.jpeg" }
     ]
   }
 
