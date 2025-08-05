@@ -1,7 +1,10 @@
 [
   {
-    "name": "Chill Vibes",
+    "name": "Chill Vibes - perfect playlist to unwind and relax.",
     "cover": "songs/playlist1/cover.jpeg",
+
+    "description":"Chill Vibes is the perfect playlist to unwind and relax. Featuring soothing melodies, mellow beats, and calming rhythms, it creates a peaceful atmosphere for studying, meditating, or simply enjoying a quiet moment. Let each track take you on a tranquil journey away from stress and into serenity.",
+
     "folder": "playlist1",
     "songs": [
       { "title": "Ek Din", "file": "ekDin.mp3"  , "songCover":"ekDinCover.jpeg"},
@@ -11,8 +14,11 @@
   },
 
   {
-    "name": "Hangover",
+    "name": "Hangover - Ease into the morning after with mellow beats.",
     "cover": "songs/playlist2/cover.jpeg",
+
+    "description":"Ease into the morning after with mellow beats, chilled vibes, and soothing vocals. Whether you’re nursing a headache or just riding the post-party calm, this playlist blends acoustic, lo-fi, and smooth rhythms to help you relax, recover, and reset—one track at a time.",
+
     "folder": "playlist2",
     "songs": [
       { "title": "Fun Adventure", "file": "funAdventure.mp3", "songCover":"funAdventureCover.jpeg" },

@@ -1,79 +1,64 @@
 
-
 fetch('data/playlists.json')
-.then(res=>res.json())
-.then(playlists=>{
-
-
-    function loadPlayListPage(index){
-        const songItemsCont = document.getElementById('song-items-cont');
-        const songsArray = playlists[index].songs;
-        songsArray.forEach((song , songIndex)=>{
-            const songItem = document.createElement('div');
-            songItem.classList.add('song-item');
-            
-            const songNumberCont = document.createElement('div');
-            songNumberCont.classList.add('song-number-cont');
-            songNumberCont.textContent = `${songIndex}`;
-
-            const songCoverCont = document.createElement('div');
-            songCoverCont.classList.add('song-cover-cont');
-            const songCoverImage = document.createElement('img');
-            songCoverImage.src = 
-
-            const songNameCont = document.createElement('div');
-            songNameCont.classList.add('song-name-cont');
-
-            const songDurationCont = document.createElement('div');
-            songDurationCont.classList.add('song-duration-cont');
-
-            const songAddCont = document.createElement('div');
-            songAddCont.classList.add('song-add-cont');
-            songAddCont.textContent = '+';
-
-            songItem.appendChild(songNumberCont);
-            songItem.appendChild(songCoverCont);
-            songItem.appendChild(songNameCont);
-            songItem.appendChild(songDurationCont);
-            songItem.appendChild(songAddCont);
-
-            songItemsCont.appendChild(songItem);
-        })
-    }
+  .then(res => res.json())
+  .then(playlists => {
 
 
     const playlistItemCont = document.getElementById('playlist-item-cont');
-    playlists.forEach((playlist,index) => {
-        const playlistItem = document.createElement('div');                      // playlistItem = div in CHATGPT
-        playlistItem.classList.add('playlist-item');
+    playlists.forEach((playlist, index) => {
+      const playlistItem = document.createElement('div');                      // playlistItem = div in CHATGPT
+      playlistItem.classList.add('playlist-item');
 
-        playlistItem.dataset.playlistIndex = index;
+      playlistItem.dataset.playlistIndex = index;
 
-        const playlistItemImageCont = document.createElement('div');
-        playlistItemImageCont.classList.add('playlist-item-image-cont');
-        const image = document.createElement('img');
-        image.src = `${playlist.cover}`;
-        playlistItemImageCont.appendChild(image);
+      const playlistItemImageCont = document.createElement('div');
+      playlistItemImageCont.classList.add('playlist-item-image-cont');
+      const image = document.createElement('img');
+      image.src = `${playlist.cover}`;
+      playlistItemImageCont.appendChild(image);
 
-        const playlistItemDescCont = document.createElement('div');
-        playlistItemDescCont.classList.add('playlist-item-desc-cont');
-        playlistItemDescCont.textContent = `${playlist.name}`;
+      const playlistItemDescCont = document.createElement('div');
+      playlistItemDescCont.classList.add('playlist-item-desc-cont');
+      playlistItemDescCont.textContent = `${playlist.name}`;
 
-        playlistItem.appendChild(playlistItemImageCont);
-        playlistItem.appendChild(playlistItemDescCont);
+      playlistItem.appendChild(playlistItemImageCont);
+      playlistItem.appendChild(playlistItemDescCont);
 
-        playlistItemCont.appendChild(playlistItem);
+      playlistItemCont.appendChild(playlistItem);
     });
 
     const playlistItems = document.getElementsByClassName('playlist-item');
     Array.from(playlistItems).forEach(playList => {
-        playList.addEventListener('click' , ()=>{
-            const index = playList.dataset.playlistIndex;
-            loadRightCont('playlistPage');
-            loadPlayListPage(index);
-        })
+      playList.addEventListener('click', () => {
+        const index = playList.dataset.playlistIndex;
+        // Load the playlist page
+        window.history.pushState({}, '', `?playlistIndex=${index}`);
+        /*
+        📌 1. When a user selects a playlist (e.g., clicks on a playlist card), you do something like:
+              window.history.pushState({}, '', `?playlistIndex=${index}`);
+              📖 What does this line mean?
+
+              window.history.pushState() is used to change the URL in the browser without reloading the page.
+              It takes 3 arguments:
+              state object: {} (you can store state info here, not needed in this case)
+              title: '' (ignored by most browsers, safe to leave blank)
+              URL: `?playlistIndex=${index}` → updates the URL to show something like ?playlistIndex=2
+
+
+              So if your current URL is:  https://example.com/
+
+              And index = 2, after calling this line it becomes:   https://example.com/?playlistIndex=2
+
+              📌 2. Later (or on page load), you can extract this index using:
+
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const index = parseInt(urlParams.get('playlistIndex'));
+        
+        */
+        loadRightCont('playlistPage');
+      })
     });
-})
+  })
 
 
 

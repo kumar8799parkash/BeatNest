@@ -359,28 +359,26 @@
                 .then(data => {
                     document.getElementById('right-cont').innerHTML = data;
 
-                    if (targetPage === 'home') {
-                        const homeScript = document.createElement('script');
-                        homeScript.src = `scripts/${targetPage}.js`;
+                    const oldScript = document.getElementById('dynamic-script');
+                    if (oldScript) oldScript.remove();
 
-                        homeScript.defer = true;        //Delays execution until HTML is parsed. Improves performance.(optional)
+                    const pageScript = document.createElement('script');
+                    pageScript.src = `scripts/${targetPage}.js`;
+                    pageScript.defer = true;        //Delays execution until HTML is parsed. Improves performance.(optional)
+                    pageScript.id = 'dynamic-script';  // 	Allows you to find/remove/replace this script easily in the DOM.(optional)
 
-                        homeScript.id = 'dynamic-script';  // 	Allows you to find/remove/replace this script easily in the DOM.(optional)
+                    /*
+                    What it does: Sets the id attribute of the <script> element to 'dynamic-script'.
+                    Why it's used:
+                    To uniquely identify the script tag
 
-                        /*
-                        What it does: Sets the id attribute of the <script> element to 'dynamic-script'.
-                        Why it's used:
-                        To uniquely identify the script tag
-
-                        const oldScript = document.getElementById('dynamic-script');
-                        if (oldScript) {
-                            oldScript.remove(); // remove the previously loaded script
-                        }
-                        */
-
-                        document.body.appendChild(homeScript);
+                    const oldScript = document.getElementById('dynamic-script');
+                    if (oldScript) {
+                        oldScript.remove(); // remove the previously loaded script
                     }
+                    */
 
+                    document.body.appendChild(pageScript);
                 })
         }
 
