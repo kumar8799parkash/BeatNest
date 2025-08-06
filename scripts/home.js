@@ -19,7 +19,7 @@ fetch('data/playlists.json')
 
       const playlistItemDescCont = document.createElement('div');
       playlistItemDescCont.classList.add('playlist-item-desc-cont');
-      playlistItemDescCont.textContent = `${playlist.name}`;
+      playlistItemDescCont.textContent = `${playlist.playlistDesc}`;
 
       playlistItem.appendChild(playlistItemImageCont);
       playlistItem.appendChild(playlistItemDescCont);

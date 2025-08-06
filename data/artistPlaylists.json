@@ -1,13 +1,12 @@
 [
   {
-    "name": "Chill Vibes",
-    "playlistDesc": "Chill Vibes - perfect playlist to unwind and relax.",
-    "cover": "songs/playlist1/cover.jpeg",
+    "artistName": "Arijit Singh",
+    "artistCover": "artistSongs/artist1/artistCover.jpeg",
 
-    "description":"Chill Vibes is the perfect playlist to unwind and relax. Featuring soothing melodies, mellow beats, and calming rhythms, it creates a peaceful atmosphere for studying, meditating, or simply enjoying a quiet moment. Let each track take you on a tranquil journey away from stress and into serenity.",
+    "description":"Soulful voice and emotional depth. His versatile singing style spans romantic ballads to heart-wrenching melodies. With countless chartbusters in Bollywood, he has touched millions of hearts, becoming one of the most beloved and influential artists of his generation.",
 
-    "folder": "playlist1",
-    "songs": [
+    "folder": "artist1",
+    "artistSongs": [
       { "title": "Ek Din", "file": "ekDin.mp3"  , "songCover":"ekDinCover.jpeg"},
       { "title": "Krishna Flute", "file": "krishnaFlute.mp3" , "songCover":"krishnaFluteCover.jpeg"},
       { "title": "Royalty Free", "file": "royaltyFree.mp3", "songCover":"royaltyFreeCover.jpeg" }
