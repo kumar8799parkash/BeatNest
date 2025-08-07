@@ -1,29 +1,50 @@
 [
   {
     "artistName": "Arijit Singh",
-    "artistCover": "artistSongs/artist1/artistCover.jpeg",
+    "artistCover": "artistSongs/Arijit Singh/cover.jpeg",
 
-    "description":"Soulful voice and emotional depth. His versatile singing style spans romantic ballads to heart-wrenching melodies. With countless chartbusters in Bollywood, he has touched millions of hearts, becoming one of the most beloved and influential artists of his generation.",
+    "description":"Soulful voice and emotional depth, His versatile singing style spans romantic ballads to heart-wrenching melodies. With countless chartbusters in Bollywood, he has touched millions of hearts, becoming one of the most beloved and influential artists of his generation.",
 
-    "folder": "artist1",
+    "folder": "Arijit Singh",
     "artistSongs": [
-      { "title": "Ek Din", "file": "ekDin.mp3"  , "songCover":"ekDinCover.jpeg"},
-      { "title": "Krishna Flute", "file": "krishnaFlute.mp3" , "songCover":"krishnaFluteCover.jpeg"},
-      { "title": "Royalty Free", "file": "royaltyFree.mp3", "songCover":"royaltyFreeCover.jpeg" }
+      { "title": "Arijit Singh - Emotional Mashup", "file": "emotionalMashupArijit.mp3"  , "songCover":"emotionalMashupArijitCover.jpeg"},
+      { "title": "Mashup - Arijit Singh", "file": "mashupArijit.mp3" , "songCover":"mashupArijitCover.jpeg"},
+      { "title": "Dhun - Arijit Singh", "file": "dhunArijit.mp3", "songCover":"dhunArijitCover.jpeg" },
+      { "title": "Dil Mushkil - Arijit Singh", "file": "dilMushkilArijit.mp3"  , "songCover":"dilMushkilArijitCover.jpeg"},
+      { "title": "Khariyat - Arijit Singh", "file": "khariyatArijit.mp3" , "songCover":"khariyatArijitCover.jpeg"},
+      { "title": "Sapphire - Arijit Singh", "file": "sapphireArijit.mp3", "songCover":"sapphireArijitCover.jpeg" },
+      { "title": "Shayad - Arijit Singh", "file": "shayadArijit.mp3", "songCover":"shayadArijitCover.jpeg" }
     ]
   },
 
   {
-    "name": "Hangover",
-    "playlistDesc": "Hangover - Ease into the morning after with mellow beats.",
-    "cover": "songs/playlist2/cover.jpeg",
+    "artistName": "Neha Kakkar",
+    "artistCover": "artistSongs/Neha Kakkar/cover.jpeg",
 
-    "description":"Ease into the morning after with mellow beats, chilled vibes, and soothing vocals. Whether you’re nursing a headache or just riding the post-party calm, this playlist blends acoustic, lo-fi, and smooth rhythms to help you relax, recover, and reset—one track at a time.",
+    "description":"Her energetic voice and chart-topping Bollywood hits. Rising to fame with reality shows, she became a youth icon with songs like Kala Chashma and Dilbar. Her versatile singing style and vibrant personality have made her a beloved figure in Indian music.",
 
-    "folder": "playlist2",
-    "songs": [
-      { "title": "Fun Adventure", "file": "funAdventure.mp3", "songCover":"funAdventureCover.jpeg" },
-      { "title": "Rajasthani Folk music", "file": "rajasthaniFolk.mp3", "songCover":"rajasthaniFolkCover.jpeg" }
+    "folder": "Neha Kakkar",
+    "artistSongs": [
+      { "title": "Chamma Chamma - Neha Kakkar", "file": "chammaChammaNeha.mp3"  , "songCover":"chammaChammaNehaCover.jpeg"},
+      { "title": "Mashup - Neha Kakkar", "file": "galiGaliNeha.mp3" , "songCover":"galiGaliNehaCover.jpeg"},
+      { "title": "Dhun - Neha Kakkar", "file": "ohHumsafarNeha.mp3", "songCover":"ohHumsafarNehaCover.jpeg" },
+      { "title": "Dil Mushkil - Neha Kakkar", "file": "puchdaNeha.mp3"  , "songCover":"puchdaNehaCover.jpeg"}
+    ]
+  },
+
+
+    {
+    "artistName": "Maninder Buttar",
+    "artistCover": "artistSongs/Maninder Buttar/cover.jpeg",
+
+    "description":"His soulful voice and romantic tracks, He gained fame with hits like Sakhiyaan and Yaari. Blending contemporary beats with heartfelt lyrics, his music resonates with youth. His unique style and charming vocals make him a standout artist in the Punjabi music industry.",
+
+    "folder": "Maninder Buttar",
+    "artistSongs": [
+      { "title": "Ik Tera - Maninder Buttar", "file": "ikTeraManinder.mp3"  , "songCover":"ikTeraManinderCover.jpeg"},
+      { "title": "Laare - Maninder Buttar", "file": "laareManinder.mp3" , "songCover":"laareManinderCover.jpeg"},
+      { "title": "Pani Di Gal - Maninder Buttar", "file": "paniDiGalManinder.mp3", "songCover":"paniDiGalManinderCover.jpeg" },
+      { "title": "Sakhiyaan - Maninder Buttar", "file": "sakhiyaanManinder.mp3"  , "songCover":"sakhiyaanManinderCover.jpeg"}
     ]
   }
 

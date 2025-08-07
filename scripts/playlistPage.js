@@ -7,7 +7,7 @@ fetch(`data/playlists.json`)
         if (isNaN(index)) return;
 
         const playlistPageHeadingImage = document.getElementById('playlistPage-heading-image');
-        const imageSource = playlistPageHeadingImage.setAttribute('src' , `songs/${playlists[index].folder}/cover.jpeg`);
+        const imageSource = playlistPageHeadingImage.setAttribute('src' , `${playlists[index].cover}`);
 
         const playlistPageHeadingText = document.getElementById('playlistPage-heading-text');
         playlistPageHeadingText.textContent = `${playlists[index].name}`;
