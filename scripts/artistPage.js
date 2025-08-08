@@ -1,19 +1,19 @@
-fetch(`data/playlists.json`)
+fetch(`data/artistPlaylists.json`)
     .then(res => res.json())
-    .then(playlists => {
+    .then(artistPlaylists => {
         const urlPrams = new URLSearchParams(window.location.search);
         const index = parseInt(urlPrams.get('artistIndex'));
 
         if (isNaN(index)) return;
 
         const playlistPageHeadingImage = document.getElementById('playlistPage-heading-image');
-        const imageSource = playlistPageHeadingImage.setAttribute('src' , `songs/${playlists[index].folder}/cover.jpeg`);
+        const imageSource = playlistPageHeadingImage.setAttribute('src' , `artistSongs/${artistPlaylists[index].folder}/cover.jpeg`);
 
         const playlistPageHeadingText = document.getElementById('playlistPage-heading-text');
-        playlistPageHeadingText.textContent = `${playlists[index].name}`;
+        playlistPageHeadingText.textContent = `${artistPlaylists[index].artistName}`;
 
         const playlistPageHeadingDesc = document.getElementById('playlistPage-heading-desc');
-        playlistPageHeadingDesc.textContent = `${playlists[index].description}`;
+        playlistPageHeadingDesc.textContent = `${artistPlaylists[index].description}`;
 
 
         const songItemsCont = document.getElementById('song-items-cont');
@@ -24,20 +24,20 @@ fetch(`data/playlists.json`)
 
         // songItemsCont.innerHTML = '';  clearing the existing HTML
 
-        const songsArray = playlists[index].songs;
+        const songsArray = artistPlaylists[index].artistSongs;
         songsArray.forEach((song, songIndex) => {
             const songItem = document.createElement('div');
             songItem.classList.add('song-item');
-            songItem.dataset.dataAudio = `songs/${playlists[index].folder}/${songsArray[songIndex].file}`;
+            songItem.dataset.audio = `artistSongs/${artistPlaylists[index].folder}/${songsArray[songIndex].file}`;
 
             const songNumberCont = document.createElement('div');
             songNumberCont.classList.add('song-number-cont');
-            songNumberCont.textContent = `${songIndex}`;
+            songNumberCont.textContent = `${songIndex+1}`;
 
             const songCoverCont = document.createElement('div');
             songCoverCont.classList.add('song-cover-cont');
             const songCoverImage = document.createElement('img');
-            songCoverImage.src = `songs/${playlists[index].folder}/${songsArray[songIndex].songCover}`;
+            songCoverImage.src = `artistSongs/${artistPlaylists[index].folder}/${songsArray[songIndex].songCover}`;
             songCoverCont.appendChild(songCoverImage);
 
             const songNameCont = document.createElement('div');
@@ -60,4 +60,15 @@ fetch(`data/playlists.json`)
 
             songItemsCont.appendChild(songItem);
         });
+
+        // playing songs
+        const songItems = document.getElementsByClassName('song-item');
+        Array.from(songItems).forEach((songItem , songIndex)=>{
+            songItem.addEventListener('click' ,()=>{
+
+                songItem.classList.add('active-song-bg');
+                const audioSource = songItem.dataset.audio;
+                playSong(audioSource);
+            })
+        })
     });

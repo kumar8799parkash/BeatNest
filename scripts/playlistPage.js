@@ -32,7 +32,7 @@ fetch(`data/playlists.json`)
 
             const songNumberCont = document.createElement('div');
             songNumberCont.classList.add('song-number-cont');
-            songNumberCont.textContent = `${songIndex}`;
+            songNumberCont.textContent = `${songIndex+1}`;
 
             const songCoverCont = document.createElement('div');
             songCoverCont.classList.add('song-cover-cont');
@@ -60,4 +60,16 @@ fetch(`data/playlists.json`)
 
             songItemsCont.appendChild(songItem);
         });
+
+
+        // playing songs
+        const songItems = document.getElementsByClassName('song-item');
+        Array.from(songItems).forEach((songItem , songIndex)=>{
+            songItem.addEventListener('click' ,()=>{
+
+                songItem.classList.add('active-song-bg');
+                const audioSource = songItem.dataset.audio;
+                playSong(audioSource);
+            })
+        })
     });

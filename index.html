@@ -68,7 +68,7 @@
     <main>
         <div class="left-cont" id="left-cont"></div>
 
-        
+
         <div class="right-cont" id="right-cont"></div>
 
     </main>
@@ -176,6 +176,22 @@
                 loadRightCont('artistPage');
             })
         }) */
+
+
+        let currentSound = null;
+        let currentSrc = null;
+
+        function playSong(audioSource){
+
+            if(currentSound){
+                currentSound.pause();
+                currentSound = null;
+            }
+
+            currentSrc = audioSource;
+            currentSound = new Audio(currentSrc);
+            currentSound.play();
+        }
 
 
 
