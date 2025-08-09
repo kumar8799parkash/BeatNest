@@ -26,9 +26,9 @@
     "folder": "Neha Kakkar",
     "artistSongs": [
       { "title": "Chamma Chamma - Neha Kakkar", "file": "chammaChammaNeha.mp3"  , "songCover":"chammaChammaNehaCover.jpeg"},
-      { "title": "Mashup - Neha Kakkar", "file": "galiGaliNeha.mp3" , "songCover":"galiGaliNehaCover.jpeg"},
-      { "title": "Dhun - Neha Kakkar", "file": "ohHumsafarNeha.mp3", "songCover":"ohHumsafarNehaCover.jpeg" },
-      { "title": "Dil Mushkil - Neha Kakkar", "file": "puchdaNeha.mp3"  , "songCover":"puchdaNehaCover.jpeg"}
+      { "title": "Gali Gali - Neha Kakkar", "file": "gailGaliNeha.mp3" , "songCover":"galiGaliNehaCover.jpeg"},
+      { "title": "Oh Humsafar - Neha Kakkar", "file": "ohHumsafarNeha.mp3", "songCover":"ohHumsafarNehaCover.jpeg" },
+      { "title": "Puchda Hi Nahin - Neha Kakkar", "file": "puchdaNeha.mp3"  , "songCover":"puchdaNehaCover.jpeg"}
     ]
   },
 

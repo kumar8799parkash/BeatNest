@@ -28,7 +28,9 @@ fetch(`data/playlists.json`)
         songsArray.forEach((song, songIndex) => {
             const songItem = document.createElement('div');
             songItem.classList.add('song-item');
-            songItem.dataset.dataAudio = `songs/${playlists[index].folder}/${songsArray[songIndex].file}`;
+            songItem.dataset.audio = `songs/${playlists[index].folder}/${songsArray[songIndex].file}`;
+
+            songItem.dataset.id = `${index}-${songIndex}`;
 
             const songNumberCont = document.createElement('div');
             songNumberCont.classList.add('song-number-cont');
@@ -69,7 +71,11 @@ fetch(`data/playlists.json`)
 
                 songItem.classList.add('active-song-bg');
                 const audioSource = songItem.dataset.audio;
-                playSong(audioSource);
-            })
+                playSong(songItem , audioSource);
+            });
+
+            if(songItem.dataset.id === currentSongId){
+                songItem.classList.add('active-song-bg');
+            }
         })
     });

@@ -30,6 +30,8 @@ fetch(`data/artistPlaylists.json`)
             songItem.classList.add('song-item');
             songItem.dataset.audio = `artistSongs/${artistPlaylists[index].folder}/${songsArray[songIndex].file}`;
 
+            songItem.dataset.id = `${index}-${songIndex}`;
+
             const songNumberCont = document.createElement('div');
             songNumberCont.classList.add('song-number-cont');
             songNumberCont.textContent = `${songIndex+1}`;
@@ -68,7 +70,11 @@ fetch(`data/artistPlaylists.json`)
 
                 songItem.classList.add('active-song-bg');
                 const audioSource = songItem.dataset.audio;
-                playSong(audioSource);
-            })
+                playSong(songItem , audioSource);
+            });
+
+            if(songItem.dataset.id === currentSongId){
+                songItem.classList.add('active-song-bg');
+            }
         })
     });

@@ -75,8 +75,8 @@
 
     <footer>
         <div class="left-footer-cont">
-            <div class="footer-image-cont"> <img src="images/playlist images/playlistImage10.jpeg" alt=""></div>
-            <div class="footer-text-cont">Lorem, ipsum dolor sit amet consectetu</div>
+            <div class="footer-image-cont"> <img id="footer-image"  src="images/playlist images/playlistImage10.jpeg" alt=""></div>
+            <div class="footer-text-cont" id="footer-text-cont">Lorem, ipsum dolor sit amet consectetu</div>
             <div class="playing-svg-cont"><img src="images/playing.gif" alt=""></div>
         </div>
         <div class="right-footer-cont">
@@ -177,19 +177,49 @@
             })
         }) */
 
+        const footerImage = document.getElementById('footer-image');
+        const footerSongName = document.getElementById('footer-text-cont');
 
         let currentSound = null;
-        let currentSrc = null;
+        let currentSongItem = null;
+        let currentSongId= localStorage.getItem('currentSongId') || null;
+        let currentSongImageSource = localStorage.getItem('currentSongImageSource') || null;
+        let currentSongName = localStorage.getItem('currentSongName') || null;
 
-        function playSong(audioSource){
+        if(currentSongImageSource){
+            footerImage.src = currentSongImageSource;
+        }
+
+        if(currentSongName){
+            footerSongName.textContent = currentSongName;
+        }
+
+        function playSong(songItem , audioSource){
 
             if(currentSound){
                 currentSound.pause();
                 currentSound = null;
             }
 
-            currentSrc = audioSource;
-            currentSound = new Audio(currentSrc);
+            document.querySelectorAll('.active-song-bg').forEach(el=>{
+                el.classList.remove('active-song-bg');
+            })
+
+            currentSongId = songItem.dataset.id;
+            localStorage.setItem('currentSongId' , currentSongId);
+
+            const songImage = songItem.querySelector('.song-cover-cont img').src;
+            localStorage.setItem('currentSongImageSource' , songImage);
+            footerImage.src = songImage;
+
+            const songName = songItem.querySelector('.song-name-cont').textContent;
+            localStorage.setItem('currentSongName' , songName);
+            footerSongName.textContent = songName;
+
+            currentSongItem  = songItem;
+            currentSongItem.classList.add("active-song-bg");
+
+            currentSound = new Audio(audioSource);
             currentSound.play();
         }
 
