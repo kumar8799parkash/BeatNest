@@ -75,7 +75,8 @@
 
     <footer>
         <div class="left-footer-cont">
-            <div class="footer-image-cont"> <img id="footer-image"  src="images/playlist images/playlistImage10.jpeg" alt=""></div>
+            <div class="footer-image-cont"> <img id="footer-image" src="images/playlist images/playlistImage10.jpeg"
+                    alt=""></div>
             <div class="footer-text-cont" id="footer-text-cont">Lorem, ipsum dolor sit amet consectetu</div>
             <div class="playing-svg-cont"><img src="images/playing.gif" alt=""></div>
         </div>
@@ -90,12 +91,12 @@
                 <img class="loop-button" src="images/musicButtons/loop.svg" alt="">
                 <div class="volume-cont">
                     <img src="svgs/speakerBlack.svg" alt="">
-                    <input class="volume-slider" type="range">
+                    <input class="volume-slider" id="volume-slider" min="0" max="100" type="range">
                 </div>
             </div>
 
             <div class="bottom-footer-cont">
-                <input class="main-slider" type="range">
+                <input class="main-slider" step="any" id="main-slider" value="0" type="range">
             </div>
         </div>
 
@@ -159,7 +160,7 @@
                 })
         }
 
-        window.onload = () => { 
+        window.onload = () => {
             loadRightCont('home');
             loadLeftCont('leftCont');
         }
@@ -179,48 +180,85 @@
 
         const footerImage = document.getElementById('footer-image');
         const footerSongName = document.getElementById('footer-text-cont');
+        const mainSlider = document.getElementById('main-slider');
+        const volumeSlider = document.getElementById('volume-slider');
+
 
         let currentSound = null;
         let currentSongItem = null;
-        let currentSongId= localStorage.getItem('currentSongId') || null;
+        let currentSongId = localStorage.getItem('currentSongId') || null;
         let currentSongImageSource = localStorage.getItem('currentSongImageSource') || null;
         let currentSongName = localStorage.getItem('currentSongName') || null;
+        
+        let songItems = document.getElementsByClassName('.song-item');
 
-        if(currentSongImageSource){
+        if (currentSongImageSource) {
             footerImage.src = currentSongImageSource;
         }
 
-        if(currentSongName){
+        if (currentSongName) {
             footerSongName.textContent = currentSongName;
         }
 
-        function playSong(songItem , audioSource){
 
-            if(currentSound){
+        function updateSliderSmoothly() {
+            if (currentSound && !currentSound.paused) {
+                mainSlider.value = currentSound.currentTime;
+                requestAnimationFrame(updateSliderSmoothly);
+            }
+        }
+
+        function playSong(songItem, audioSource) {
+
+            if (currentSound) {
                 currentSound.pause();
                 currentSound = null;
             }
 
-            document.querySelectorAll('.active-song-bg').forEach(el=>{
+            document.querySelectorAll('.active-song-bg').forEach(el => {
                 el.classList.remove('active-song-bg');
             })
 
             currentSongId = songItem.dataset.id;
-            localStorage.setItem('currentSongId' , currentSongId);
+            localStorage.setItem('currentSongId', currentSongId);
 
             const songImage = songItem.querySelector('.song-cover-cont img').src;
-            localStorage.setItem('currentSongImageSource' , songImage);
+            localStorage.setItem('currentSongImageSource', songImage);
             footerImage.src = songImage;
 
             const songName = songItem.querySelector('.song-name-cont').textContent;
-            localStorage.setItem('currentSongName' , songName);
+            localStorage.setItem('currentSongName', songName);
             footerSongName.textContent = songName;
 
-            currentSongItem  = songItem;
+            currentSongItem = songItem;
             currentSongItem.classList.add("active-song-bg");
 
             currentSound = new Audio(audioSource);
             currentSound.play();
+
+            currentSound.addEventListener('loadedmetadata', () => {
+                mainSlider.max = currentSound.duration;
+            })
+
+            mainSlider.addEventListener('input', () => {
+                currentSound.currentTime = mainSlider.value;
+            })
+
+            volumeSlider.addEventListener('input', () => {
+                if (currentSound) {
+                    currentSound.volume = volumeSlider.value/100;
+                }
+            })
+
+            currentSound.addEventListener('loadedmetadata', () => {
+                mainSlider.max = currentSound.duration;
+                requestAnimationFrame(updateSliderSmoothly);
+            })
+
+            currentSound.addEventListener('ended' , ()=>{
+                let nextIndex = 
+            })
+
         }
 
 
