@@ -160,10 +160,12 @@
                 })
         }
 
+        
         window.onload = () => {
             loadRightCont('home');
             loadLeftCont('leftCont');
         }
+
 
         homeLogoCont = document.getElementById('home-logo-cont');
         homeLogoCont.addEventListener('click', () => {
@@ -189,7 +191,7 @@
         let currentSongId = localStorage.getItem('currentSongId') || null;
         let currentSongImageSource = localStorage.getItem('currentSongImageSource') || null;
         let currentSongName = localStorage.getItem('currentSongName') || null;
-        
+
         let songItems = document.getElementsByClassName('.song-item');
 
         if (currentSongImageSource) {
@@ -207,6 +209,9 @@
                 requestAnimationFrame(updateSliderSmoothly);
             }
         }
+
+        const currentPlaylist = [];             // we set it when we finished appending all the song items of the clicked playlist
+        let currentSongIndex = -1;
 
         function playSong(songItem, audioSource) {
 
@@ -233,6 +238,9 @@
             currentSongItem = songItem;
             currentSongItem.classList.add("active-song-bg");
 
+            currentSongIndex = currentPlaylist.indexOf(songItem);         // setting the index of the currently clicked song
+
+
             currentSound = new Audio(audioSource);
             currentSound.play();
 
@@ -246,7 +254,7 @@
 
             volumeSlider.addEventListener('input', () => {
                 if (currentSound) {
-                    currentSound.volume = volumeSlider.value/100;
+                    currentSound.volume = volumeSlider.value / 100;
                 }
             })
 
@@ -255,11 +263,19 @@
                 requestAnimationFrame(updateSliderSmoothly);
             })
 
-            currentSound.addEventListener('ended' , ()=>{
-                let nextIndex = 
+            currentSound.addEventListener('ended', () => {
+                currentSongIndex++ ;
+                if(currentSongIndex >= currentPlaylist.length){
+                    currentSongIndex = 0;
+                }
+                let nextSong = currentPlaylist[currentSongIndex];
+
+                playSong(nextSong , nextSong.dataset.audio);
             })
 
         }
+
+
 
 
 

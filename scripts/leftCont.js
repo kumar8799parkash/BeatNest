@@ -43,7 +43,8 @@ fetch(`data/artistPlaylists.json`)
         });
 
         artistConts = document.getElementsByClassName('artist-cont');
-        Array.from(artistConts).forEach((artistCont, index) => {
+        artistContsArray = Array.from(artistConts);
+        artistContsArray.forEach((artistCont, index) => {
             artistCont.addEventListener('click', () => {
                 window.history.pushState({}, '', `?artistIndex=${index}`);
                 loadRightCont('artistPage');

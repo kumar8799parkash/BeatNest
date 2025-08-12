@@ -75,7 +75,11 @@ fetch(`data/artistPlaylists.json`)
             songItem.appendChild(songAddCont);
 
             songItemsCont.appendChild(songItem);
+            
         });
+        currentPlaylist = Array.from(document.getElementsByClassName('song-item'));
+
+        
 
         // playing songs
         const songItems = document.getElementsByClassName('song-item');
