@@ -84,9 +84,9 @@
 
             <div class="top-footer-cont">
                 <div class="buttons-cont">
-                    <img src="images/musicButtons/backward.svg" alt="">
-                    <img src="images/musicButtons/play.svg" alt="">
-                    <img src="images/musicButtons/forward.svg" alt="">
+                    <img id="backward-play-button" src="images/musicButtons/backward.svg" alt="">
+                    <img id="play-pause-button" src="images/musicButtons/play.svg" alt="">
+                    <img id="forward-play-button" src="images/musicButtons/forward.svg" alt="">
                 </div>
                 <img class="loop-button" src="images/musicButtons/loop.svg" alt="">
                 <div class="volume-cont">
@@ -160,7 +160,7 @@
                 })
         }
 
-        
+
         window.onload = () => {
             loadRightCont('home');
             loadLeftCont('leftCont');
@@ -184,6 +184,10 @@
         const footerSongName = document.getElementById('footer-text-cont');
         const mainSlider = document.getElementById('main-slider');
         const volumeSlider = document.getElementById('volume-slider');
+        const backwardPlayButton = document.getElementById('backward-play-button');
+        const forwardPlayButton = document.getElementById('forward-play-button');
+        const playPauseButton = document.getElementById('play-pause-button');
+
 
 
         let currentSound = null;
@@ -191,8 +195,10 @@
         let currentSongId = localStorage.getItem('currentSongId') || null;
         let currentSongImageSource = localStorage.getItem('currentSongImageSource') || null;
         let currentSongName = localStorage.getItem('currentSongName') || null;
+        let currentPlaylist = localStorage.getItem('currentPlaylist') || null;
+        let isPlaying = false;
 
-        let songItems = document.getElementsByClassName('.song-item');
+
 
         if (currentSongImageSource) {
             footerImage.src = currentSongImageSource;
@@ -210,10 +216,8 @@
             }
         }
 
-        const currentPlaylist = [];             // we set it when we finished appending all the song items of the clicked playlist
-        let currentSongIndex = -1;
 
-        function playSong(songItem, audioSource) {
+        function playSong(songItem, audioSource, songItemsArray) {
 
             if (currentSound) {
                 currentSound.pause();
@@ -238,11 +242,32 @@
             currentSongItem = songItem;
             currentSongItem.classList.add("active-song-bg");
 
-            currentSongIndex = currentPlaylist.indexOf(songItem);         // setting the index of the currently clicked song
+            currentPlaylist = songItemsArray;
+            localStorage.setItem('currentPlaylist', currentPlaylist);
+
+            /*  currentSongIndex = currentPlaylist.indexOf(songItem);         // setting the index of the currently clicked song */
 
 
             currentSound = new Audio(audioSource);
             currentSound.play();
+
+            isPlaying = true;
+            playPauseButton.src = "images/musicButtons/pause.svg";
+
+
+
+            currentSound.addEventListener('ended', () => {
+                let len = currentPlaylist.length;
+                const currIndex = currentPlaylist.indexOf(currentSongItem);
+                let nextIndex = currIndex + 1;
+                if (nextIndex == len) {
+                    nextIndex = 0;
+                }
+
+                let nextSong = currentPlaylist[nextIndex];
+                let nextSongSrc = nextSong.dataset.audio;
+                playSong(nextSong, nextSongSrc, currentPlaylist);
+            })
 
             currentSound.addEventListener('loadedmetadata', () => {
                 mainSlider.max = currentSound.duration;
@@ -263,17 +288,22 @@
                 requestAnimationFrame(updateSliderSmoothly);
             })
 
-            currentSound.addEventListener('ended', () => {
-                currentSongIndex++ ;
-                if(currentSongIndex >= currentPlaylist.length){
-                    currentSongIndex = 0;
+            playPauseButton.addEventListener('click', () => {
+                if(!isPlaying){
+                    currentSound.play();
+                    playPauseButton.src = "images/musicButtons/pause.svg";
+                    isPlaying = true;
                 }
-                let nextSong = currentPlaylist[currentSongIndex];
-
-                playSong(nextSong , nextSong.dataset.audio);
+                else{
+                    currentSound.pause();
+                    playPauseButton.src = "images/musicButtons/play.svg";
+                    isPlaying = false;
+                }
             })
 
+
         }
+
 
 
 
