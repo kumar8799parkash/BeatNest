@@ -66,12 +66,13 @@ fetch(`data/playlists.json`)
 
         // playing songs
         const songItems = document.getElementsByClassName('song-item');
-        Array.from(songItems).forEach((songItem , songIndex)=>{
+        const songItemsArray = Array.from(songItems);
+        songItemsArray.forEach((songItem , songIndex)=>{
             songItem.addEventListener('click' ,()=>{
 
                 songItem.classList.add('active-song-bg');
                 const audioSource = songItem.dataset.audio;
-                playSong(songItem , audioSource);
+                playSong(songItem , audioSource ,songItemsArray);
             });
 
             if(songItem.dataset.id === currentSongId){
