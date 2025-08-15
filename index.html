@@ -78,7 +78,7 @@
             <div class="footer-image-cont"> <img id="footer-image" src="images/playlist images/playlistImage10.jpeg"
                     alt=""></div>
             <div class="footer-text-cont" id="footer-text-cont">Lorem, ipsum dolor sit amet consectetu</div>
-            <div class="playing-svg-cont"><img src="images/playing.gif" alt=""></div>
+            <div class="playing-svg-cont" ><img class="playing-svg-image" id="playing-svg-image" src="images/playing.gif" alt=""></div>
         </div>
         <div class="right-footer-cont">
 
@@ -187,6 +187,7 @@
         const backwardPlayButton = document.getElementById('backward-play-button');
         const forwardPlayButton = document.getElementById('forward-play-button');
         const playPauseButton = document.getElementById('play-pause-button');
+        let playingSvgImage = document.getElementById('playing-svg-image');
 
 
 
@@ -214,7 +215,7 @@
         }
 
 
-        function playSong(songItem, audioSource, songItemsArray) {
+        function playSong(songItem, audioSource) {
 
             if (currentSound) {
                 currentSound.pause();
@@ -247,19 +248,18 @@
             currentSound = new Audio(audioSource);
             currentSound.play();
 
+            currentSound.addEventListener('playing' , ()=>{
+                playingSvgImage.classList.add('full-opacity');
+                playPauseButton.src = "images/musicButtons/pause.svg";
+            })
+
 
             currentSound.addEventListener('ended', () => {
-                let len = currentPlaylist.length;
-                const currIndex = currentPlaylist.indexOf(currentSongItem);
-                let nextIndex = currIndex + 1;
-                if (nextIndex == len) {
-                    nextIndex = 0;
-                }
-
-                let nextSong = currentPlaylist[nextIndex];
-                let nextSongSrc = nextSong.dataset.audio;
-                playSong(nextSong, nextSongSrc, currentPlaylist);
+                nextPlay();
+                playingSvgImage.classList.remove('full-opacity');
+                playPauseButton.src = "images/musicButtons/play.svg";
             })
+
 
             currentSound.addEventListener('loadedmetadata', () => {
                 mainSlider.max = currentSound.duration;
@@ -280,31 +280,45 @@
                 requestAnimationFrame(updateSliderSmoothly);
             })
 
-            backwardPlayButton.addEventListener('click' , ()=>{
-                let len = currentPlaylist.length;
-                let currentIndex = currentPlaylist.indexOf(song=> song.dataset.audio === currentSongItem.dataset.audio);
-                prevIndex = (currentIndex-1+len)%len;
-                let prevSong = currentPlaylist[prevIndex];
-                let prevAudioSrc = prevSong.dataset.audio;
-                playSong(prevSong , prevAudioSrc , currentPlaylist);
-            })
+        }
+
+        playPauseButton.addEventListener('click' , ()=>{
+            if(currentSound && !currentSound.paused && !currentSound.ended){
+                currentSound.pause();
+                playPauseButton.src = "images/musicButtons/play.svg";
+                playingSvgImage.classList.remove('full-opacity');
+            }
+            else if(currentSound){
+                currentSound.play();
+                playPauseButton.src = "images/musicButtons/pause.svg";
+                playingSvgImage.classList.add('full-opacity');
+                requestAnimationFrame(updateSliderSmoothly);
+            }
+        })
 
 
-             forwardPlayButton.addEventListener('click' , ()=>{
-                let len = currentPlaylist.length;
-                let currentIndex = currentPlaylist.indexOf(song=> song.dataset.audio === currentSongItem.dataset.audio);
-                nextIndex = (currentIndex+1)%len;
-                let nextSong = currentPlaylist[nextIndex];
-                let nextAudioSrc = nextSong.dataset.audio;
-                playSong(nextSong , nextAudioSrc , currentPlaylist);
-            })
-
+        function nextPlay() {
+            let len = currentPlaylist.length;
+            let currentIndex = currentPlaylist.findIndex(song => song.dataset.id === currentSongItem.dataset.id);
+            nextIndex = (currentIndex + 1) % len;
+            let nextSong = currentPlaylist[nextIndex];
+            let nextAudioSrc = nextSong.dataset.audio;
+            playSong(nextSong, nextAudioSrc, currentPlaylist);
         }
 
 
+        function previousPlay() {
+            let len = currentPlaylist.length;
+            let currentIndex = currentPlaylist.findIndex(song => song.dataset.id === currentSongItem.dataset.id);
+            prevIndex = (currentIndex - 1 + len) % len;
+            let prevSong = currentPlaylist[prevIndex];
+            let prevAudioSrc = prevSong.dataset.audio;
+            playSong(prevSong, prevAudioSrc, currentPlaylist);
+        }
 
 
-
+        forwardPlayButton.addEventListener('click', () => { nextPlay() });
+        backwardPlayButton.addEventListener('click', () => { previousPlay() });
 
     </script>
 

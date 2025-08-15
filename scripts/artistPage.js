@@ -89,7 +89,7 @@ fetch(`data/artistPlaylists.json`)
 
                 songItem.classList.add('active-song-bg');
                 const audioSource = songItem.dataset.audio;
-                playSong(songItem , audioSource , songItemsArray);
+                playSong(songItem , audioSource);
             });
 
             if(songItem.dataset.id === currentSongId){

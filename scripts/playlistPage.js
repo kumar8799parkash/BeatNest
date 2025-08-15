@@ -46,9 +46,27 @@ fetch(`data/playlists.json`)
             songNameCont.classList.add('song-name-cont');
             songNameCont.textContent = `${songsArray[songIndex].title}`
 
+
+
             const songDurationCont = document.createElement('div');
             songDurationCont.classList.add('song-duration-cont');
-            songDurationCont.textContent = '3:50';
+
+            const currAudio = document.createElement('audio');
+            currAudio.src = `songs/${playlists[index].folder}/${songsArray[songIndex].file}`;
+            currAudio.preload = "metadata";
+
+            currAudio.addEventListener('loadedmetadata' , ()=>{
+                const currDuration = currAudio.duration;
+                songDurationCont.textContent = formatTime(currDuration);
+            })
+
+            function formatTime(seconds){
+                const minutes = Math.floor(seconds/60);
+                const secs = Math.floor(seconds%60);
+                return `${minutes} : ${secs.toString().padStart(2 , '0')}`
+            }
+
+
 
             const songAddCont = document.createElement('div');
             songAddCont.classList.add('song-add-cont');
@@ -72,7 +90,7 @@ fetch(`data/playlists.json`)
 
                 songItem.classList.add('active-song-bg');
                 const audioSource = songItem.dataset.audio;
-                playSong(songItem , audioSource ,songItemsArray);
+                playSong(songItem , audioSource);
             });
 
             if(songItem.dataset.id === currentSongId){
