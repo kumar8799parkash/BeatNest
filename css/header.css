@@ -166,7 +166,7 @@ header {
 
 .right-nav-cont {
     padding-right: 0.7vw;
-    column-gap: 25px;
+    column-gap: 15px;
 }
 
 
@@ -188,6 +188,29 @@ header {
     width: 73%;
 }
 
+.sign-up-button{
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #a7a7a7;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+
+.log-in-button{
+    height: 40px;
+    width: 90px;
+    background-color: white;
+    outline: none;
+    border: none;
+    border-radius: 20px;
+    color: black;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+}
 
 .separation-cont {
     font-size: 30px;
