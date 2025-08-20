@@ -1,0 +1,18 @@
+dotenv:
+
+.env doesn’t have a “full form” like an acronym — it simply stands for “environment” file.
+Purpose of .env:
+    1. Hide secrets (DB passwords, API keys, JWT secrets).
+    2. Easier config changes → e.g. different port for dev and production.
+    3. Clean code → no more hardcoding like "mongodb://admin:1234@localhost:27017" directly in your files.
+
+
+dotenv.config();                            // This line reads your .env file and adds the variables inside it to process.env
+                                            // So after dotenv.config(), you can use process.env.MY_VARIABLE anywhere in your app.
+
+
+
+
+MONGOOSE : 
+    MongoDB itself is schema-less (you can insert anything into a collection).
+    But in real-world apps, we usually want structure — for example, a User should always have name, email, and password.
