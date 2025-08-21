@@ -1,4 +1,5 @@
 const express = require('express') 
+const bcrypt = require('bcrypt')            // bcrypt is a password-hashing function designed for securely storing passwords.
 const dotenv = require('dotenv')            // Hide secrets (DB passwords, API keys, JWT secrets).
 const mongoose = require('mongoose')        // Mongoose allows you to define a schema, mongoDB is itself schema-less(no defined structure)
 const app = express()
@@ -25,6 +26,27 @@ async function connectDB(){
 }
 
 connectDB();
+
+const userSchema = new mongoose.Schema({
+  email : {type:String , required:true , unique:true},
+  password : {type:String},
+  googleId : {type:String}
+});
+const User = mongoose.model("User" , userSchema);
+
+app.post('/signup' , async (req , res)=>{
+  const {email , password} = req.body;
+  const existingUser = await User.findOne({email});
+  if(existingUser){
+    return  res.status(400).json({msg : "User already exists!"});
+  }
+
+  const hashedPassword = await bcrypt.hash(password , 10);          // hashing the password
+  const newUser = new User({email , password : hashedPassword});
+  await newUser.save();
+
+
+})
 
 app.get('/', (req, res) => {
   res.send('Hello World!')

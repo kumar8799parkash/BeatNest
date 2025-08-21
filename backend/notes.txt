@@ -16,3 +16,12 @@ dotenv.config();                            // This line reads your .env file an
 MONGOOSE : 
     MongoDB itself is schema-less (you can insert anything into a collection).
     But in real-world apps, we usually want structure — for example, a User should always have name, email, and password.
+
+
+BCRYPT:
+    ⚙️ Features of bcrypt:
+            One-way function → You cannot reverse bcrypt to get the original password.
+            Salted → It automatically generates a random salt (extra random string) for each password to prevent rainbow table attacks.
+            Adaptive cost factor → You can increase its computational cost (rounds) as hardware gets faster, making brute force attacks harder.
+
+              const hashedPassword = await bcrypt.hash(password, 10); // Hash password with 10 salted rounds
