@@ -25,3 +25,42 @@ BCRYPT:
             Adaptive cost factor → You can increase its computational cost (rounds) as hardware gets faster, making brute force attacks harder.
 
               const hashedPassword = await bcrypt.hash(password, 10); // Hash password with 10 salted rounds
+
+
+🔑 What is a JWT?
+
+A JWT (JSON Web Token) is a compact, secure way to transfer information between two parties (like frontend ↔ backend).
+It’s usually used for authentication and authorization.
+
+A JWT has 3 parts:
+
+Header → info about algorithm & token type
+Payload → the data (e.g., user id, email, role)
+Signature → ensures data hasn’t been tampered with
+
+Example JWT:
+
+xxxxx.yyyyy.zzzzz
+
+    xxxxx → Header (Base64 encoded)
+    yyyyy → Payload (Base64 encoded)
+    zzzzz → Signature (secret key used)
+
+
+⚡ Uses of jsonwebtoken
+1. Authentication (Login Sessions)
+
+When a user logs in:
+
+Server generates a JWT with the user’s ID/email.
+
+Sends it to the frontend.
+
+The frontend stores it (usually in localStorage or cookies).
+
+On every API request, the frontend sends this JWT in the header →
+Authorization: Bearer <token>
+
+The server verifies the token before giving access.
+
+✅ This way, you don’t need to store sessions in memory → stateless authentication.
