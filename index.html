@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BeatNest</title>
+    <title>BeatNest - Web Music Player</title>
 
     <link rel="stylesheet" href="css/utility.css">
     <link rel="stylesheet" href="css/header.css">
@@ -26,7 +26,7 @@
 
     <header>
         <div class="logo-cont">
-            <img class="cursor-pointer" src="images/logo.png" alt="">
+            <img class="cursor-pointer logo-image" src="images/logo.png" alt="">
             <div class="logo-text">BeatNest</div>
         </div>
 
@@ -54,16 +54,16 @@
 
         <div class="right-nav-cont flex ">
 
-            <div class="bell-cont flex justify-content align-items">
+            <!-- <div class="bell-cont flex justify-content align-items">
                 <img class="cursor-pointer" src="svgs/bell.svg" alt="">
-            </div>
+            </div> -->
 
-            <!-- <button class="sign-up-button">Sign Up</button>
-            <button class="log-in-button">Log in</button> -->
+            <button class="sign-up-button">Sign Up</button>
+            <button class="log-in-button">Log in</button>
 
-            <div class="outer-profile-cont flex justify-content align-items">
+            <!-- <div class="outer-profile-cont flex justify-content align-items">
                 <div class="profile-cont cursor-pointer">P</div>
-            </div>
+            </div> -->
 
         </div>
 
@@ -74,7 +74,6 @@
 
 
         <div class="right-cont" id="right-cont"></div>
-
     </main>
 
     <footer>
@@ -111,6 +110,13 @@
 
 
     <script>
+
+        window.onload = ()=>{
+            const isLoggedIn = localStorage.getItem("beatNestUser");
+            if(isLoggedIn){
+
+            }
+        }
 
         function loadRightCont(targetPage) {
             fetch(`html/${targetPage}.html`)

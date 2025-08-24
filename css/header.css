@@ -126,15 +126,15 @@ header {
 
 @media (max-width:1000px) {
     .search-input-cont {
-        width: 60vw;
+        width: 45vw;
     }
 }
 
 
 @media (max-width:600px) {
-    .search-input-cont {
+    /* .search-input-cont {
         width: 70vw;
-    }
+    } */
 
     .browse-img-cont {
         display: none;
@@ -188,7 +188,7 @@ header {
     width: 73%;
 }
 
-.sign-up-button{
+.sign-up-button {
     background: transparent;
     border: none;
     outline: none;
@@ -199,7 +199,7 @@ header {
 }
 
 
-.log-in-button{
+.log-in-button {
     height: 40px;
     width: 90px;
     background-color: white;
@@ -211,6 +211,38 @@ header {
     font-size: 13px;
     cursor: pointer;
 }
+
+@media (max-width : 480px) {
+    .sign-up-button {
+        font-size: 12px;
+        font-weight: 500;
+    }
+
+    .log-in-button {
+        height: 30px;
+        width: 60px;
+        font-size: 12px;
+        font-weight: 500;
+    }
+
+    .right-nav-cont {
+        column-gap: 5px;
+    }
+
+    .search-input-cont input {
+        font-size: 12px;
+    }
+    .search-input-cont {
+        height: 35px;
+    }
+}
+
+@media (max-width : 377px) {
+    .search-input-cont {
+        width: 110px;
+    }
+}
+
 
 .separation-cont {
     font-size: 30px;
