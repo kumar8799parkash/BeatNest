@@ -54,16 +54,16 @@
 
         <div class="right-nav-cont flex ">
 
-            <!-- <div class="bell-cont flex justify-content align-items">
+            <div class="bell-cont flex justify-content align-items" id="bell-cont">
                 <img class="cursor-pointer" src="svgs/bell.svg" alt="">
-            </div> -->
+            </div>
 
-            <button class="sign-up-button">Sign Up</button>
-            <button class="log-in-button">Log in</button>
+            <button class="sign-up-button" id="sign-up-button">Sign Up</button>
+            <button class="log-in-button" id="log-in-button">Log in</button>
 
-            <!-- <div class="outer-profile-cont flex justify-content align-items">
+            <div class="outer-profile-cont flex justify-content align-items" id="outer-profile-cont">
                 <div class="profile-cont cursor-pointer">P</div>
-            </div> -->
+            </div>
 
         </div>
 
@@ -81,7 +81,8 @@
             <div class="footer-image-cont"> <img id="footer-image" src="images/playlist images/playlistImage10.jpeg"
                     alt=""></div>
             <div class="footer-text-cont" id="footer-text-cont">Lorem, ipsum dolor sit amet consectetu</div>
-            <div class="playing-svg-cont" ><img class="playing-svg-image" id="playing-svg-image" src="images/playing.gif" alt=""></div>
+            <div class="playing-svg-cont"><img class="playing-svg-image" id="playing-svg-image" src="images/playing.gif"
+                    alt=""></div>
         </div>
         <div class="right-footer-cont">
 
@@ -111,12 +112,30 @@
 
     <script>
 
-        window.onload = ()=>{
-            const isLoggedIn = localStorage.getItem("beatNestUser");
-            if(isLoggedIn){
+        window.addEventListener("load", () => {
+            const user = localStorage.getItem("beatNestUser");
 
+            const bellCont = document.getElementById("bell-cont");
+            const signUpButton = document.getElementById("sign-up-button");
+            const logInButton = document.getElementById("log-in-button");
+            const outerProfileCont = document.getElementById("outer-profile-cont");
+
+            if (user) {
+                signUpButton.style.display = "none";
+                logInButton.style.display = "none";
+
+                bellCont.style.display = "flex";
+                outerProfileCont.style.display = "flex";
             }
-        }
+            else {
+                signUpButton.style.display = "inline-block";
+                logInButton.style.display = "inline-block";
+
+                bellCont.style.display = "none";
+                outerProfileCont.style.display = "none";
+            }
+        })
+
 
         function loadRightCont(targetPage) {
             fetch(`html/${targetPage}.html`)
@@ -171,11 +190,10 @@
         }
 
 
-        window.onload = () => {
+        window.addEventListener("load", () => {
             loadRightCont('home');
             loadLeftCont('leftCont');
-        }
-
+        })
 
         homeLogoCont = document.getElementById('home-logo-cont');
         homeLogoCont.addEventListener('click', () => {
@@ -258,7 +276,7 @@
             currentSound = new Audio(audioSource);
             currentSound.play();
 
-            currentSound.addEventListener('playing' , ()=>{
+            currentSound.addEventListener('playing', () => {
                 playingSvgImage.classList.add('full-opacity');
                 playPauseButton.src = "images/musicButtons/pause.svg";
             })
@@ -292,13 +310,13 @@
 
         }
 
-        playPauseButton.addEventListener('click' , ()=>{
-            if(currentSound && !currentSound.paused && !currentSound.ended){
+        playPauseButton.addEventListener('click', () => {
+            if (currentSound && !currentSound.paused && !currentSound.ended) {
                 currentSound.pause();
                 playPauseButton.src = "images/musicButtons/play.svg";
                 playingSvgImage.classList.remove('full-opacity');
             }
-            else if(currentSound){
+            else if (currentSound) {
                 currentSound.play();
                 playPauseButton.src = "images/musicButtons/pause.svg";
                 playingSvgImage.classList.add('full-opacity');
