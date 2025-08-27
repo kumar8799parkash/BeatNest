@@ -112,13 +112,13 @@
 
     <script>
 
+        const bellCont = document.getElementById("bell-cont");
+        const signUpButton = document.getElementById("sign-up-button");
+        const logInButton = document.getElementById("log-in-button");
+        const outerProfileCont = document.getElementById("outer-profile-cont");
+
         window.addEventListener("load", () => {
             const user = localStorage.getItem("beatNestUser");
-
-            const bellCont = document.getElementById("bell-cont");
-            const signUpButton = document.getElementById("sign-up-button");
-            const logInButton = document.getElementById("log-in-button");
-            const outerProfileCont = document.getElementById("outer-profile-cont");
 
             if (user) {
                 signUpButton.style.display = "none";
@@ -135,6 +135,16 @@
                 outerProfileCont.style.display = "none";
             }
         })
+
+        signUpButton.addEventListener('click', () => {
+            window.location.href = 'html/signUpPage.html'
+        })
+
+        logInButton.addEventListener('click', () => {
+            window.location.href = 'html/loginPage.html'
+        })
+
+
 
 
         function loadRightCont(targetPage) {

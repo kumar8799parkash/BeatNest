@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in - BeatNest</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Roboto", sans-serif;
+            color: white;
+        }
+
+        body {
+            background-color: rgba(0, 0, 0, 0.921);
+        }
+
+        .LogIn-main-cont {
+            min-width: 320px;
+            width: 25vw;
+            margin: auto;
+            margin-top: 20px;
+        }
+
+        .LogIn-logo-cont {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+
+        .LogIn-logo-image {
+            width: 70px;
+        }
+
+        .LogIn-text-cont {
+            font-size: 40px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .LogIn-email-heading {
+            margin-top: 35px;
+            font-size: 13px;
+        }
+
+        .LogIn-email-input-cont {
+            height: 40px;
+            width: 100%;
+            margin-top: 7px;
+            margin-bottom: 7px;
+            border: 1px solid gray;
+            border-radius: 4px;
+            padding-left: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .LogIn-email-input {
+            border: none;
+            outline: none;
+            font-size: 15px;
+            background: transparent;
+            width: 97%;
+        }
+
+        .LogIn-button {
+            height: 40px;
+            width: 100%;
+            background-color: #3ae376;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 25px;
+            margin-top: 25px;
+        }
+
+        .LogIn-button:hover {
+            background-color: #3ae375b8;
+        }
+
+        .googleLogIn-button-cont {
+            height: 40px;
+            width: 100%;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            border: 1px solid gray;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 7px;
+            padding-left: 25px;
+        }
+
+
+        .googleLogIn-button-cont:hover {
+            background-color: rgba(35, 35, 35, 0.788);
+        }
+
+        .googleLogIn-image {
+            width: 25px;
+        }
+
+        .googleLogIn-text-cont {
+            width: calc(100% - 25px);
+            text-align: center;
+        }
+
+
+        .appleLogIn-button-cont {
+            height: 40px;
+            width: 100%;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            border: 1px solid gray;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 7px;
+            padding-left: 25px;
+        }
+
+        .appleLogIn-button-cont:hover {
+            background-color: rgba(35, 35, 35, 0.788);
+        }
+
+        .appleLogIn-image {
+            width: 25px;
+        }
+
+        .appleLogIn-text-cont {
+            width: calc(100% - 25px);
+            text-align: center;
+        }
+
+        
+        .phoneLogIn-button-cont {
+            height: 40px;
+            width: 100%;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            border: 1px solid gray;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 7px;
+            padding-left: 25px;
+        }
+
+        .phoneLogIn-button-cont:hover{
+            background-color: rgba(35, 35, 35, 0.788);
+        }
+
+        .line {
+            height: 0.5px;
+            width: 100%;
+            background-color: gray;
+            margin-top: 35px;
+            margin-bottom: 35px;
+        }
+
+        .signUp-option {
+            font-size: 12px;
+            text-align: center;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="LogIn-main-cont">
+        <div class="LogIn-logo-cont">
+            <img class="LogIn-logo-image" src="../images/logo.png" alt="">
+        </div>
+        <div class="LogIn-text-cont">Log in to start listening</div>
+
+
+        <div class="googleLogIn-button-cont">
+            <div class="googleLogIn-image-cont"><img class="googleLogIn-image" src="../svgs/google.svg" alt=""></div>
+            <div class="googleLogIn-text-cont">Continue with Google</div>
+        </div>
+
+        <div class="appleLogIn-button-cont">
+            <div class="appleLogIn-image-cont"><img class="appleLogIn-image" src="../svgs/apple.svg" alt=""></div>
+            <div class="appleLogIn-text-cont">Continue with Apple</div>
+        </div>
+
+        <div class="phoneLogIn-button-cont">Continue with phone number</div>
+
+        <div class="line"></div>
+
+        <div class="LogIn-email-cont">
+            <div class="LogIn-email-heading">Email address :</div>
+            <div class="LogIn-email-input-cont">
+                <input class="LogIn-email-input" type="text" placeholder="name@domain.com" autofocus>
+            </div>
+        </div>
+
+        <div class="LogIn-button">Continue</div>
+
+        <div class="signUp-option">Don't have an account? <span> <a href="#">Sign up here</a> </span></div>
+    </div>
+</body>
+
+</html>
