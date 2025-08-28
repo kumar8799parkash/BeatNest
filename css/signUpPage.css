@@ -1,0 +1,198 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+    color: white;
+}
+
+body {
+    background-color: rgba(0, 0, 0, 0.921);
+}
+
+.signUp-main-cont {
+    min-width: 320px;
+    width: 25vw;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.signUp-logo-cont {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.signUp-logo-image {
+    width: 70px;
+}
+
+.signUp-text-cont {
+    font-size: 40px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.signUp-email-heading {
+    margin-top: 35px;
+    font-size: 13px;
+}
+
+.signUp-email-input-cont {
+    height: 40px;
+    width: 100%;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    border: 1px solid gray;
+    border-radius: 4px;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.signUp-email-input {
+    border: none;
+    outline: none;
+    font-size: 15px;
+    background: transparent;
+    width: 97%;
+}
+
+.signUp-or-cont {
+    text-align: center;
+    font-size: 18px;
+    color: gray;
+    margin-bottom: 7px;
+}
+
+.signUp-password-heading {
+    font-size: 13px;
+}
+
+.signUp-password-input-cont {
+    height: 40px;
+    width: 100%;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    border: 1px solid gray;
+    border-radius: 4px;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.signUp-password-input {
+    border: none;
+    outline: none;
+    font-size: 15px;
+    background: transparent;
+    width: 97%;
+}
+
+.signUp-button {
+    height: 40px;
+    width: 100%;
+    background-color: #3ae376;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* transition: background-color , 0.5s ease-in; */
+}
+
+.signUp-button:hover {
+    background-color: #3ae375b8;
+}
+
+.message-cont{
+    height: 25px;
+    width: 100%;
+    padding-left: 15px;
+    font-size: 13px;
+    text-align: center;
+}
+
+.main-or-cont {
+    margin-bottom: 20px;
+    color: gray;
+    text-align: center;
+    font-size: 18px;
+}
+
+.googleSignUp-button-cont {
+    height: 40px;
+    width: 100%;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    border: 1px solid gray;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 7px;
+    padding-left: 25px;
+}
+
+
+.googleSignUp-button-cont:hover {
+    background-color: rgba(35, 35, 35, 0.788);
+}
+
+.googleSignUp-image {
+    width: 25px;
+}
+
+.googleSignUp-text-cont {
+    width: calc(100% - 25px);
+    text-align: center;
+}
+
+
+.appleSignUp-button-cont {
+    height: 40px;
+    width: 100%;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    border: 1px solid gray;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 7px;
+    padding-left: 25px;
+}
+
+.appleSignUp-button-cont:hover {
+    background-color: rgba(35, 35, 35, 0.788);
+}
+
+.appleSignUp-image {
+    width: 25px;
+}
+
+.appleSignUp-text-cont {
+    width: calc(100% - 25px);
+    text-align: center;
+}
+
+.line {
+    height: 1px;
+    width: 100%;
+    background-color: gray;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.logIn-option {
+    font-size: 12px;
+    text-align: center;
+}

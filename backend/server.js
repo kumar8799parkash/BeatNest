@@ -1,10 +1,19 @@
 const express = require('express')
+const cors = require('cors')                // CORS = Cross-Origin Resource Sharing. to specify frontend(3000 here) who can send requests
 const jwt = require('jsonwebtoken')         // To create login session tokens
 const bcrypt = require('bcrypt')            // bcrypt is a password-hashing function designed for securely storing passwords.
 const dotenv = require('dotenv')            // Hide secrets (DB passwords, API keys, JWT secrets).
 const mongoose = require('mongoose')        // Mongoose allows you to define a schema, mongoDB is itself schema-less(no defined structure)
 const app = express()
-const port = 3000
+const port = 5000
+
+//   app.use(cors());      to allow all the origins(even hackers can send request here)
+
+app.use(cors({
+  origin : "http://localhost:3000",
+  methods : ['GET' , 'POST'],
+  allowedHeaders : ["Content-Type", "Authorization"]
+}))
 
 dotenv.config();                            // This line reads your .env file and adds the variables inside it to process.env
 // So after dotenv.config(), you can use process.env.MY_VARIABLE anywhere in your app.
