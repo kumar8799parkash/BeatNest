@@ -118,21 +118,10 @@
         const outerProfileCont = document.getElementById("outer-profile-cont");
 
         window.addEventListener("load", () => {
-            const user = localStorage.getItem("beatNestUser");
+            const isUserExists = localStorage.getItem("beatNestToken");
 
-            if (user) {
-                signUpButton.style.display = "none";
-                logInButton.style.display = "none";
-
-                bellCont.style.display = "flex";
-                outerProfileCont.style.display = "flex";
-            }
-            else {
-                signUpButton.style.display = "inline-block";
-                logInButton.style.display = "inline-block";
-
-                bellCont.style.display = "none";
-                outerProfileCont.style.display = "none";
+            if(isUserExists){
+                window.location.href = "./mainPage.html";
             }
         })
 

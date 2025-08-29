@@ -10,7 +10,7 @@ const port = 5000
 //   app.use(cors());      to allow all the origins(even hackers can send request here)
 
 app.use(cors({
-  origin : "http://localhost:3000",
+  origin : ["http://127.0.0.1:3000" , "http://localhost:3000"],
   methods : ['GET' , 'POST'],
   allowedHeaders : ["Content-Type", "Authorization"]
 }))
@@ -85,7 +85,7 @@ app.post('/login', async (req, res) => {                 // remember that here w
 })
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send('Hello World! he he!')
 })
 
 app.listen(port, () => {
