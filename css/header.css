@@ -183,6 +183,11 @@ header {
     transition: height 0.05s ease, width 0.05s ease;
 }
 
+.profile-cont img{
+    height: 100%;
+    width: 100%;
+}
+
 .profile-cont:hover {
     height: 73%;
     width: 73%;
