@@ -31,17 +31,79 @@
 
         <div class="line"></div>
 
-        <div class="LogIn-email-cont">
+        <div class="LogIn-email-cont" id="LogIn-email-cont">
             <div class="LogIn-email-heading">Email address :</div>
             <div class="LogIn-email-input-cont">
-                <input class="LogIn-email-input" type="text" placeholder="name@domain.com" autofocus>
+                <input class="LogIn-email-input" id="LogIn-email-input" type="text" placeholder="name@domain.com" autofocus>
             </div>
         </div>
 
-        <div class="LogIn-button">Continue</div>
+        <div class="LogIn-password-cont" id="LogIn-password-cont">
+            <div class="LogIn-password-heading">password :</div>
+            <div class="LogIn-password-input-cont">
+                <input class="LogIn-password-input" id="LogIn-password-input" type="text" placeholder="enter password"
+                    autofocus>
+            </div>
+        </div>
 
-        <div class="signUp-option">Don't have an account? <span> <a href="#">Sign up here</a> </span></div>
+        <div class="message-cont" id="message-cont"></div>
+
+
+        <div class="LogIn-button" id="LogIn-button">Continue</div>
+
+        <div class="LogIn-option">Don't have an account? <span> <a href="#">Sign up here</a> </span></div>
     </div>
+
+    <script>
+
+        const logInButton = document.getElementById('LogIn-button');
+        const messageCont = document.getElementById('message-cont');
+
+        logInButton.addEventListener('click', async () => {
+            const loginEmailInput = document.getElementById('LogIn-email-input');
+            const loginPasswordInput = document.getElementById('LogIn-password-input');
+            const email = loginEmailInput.value.trim();
+            const password = loginPasswordInput.value.trim();
+
+            if (!email || !password) {
+                messageCont.style.color = "red";
+                messageCont.textContent = "Enter email first!";
+                return;
+            }
+
+            try {
+                const res = await fetch("http://localhost:5000/login", {
+                    method: "POST",
+                    headers: { "Content-type": "application/json" },
+                    body: JSON.stringify({ email  , password})
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    messageCont.style.color = "green";
+                    messageCont.textContent = "Log in successful! Redirecting...";
+
+                    localStorage.setItem('beatNestToken', data.token);
+
+                    setTimeout(() => {
+                        window.location.href = "../mainPage.html"
+                    }, 1500)
+
+                } else {
+                    messageCont.style.color = "red";
+                    messageCont.textContent = data.msg || "Login failed!";
+                }
+
+            } catch (err) {
+                console.error("Error:", err);
+                messageCont.style.color = "red";
+                messageCont.textContent = "Server error, Please try again later!";
+            }
+        })
+
+    </script>
+
 </body>
 
 </html>

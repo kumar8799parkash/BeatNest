@@ -206,7 +206,9 @@
     width: calc(100% - 222px);
     display: flex;
     align-items: center;
-    color: rgb(179, 179, 179);
+    color: rgb(232, 232, 232);
+    font-size: 15px;
+    font-weight: 500;
 }
 
 .song-duration-cont {

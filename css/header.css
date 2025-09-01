@@ -161,7 +161,6 @@ header {
     width: 50px;
     border-radius: 50px;
     background-color: #1f1f1f;
-
 }
 
 .right-nav-cont {
@@ -171,9 +170,10 @@ header {
 
 
 .profile-cont {
-    background-color: #509bf5;
-    height: 70%;
-    width: 70%;
+    /* background-color: #509bf5; */
+    position: relative;
+    height: 80%;
+    width: 80%;
     border-radius: 50px;
     display: flex;
     justify-content: center;
@@ -183,15 +183,65 @@ header {
     transition: height 0.05s ease, width 0.05s ease;
 }
 
-.profile-cont img{
+.profile-cont img {
     height: 100%;
     width: 100%;
+    filter: invert(0.5);
 }
 
 .profile-cont:hover {
-    height: 73%;
-    width: 73%;
+    height: 85%;
+    width: 85%;
 }
+
+.drop-down-content {
+    width: 150px;
+    background-color: #282828;
+    border-radius: 9px;
+    color: white;
+    position: absolute;
+    top: 62px;
+    right: 6px;
+    padding: 5px 5px;
+    z-index: 10;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.drop-down-content.show{
+    opacity: 1;
+    visibility: visible;
+}
+
+/* .profile-cont:hover + .drop-down-content,
+.drop-down-content:hover{
+    filter: opacity(1);
+    visibility: visible;
+} */
+
+
+.drop-down-item {
+    outline: none;
+    border: none;
+    height: 40px;
+    padding: 0px 10px;
+    font-size: 14px;
+    width: 100%;
+    border-radius: 3px;
+    cursor: pointer;
+    background-color: transparent;
+    text-align: left;
+    display: flex;
+    align-items: center;
+}
+
+.drop-down-item:hover {
+    background-color: rgb(66, 66, 66);
+}
+
+
+
+
 
 .sign-up-button {
     background: transparent;
@@ -237,6 +287,7 @@ header {
     .search-input-cont input {
         font-size: 12px;
     }
+
     .search-input-cont {
         height: 35px;
     }

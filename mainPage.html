@@ -62,7 +62,13 @@
             <button class="log-in-button">Log in</button> -->
 
             <div class="outer-profile-cont flex justify-content align-items">
-                <div class="profile-cont cursor-pointer">P</div>
+                <div class="profile-cont cursor-pointer" id="profile-cont" ><img src="/svgs/profile.svg" alt=""></div>
+                <div class="drop-down-content" id="drop-down-content">
+                    <button class="drop-down-item">Profile</button>
+                    <button class="drop-down-item">Help</button>
+                    <button class="drop-down-item">FAQs</button>
+                    <button class="drop-down-item" id="log-out-button">Log out</button>
+                </div>
             </div>
 
         </div>
@@ -111,6 +117,27 @@
 
 
     <script>
+
+        const profileCont = document.getElementById('profile-cont');
+        const dropDownContent = document.getElementById('drop-down-content');
+        const logOutButton = document.getElementById('log-out-button');
+
+        profileCont.addEventListener('click' , (e)=>{
+            e.stopPropagation();                                 // it ensure that document's event listener do not activate ie event is limited to profileCont only, althougn profileCont is inside document but still click wont be applicable on document 
+            dropDownContent.classList.add('show');
+        })
+
+        document.addEventListener('click' , (event)=>{
+            if(!dropDownContent.contains(event.target)){
+                dropDownContent.classList.remove('show');
+            }
+        })
+
+        logOutButton.addEventListener('click' , ()=>{
+            localStorage.removeItem('beatNestToken');
+            window.location.href =  './index.html';
+        })
+
 
         function loadRightCont(targetPage) {
             fetch(`html/${targetPage}.html`)
