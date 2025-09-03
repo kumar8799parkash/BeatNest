@@ -58,7 +58,7 @@ app.post('/signup', async (req, res) => {              // remember that here we 
 
     const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
     res.json({ token, user: { id: newUser._id, email: newUser.email } });
-  } catch (err) {
+    } catch (err) {
     res.status(500).json({ error: "Error during signUp!" , details: err.message })
   }
 
