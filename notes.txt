@@ -136,3 +136,216 @@ If only your own frontend should access backend:
 app.use(cors({
   origin: ["https://beatnest.com", "https://admin.beatnest.com"]
 }));
+
+
+
+
+JSON.STRINGIFY() FUNCTION : When you send data with fetch, the body must be a string (or certain formats like FormData, Blob, etc.).
+                            But in JS, { email, password } is an object, not a string.
+    { email: "test@gmail.com", password: "12345" }
+    ↓ JSON.stringify()
+    '{"email":"test@gmail.com","password":"12345"}'
+
+
+🔹 WHAT IS "APPLICATION/JSON" IN HEADERS?
+
+This is the Content-Type header.
+It tells the server what format the request body is in.
+
+"application/json" → The body is JSON.
+
+"text/plain" → The body is plain text.
+
+"application/x-www-form-urlencoded" → Form data (like HTML forms).
+
+"multipart/form-data" → Used when uploading files.
+
+So in your code:
+
+headers: { "Content-type": "application/json" }
+
+
+means → “Hey server, I’m sending JSON data. Please parse it as JSON.”
+
+
+
+
+
+HOW SERVER HANDLES DIFFERENT CONTENT-TYPES : USING MIDDLEWARES
+      app.use(express.json());          If it’s "application/json", it automatically parses the body string back into a JS object.
+
+
+
+      What this line actually does
+          This is a middleware in Express.
+          Middlewares in Express run for every request (GET, POST, PUT, DELETE, etc.) that passes through your server.
+          So yes → every request passes through this middleware before reaching your route handler.
+
+
+    🔹 Why do we need it?
+          When a request comes in with a JSON body (like your fetch(..., { method: "POST", body: JSON.stringify(...) })), the raw body is just a stream of bytes.
+          Without express.json(), if you console.log(req.body), you’d get undefined because Express doesn’t parse the body automatically.
+          app.use(express.json()); says:
+          “Whenever a request has Content-Type: application/json, read the body, parse the JSON, and put the result into req.body.”
+
+
+
+
+Different Content-Types need different parsers/middlewares on the server side. Let’s go over the most common ones:
+
+
+    1. application/json
+
+Use case: APIs sending/receiving structured data.
+
+Client:
+
+fetch("/signup", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ email: "abc@gmail.com", password: "123" })
+});
+
+
+Server:
+
+app.use(express.json()); // parses JSON into req.body
+
+
+
+
+2. application/x-www-form-urlencoded
+
+Use case: Classic HTML forms (<form method="POST">).
+
+Body looks like:
+
+email=abc%40gmail.com&password=123
+
+
+Client:
+
+fetch("/signup", {
+  method: "POST",
+  headers: { "Content-Type": "application/x-www-form-urlencoded" },
+  body: "email=abc@gmail.com&password=123"
+});
+
+
+Server:
+
+app.use(express.urlencoded({ extended: true }));
+
+
+
+
+
+
+3. multipart/form-data
+
+Use case: File uploads (images, audio, video).
+
+Body: Binary + text mixed together in parts.
+
+Client:
+
+const formData = new FormData();
+formData.append("username", "abc");
+formData.append("profilePic", fileInput.files[0]);
+
+fetch("/upload", { method: "POST", body: formData });
+
+
+(⚠️ Don’t set Content-Type manually → browser will set boundary automatically.)
+
+Server: Needs a parser like multer, not express.json().
+
+
+
+
+4. text/plain
+
+Use case: Sending raw text.
+
+Client:
+
+fetch("/notes", {
+  method: "POST",
+  headers: { "Content-Type": "text/plain" },
+  body: "This is a plain text note"
+});
+
+
+Server: Use express.text() middleware.
+
+
+
+🔹 5. Others (less common but important)
+
+application/xml → XML data (used in legacy APIs).
+
+application/octet-stream → Raw binary (files, audio chunks).
+
+application/pdf / image/png → Specific file types.
+
+
+
+
+
+
+// req and res BUILT-IN OBJECTS IN JS
+
+Exactly 👍 — you didn’t define req and res yourself, Express gives them to you automatically.
+
+Let me break it down:
+
+
+🔹 What are req and res?
+
+When a client (browser, Postman, fetch, etc.) makes a request to your server, Express creates two special objects for you:
+
+req (Request object) → Contains everything about the incoming request.
+
+URL
+HTTP method (GET, POST, etc.)
+Headers
+Body (if any)
+Query params (?id=123)
+Cookies, etc.
+
+
+res (Response object) → Used to send a response back to the client.
+
+res.send() → send plain text or HTML
+res.json() → send JSON
+res.status(404).send("Not Found") → send status + message
+res.redirect() → redirect to another URL
+
+
+
+🔹 Where do they come from?
+
+Your code:
+
+app.get('/', (req, res) => {
+  res.send('Hello World! he he!')
+});
+
+
+Behind the scenes:
+    Express sits on top of Node.js’s HTTP module.
+    When a request comes in, Node creates a low-level IncomingMessage (req) and ServerResponse (res).
+    Express wraps those in its own Request and Response objects (with extra helpful methods like .json(), .status(), etc.).
+    Then, Express passes them to your route handler automatically.
+    That’s why you don’t need to create req or res — they’re given to your callback.
+
+
+app.get('/user', (req, res) => {
+  console.log(req.method);   // "GET"
+  console.log(req.url);      // "/user"
+  
+  res.status(200).json({ message: "User found!" });
+});
+
+req.method → comes from the HTTP request.
+res.status(200).json(...) → Express convenience function to send status + JSON.

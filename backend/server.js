@@ -18,7 +18,7 @@ app.use(cors({
 dotenv.config();                            // This line reads your .env file and adds the variables inside it to process.env
 // So after dotenv.config(), you can use process.env.MY_VARIABLE anywhere in your app.
 
-app.use(express.json())                     // Middleware to parse JSON data from frontend
+app.use(express.json())                     // Middleware to parse JSON data from frontend and store it in req.body
 
 
 async function connectDB() {
@@ -84,7 +84,7 @@ app.post('/login', async (req, res) => {                 // remember that here w
 
 })
 
-app.get('/', (req, res) => {
+app.get('/', (req, res) => {                              // req and res are built-in objects created by Express for every request.(refer notes for more)
   res.send('Hello World! he he!')
 })
 
