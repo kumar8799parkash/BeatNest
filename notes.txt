@@ -349,3 +349,19 @@ app.get('/user', (req, res) => {
 
 req.method → comes from the HTTP request.
 res.status(200).json(...) → Express convenience function to send status + JSON.
+
+
+
+
+FIRST: WHAT IS NODEMAILER VS. TRANSPORT?
+
+Nodemailer = the library (the "engine") that lets you send emails from Node.js.
+Transport = the "delivery method" (the "vehicle") Nodemailer uses to actually send the email.
+Think of it like
+
+Nodemailer = the post office system (handles packaging, addressing, tracking).
+Transport = the mail truck, airplane, or courier service that physically delivers the letter.
+
+So when you use Nodemailer, you always have to pick a transport.
+
+🔹 TYPES OF TRANSPORTS IN NODEMAILER : Transport flexibility — SMTP, sendmail, Amazon SES, direct transport, or plugins

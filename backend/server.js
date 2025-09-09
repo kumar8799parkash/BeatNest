@@ -1,11 +1,13 @@
-const express = require('express')
-const cors = require('cors')                // CORS = Cross-Origin Resource Sharing. to specify frontend(3000 here) who can send requests
-const jwt = require('jsonwebtoken')         // To create login session tokens
-const bcrypt = require('bcrypt')            // bcrypt is a password-hashing function designed for securely storing passwords.
-const dotenv = require('dotenv')            // Hide secrets (DB passwords, API keys, JWT secrets).
-const mongoose = require('mongoose')        // Mongoose allows you to define a schema, mongoDB is itself schema-less(no defined structure)
-const app = express()
-const port = 5000
+const express = require('express');
+const nodemailer = require('nodemailer');
+const crypto = require('crypto');
+const cors = require('cors');                // CORS = Cross-Origin Resource Sharing. to specify frontend(3000 here) who can send requests
+const jwt = require('jsonwebtoken');         // To create login session tokens
+const bcrypt = require('bcrypt');            // bcrypt is a password-hashing function designed for securely storing passwords.
+const dotenv = require('dotenv');            // Hide secrets (DB passwords, API keys, JWT secrets).
+const mongoose = require('mongoose');        // Mongoose allows you to define a schema, mongoDB is itself schema-less(no defined structure)
+const app = express();
+const port = 5000;
 
 //   app.use(cors());      to allow all the origins(even hackers can send request here)
 
@@ -18,7 +20,7 @@ app.use(cors({
 dotenv.config();                            // This line reads your .env file and adds the variables inside it to process.env
 // So after dotenv.config(), you can use process.env.MY_VARIABLE anywhere in your app.
 
-app.use(express.json())                     // Middleware to parse JSON data from frontend and store it in req.body
+app.use(express.json());                     // Middleware to parse JSON data from frontend and store it in req.body
 
 
 async function connectDB() {
@@ -43,6 +45,12 @@ const userSchema = new mongoose.Schema({
 });
 const User = mongoose.model("User", userSchema);
 
+
+
+
+
+
+
 app.post('/signup', async (req, res) => {              // remember that here we have declared it as a ASYNC function so we CAN USE AWAIT
 
   try {
@@ -63,6 +71,13 @@ app.post('/signup', async (req, res) => {              // remember that here we 
   }
 
 });
+
+
+
+
+
+
+
 
 
 app.post('/login', async (req, res) => {                 // remember that here we have declared it as a ASYNC function so we CAN USE AWAIT
