@@ -365,3 +365,175 @@ Transport = the mail truck, airplane, or courier service that physically deliver
 So when you use Nodemailer, you always have to pick a transport.
 
 🔹 TYPES OF TRANSPORTS IN NODEMAILER : Transport flexibility — SMTP, sendmail, Amazon SES, direct transport, or plugins
+
+
+
+
+
+
+DIFFERENCE BETWEEN CRYPTO AND BCRYPT
+
+1. What is crypto?
+
+crypto is a built-in Node.js module (no installation needed).
+It provides general-purpose cryptographic functionality like:
+
+Hashing (sha256, sha512, etc.)
+Symmetric encryption/decryption (AES, DES, etc.)
+Asymmetric encryption (RSA, ECDSA, etc.)
+Random value generation
+
+It is fast but not designed specifically for password hashing.
+PROBLEM FOR PASSWORDS:
+These hashes are deterministic and very fast, so attackers can brute-force millions of guesses per second with precomputed rainbow tables. Not secure for password storage.
+
+
+
+🔹 2. What is bcrypt?
+
+bcrypt is a library (must install: npm install bcrypt).
+It is designed specifically for password hashing.
+
+Uses:
+Salting (random string added before hashing) → prevents rainbow table attacks.
+Key stretching (work factor/cost) → intentionally slow hashing → makes brute-force expensive.
+
+
+
+1.1 HASHING FUNCTIONS
+
+👉 USED FOR DATA INTEGRITY (NOT PASSWORD STORAGE).
+
+import crypto from "crypto";
+
+// SHA-256 hash
+const sha256Hash = crypto.createHash("sha256")
+  .update("HelloWorld")
+  .digest("hex");
+
+console.log("SHA-256 Hash:", sha256Hash);
+
+createHash(algorithm) → algorithm can be "sha256", "sha512", etc.
+update(data) → add data to hash.
+digest("hex" | "base64") → finalize hash and get result.
+✅ Use: File integrity check, digital signatures, API signing.
+
+
+1.2 HMAC (HASH-BASED MESSAGE AUTHENTICATION CODE)
+
+const secret = "mySecretKey";
+
+const hmac = crypto.createHmac("sha256", secret)
+  .update("HelloWorld")
+  .digest("hex");
+
+console.log("HMAC:", hmac);
+
+✅ Use: JWT signing, API request signing, ensuring data authenticity.
+
+
+
+1.3 RANDOM BYTES
+
+const token = crypto.randomBytes(32).toString("hex");
+console.log("Random Token:", token);
+
+✅ Use: Session IDs, password reset tokens, email verification codes.
+
+
+1.4 SYMMETRIC ENCRYPTION (AES EXAMPLE)
+
+👉 Encrypt and decrypt data with the same key.
+
+const key = crypto.randomBytes(32);   // 256-bit key
+const iv = crypto.randomBytes(16);    // Initialization vector
+
+// Encrypt
+const cipher = crypto.createCipheriv("aes-256-cbc", key, iv);
+let encrypted = cipher.update("HelloWorld", "utf8", "hex");
+encrypted += cipher.final("hex");
+console.log("Encrypted:", encrypted);
+
+// Decrypt
+const decipher = crypto.createDecipheriv("aes-256-cbc", key, iv);
+let decrypted = decipher.update(encrypted, "hex", "utf8");
+decrypted += decipher.final("utf8");
+console.log("Decrypted:", decrypted);
+
+✅ Use: Encrypting sensitive data (files, messages).
+
+
+1.5 KEY PAIR (ASYMMETRIC RSA/ECDSA)
+
+👉 Used for public/private key encryption.
+
+const { generateKeyPairSync } = crypto;
+
+const { publicKey, privateKey } = generateKeyPairSync("rsa", {
+  modulusLength: 2048,
+});
+
+console.log("Public Key:", publicKey.export({ type: "pkcs1", format: "pem" }));
+console.log("Private Key:", privateKey.export({ type: "pkcs1", format: "pem" }));
+
+✅ Use: Digital signatures, SSL/TLS, JWT with RSA.
+
+
+
+
+🔹 2. BCRYPT (PASSWORD HASHING LIBRARY)
+
+Unlike crypto, bcrypt is only for password hashing.
+It’s slow + salted, making brute force attacks harder.
+
+
+2.1 HASH A PASSWORD
+
+👉 Always store passwords hashed.
+
+import bcrypt from "bcrypt";
+
+const password = "mypassword";
+const saltRounds = 10;
+
+const hash = await bcrypt.hash(password, saltRounds);
+console.log("Hashed Password:", hash);
+
+bcrypt.hash(password, saltRounds)
+saltRounds = cost factor (higher = slower = more secure).
+✅ Use: Store hashed password in DB.
+
+
+2.2 VERIFY A PASSWORD
+
+👉 Compare user input with stored hash.
+
+const isMatch = await bcrypt.compare("mypassword", hash);
+console.log("Password Match:", isMatch); // true
+
+✅ Use: Login authentication.
+
+
+2.3 GENERATE SALT MANUALLY
+
+👉 You can generate salt separately.
+
+const salt = await bcrypt.genSalt(12);
+const hash2 = await bcrypt.hash("mypassword", salt);
+
+console.log("Salt:", salt);
+console.log("Hash with salt:", hash2);
+
+✅ Use: More control if you want to manage salt rounds explicitly.
+
+2.4 CHANGE SALT ROUNDS FOR SECURITY
+
+👉 Increasing rounds makes hashing slower but more secure.
+
+const hashFast = await bcrypt.hash("mypassword", 8);  // faster
+const hashSlow = await bcrypt.hash("mypassword", 15); // slower, more secure
+
+console.log("Fast Hash:", hashFast);
+console.log("Slow Hash:", hashSlow);
+
+✅ Use: Adjust performance vs security tradeoff.
