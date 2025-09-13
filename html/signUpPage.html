@@ -76,13 +76,7 @@
 
                 if(res.ok){
                     messageCont.style.color = "green";
-                    messageCont.textContent = "Sign up successful! Redirecting...";
-
-                    localStorage.setItem('beatNestToken' , data.token);
-
-                    setTimeout(()=>{
-                        window.location.href = "../mainPage.html"
-                    }, 1500)
+                    messageCont.textContent = "Sign up successful! check your email to verify.";
                     
                 }else{
                     messageCont.style.color = "red";

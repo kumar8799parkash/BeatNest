@@ -84,7 +84,7 @@
 @media (max-width: 500px) {
 
     .playlistPage-heading-cont {
-        height: 30%;
+        height: 45%;
     }
 
     .playlistPage-heading-cont {
@@ -106,7 +106,7 @@
 
     .playlistPage-heading-text {
         font-size: 14px;
-        font-weight: lighter;
+        /* font-weight: lighter; */
         color: rgba(255, 255, 255, 0.7);
     }
 

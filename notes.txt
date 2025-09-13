@@ -537,3 +537,124 @@ console.log("Fast Hash:", hashFast);
 console.log("Slow Hash:", hashSlow);
 
 ✅ Use: Adjust performance vs security tradeoff.
+
+
+
+
+
+EXPRESS RESPONSE METHODS
+
+1. res.status(code)
+
+  Sets the HTTP status code (like 200 OK, 400 Bad Request, 404 Not Found, 500 Server Error, etc.).
+  Usually chained with another method like .send(), .json(), .end().
+  Use case: Always when you want to indicate success/failure explicitly.
+
+res.status(404).send("Not Found");
+
+
+2. res.send([body])
+
+Sends a response body of any type (string, object, array, buffer, HTML).
+If you pass an object/array, Express automatically converts it to JSON.
+If you pass a string, it sends plain text/HTML.
+
+res.send("Hello World");         // plain text
+res.send("<h1>Hello</h1>");      // HTML response
+res.send({ user: "Jarvis" });    // JSON automatically
+
+Use case: When you want flexibility (text, HTML, JSON).
+
+
+
+3. res.json(obj)
+
+Sends a JSON response.
+Automatically sets Content-Type: application/json.
+
+Useful for APIs.
+
+res.json({ success: true, data: [1, 2, 3] });
+
+Use case: REST APIs or AJAX calls from frontend.
+
+
+
+4. res.sendFile(path)
+
+Sends a file as the response.
+Example: Serving images, PDFs, or downloadable files.
+
+res.sendFile("/absolute/path/to/image.png");
+
+Use case: File downloads, serving static files dynamically.
+
+
+
+
+5. res.download(path, [filename])
+
+Forces the browser to download a file instead of displaying it.
+Optional filename lets you rename it.
+
+res.download("/files/report.pdf", "user-report.pdf");
+
+Use case: Letting users download generated files.
+
+
+
+
+6. res.redirect([status,] url)
+
+Redirects the client to another URL.
+Default status is 302 (Found → temporary redirect).
+
+res.redirect("/login");           // 302 redirect
+res.redirect(301, "/new-page");   // permanent redirect
+
+Use case: After logout, redirecting users to /login.
+
+
+
+7. res.end([data])
+
+Ends the response process immediately.
+Can send optional data (like raw strings/buffers).
+
+res.end();             // just end response
+res.end("Done!");      // end with message
+
+Use case: Low-level response finishing, no content needed.
+
+
+
+8. res.render(view, [locals])
+
+Used with template engines (like EJS, Pug, Handlebars).
+Renders HTML from a template.
+
+res.render("profile", { username: "Jarvis" });
+
+Use case: Server-side rendered apps.
+
+
+
+9. res.set(field, value)
+
+Sets a custom header.
+
+res.set("X-Powered-By", "Jarvis");
+res.status(200).send("Header set!");
+
+Use case: Custom metadata (security headers, caching, API versioning).
+
+
+
+10. res.cookie(name, value, [options]) & res.clearCookie(name)
+
+Send or clear cookies with the response.
+
+res.cookie("token", "12345", { httpOnly: true });
+res.clearCookie("token");
+
+Use case: Session handling, authentication.

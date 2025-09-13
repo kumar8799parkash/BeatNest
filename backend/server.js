@@ -12,9 +12,9 @@ const port = 5000;
 //   app.use(cors());      to allow all the origins(even hackers can send request here)
 
 app.use(cors({
-  origin : ["http://127.0.0.1:3000" , "http://localhost:3000"],
-  methods : ['GET' , 'POST'],
-  allowedHeaders : ["Content-Type", "Authorization"]
+  origin: ["http://127.0.0.1:3000", "http://localhost:3000"],
+  methods: ['GET', 'POST'],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }))
 
 dotenv.config();                            // This line reads your .env file and adds the variables inside it to process.env
@@ -41,9 +41,9 @@ connectDB();
 const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  verified: {type:boolean , default:false},
-  verificationToken : {type : String},
-  verificationTokenExpiry : Date
+  verified: { type: Boolean, default: false },
+  verificationToken: { type: String },
+  verificationTokenExpiry: Date
 });
 const User = mongoose.model("User", userSchema);
 
@@ -67,8 +67,8 @@ app.post('/signup', async (req, res) => {              // remember that here we 
     const verificationToken = crypto.randomBytes(32).toString("hex");
 
     const newUser = new User({
-      email : email,
-      password : hashedPassword,
+      email: email,
+      password: hashedPassword,
       verified: false,
       verificationToken: verificationToken,
       verificationTokenExpiry: Date.now() + 60 * 60 * 1000    // verification token valid for 1 HOUR only
@@ -77,28 +77,28 @@ app.post('/signup', async (req, res) => {              // remember that here we 
     await newUser.save();
 
     const transporter = nodemailer.createTransport({
-      service : "Gmail",
-      auth : {
-        user : process.env.EMAIL_USER,
-        pass : process.env.EMAIL_PASS
+      service: "Gmail",
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
       }
     });
 
-    const verificationURL = `http://localhost:5000/verify/${verificationToken}`;
+    const verificationURL = `http://192.168.1.10:5000/verify/${verificationToken}`;
     await transporter.sendMail({
-      from : `"BeatNest" <${process.env.EMAIL_USER}>`,          //SYNTAX : "Display Name" <email@domain.com>  (Display name displayed in inbox)
-      to : email,
-      subject : "Verify your BeatNest account",
-      html : `<p>Click   <a href="${verificationURL}">here</a>   to verify your email</p>`
+      from: `"BeatNest" <${process.env.EMAIL_USER}>`,          //SYNTAX : "Display Name" <email@domain.com>  (Display name displayed in inbox)
+      to: email,
+      subject: "Verify your BeatNest account",
+      html: `<p>Click   <a href="${verificationURL}">here</a>   to verify your email</p>`
     });
 
-    res.json({msg : "Sign up successful! please check your Gmail to verify."});
+    res.json({ msg: "Sign up successful! please check your Gmail to verify." });
 
 
     //const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
     //res.json({ token, user: { id: newUser._id, email: newUser.email } });
-    } catch (err) {
-    res.status(500).json({ error: "Error during signUp!" , details: err.message })
+  } catch (err) {
+    res.status(500).json({ error: "Error during signUp!", details: err.message })
   }
 
 });
@@ -108,8 +108,30 @@ app.post('/signup', async (req, res) => {              // remember that here we 
 
 
 
-app.get('/verify/:token' , async (req, res)=>{
-  
+app.get('/verify/:token', async (req, res) => {
+
+  try {
+    const token = req.params.token;                         // destructuring(also okay) : const {token} = req.params;
+                                                            // for multiple params : const { userId, postId } = req.params;
+    const user = await User.findOne({
+      verificationToken : token,
+      verificationTokenExpiry : {$gt : Date.now() }         // find documents where verificationTokenExpiry time is greater than current time, this means that the token is not expired yet
+    });
+
+    if (!user) {
+      return res.status(400).json({ error: "your time is expired, signUp again!" });
+    }
+
+    user.verified = true;
+    user.verificationToken = undefined;
+    user.verificationTokenExpiry = undefined;
+    await user.save();
+
+    res.send("Email verified successfully! now you can log in");
+  }catch(err){
+    res.status(500).json({msg : "Error while user verification!" , details : err.message});
+  }
+
 })
 
 
@@ -125,17 +147,34 @@ app.post('/login', async (req, res) => {                 // remember that here w
     const user = await User.findOne({ email });
     if (!user) return res.status(400).json({ msg: "User does not exist!" })
 
+    
+    if(!user.verified){
+      return res.status(401).json({msg : "Please verify your email before logging in!"});
+    }
+
     // if user exists the check if the current password(password) is equal to the user.password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ msg: "Invalid credentials!" });
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
-    res.json({ token, user: { id: user._id, email: user.email } });
-  }catch(err){
-    res.status(500).json({error : "Error in login logic!" , details: err.message})
+    const token = jwt.sign(
+      { id: user._id },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    res.json({ token,
+      user: { id: user._id, email: user.email } 
+    });
+
+  } catch (err) {
+    res.status(500).json({ error: "Error in login logic!",
+    details: err.message
+  });
   }
 
-})
+});
+
+
 
 app.get('/', (req, res) => {                              // req and res are built-in objects created by Express for every request.(refer notes for more)
   res.send('Hello World! he he!')
