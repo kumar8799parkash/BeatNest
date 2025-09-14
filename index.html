@@ -108,8 +108,6 @@
 
 
 
-
-
     <script>
 
         const bellCont = document.getElementById("bell-cont");
@@ -138,18 +136,18 @@
         function loadRightCont(targetPage) {
             fetch(`html/${targetPage}.html`)
                 .then(response => {
-                    return response.text();
+                    return response.text();                         // .text() converts to String
                 })
                 .then(data => {
                     document.getElementById('right-cont').innerHTML = data;
 
-                    const oldScript = document.getElementById('dynamic-script');
+                    const oldScript = document.getElementById('right-dynamic-script');
                     if (oldScript) oldScript.remove();
 
                     const pageScript = document.createElement('script');
                     pageScript.src = `scripts/${targetPage}.js`;
                     pageScript.defer = true;        //Delays execution until HTML is parsed. Improves performance.(optional)
-                    pageScript.id = 'dynamic-script';  // 	Allows you to find/remove/replace this script easily in the DOM.(optional)
+                    pageScript.id = 'right-dynamic-script';  // 	Allows you to find/remove/replace this script easily in the DOM.(optional)
 
                     /*
                     What it does: Sets the id attribute of the <script> element to 'dynamic-script'.
@@ -175,13 +173,13 @@
                 .then(data => {
                     document.getElementById('left-cont').innerHTML = data;
 
-                    const oldScript = document.getElementById('dynamic-script');
+                    const oldScript = document.getElementById('left-dynamic-script');
                     if (oldScript) oldScript.remove();
 
                     const pageScript = document.createElement('script');
                     pageScript.src = `scripts/${targetPage}.js`;
                     pageScript.defer = true;        //Delays execution until HTML is parsed. Improves performance.(optional)
-                    pageScript.id = 'dynamic-script';  // 	Allows you to find/remove/replace this script easily in the DOM.(optional)
+                    pageScript.id = 'left-dynamic-script';  // 	Allows you to find/remove/replace this script easily in the DOM.(optional)
 
                     document.body.appendChild(pageScript);
                 })

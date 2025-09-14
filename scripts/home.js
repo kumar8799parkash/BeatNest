@@ -1,4 +1,3 @@
-
 fetch('data/playlists.json')
   .then(res => res.json())
   .then(playlists => {
