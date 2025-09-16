@@ -1,11 +1,13 @@
 const express = require('express');
+const connectDB = require('./config/db');
 const nodemailer = require('nodemailer');
+const User = require('./models/user');
 const crypto = require('crypto');
 const cors = require('cors');                // CORS = Cross-Origin Resource Sharing. to specify frontend(3000 here) who can send requests
 const jwt = require('jsonwebtoken');         // To create login session tokens
 const bcrypt = require('bcrypt');            // bcrypt is a password-hashing function designed for securely storing passwords.
 const dotenv = require('dotenv');            // Hide secrets (DB passwords, API keys, JWT secrets).
-const mongoose = require('mongoose');        // Mongoose allows you to define a schema, mongoDB is itself schema-less(no defined structure)
+//const mongoose = require('mongoose');       // Mongoose allows you to define a schema, mongoDB is itself schema-less(no defined structure) although it is not needed here as are just using the schemas(like User)in server.js , but we are not defining them here and also we are not using any mongoose function here
 const app = express();
 const port = 5000;
 
@@ -23,30 +25,7 @@ dotenv.config();                            // This line reads your .env file an
 app.use(express.json());                     // Middleware to parse JSON data from frontend and store it in req.body
 
 
-async function connectDB() {
-  const uri = process.env.MONGO_URI;
-  if (!uri) throw new Error("MONGO_URI does not exists in .env file!");
-
-  try {
-    await mongoose.connect(uri);
-    console.log("database connected");
-  }
-  catch (err) {
-    console.log("mongoDB connection error!", err.message);
-  }
-}
-
 connectDB();
-
-const userSchema = new mongoose.Schema({
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  verified: { type: Boolean, default: false },
-  verificationToken: { type: String },
-  verificationTokenExpiry: Date
-});
-const User = mongoose.model("User", userSchema);
-
 
 
 
