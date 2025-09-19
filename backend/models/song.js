@@ -12,11 +12,10 @@ const songSchema = new mongoose.Schema({
     tags : [String]                 // like movie name, romantic etc. etc.
 });
 
+songSchema.index({title : 'text' , tags : 1 , genres : 1});
 const Song = mongoose.model("Song" , songSchema);
 
 module.exports = Song;
-
-
 
 
 /*
