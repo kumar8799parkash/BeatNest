@@ -701,3 +701,196 @@ Example: If you visit mybank.com, and then click a link to evil.com, your bank U
 Content-Security-Policy (CSP):
 Controls what kind of content (scripts, images, styles) can load on your site.
 Example: You can allow scripts only from your own domain (self), blocking malicious scripts injected from others.
+
+
+
+
+
+
+
+// TIME LIMITER PACKAGE    :    express-rate-limit is middleware that tracks requests per IP.
+The rate-limit (or more commonly express-rate-limit) package is used to control the rate of incoming requests to your server.
+
+// Create a rate limiter middleware
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,  // 15 minutes(15*60*1000 miliseconds = 15 minutes)
+  max: 100,                  // Limit each IP to 100 requests per window
+  message: "Too many requests from this IP, please try again later."
+});
+app.use(limiter);
+
+
+
+// EXPLAINATION : windowMs: 15 * 60 * 1000
+                  This defines the time window for counting requests.
+                  15 * 60 * 1000 = 900,000 milliseconds = 15 minutes.
+                  Meaning: the server counts requests per IP in 15-minute intervals.
+                  After 15 minutes, the counter resets.
+
+*******This means a particular IP(let duggal's IP) can send 100 maximum requests in 15 minute time window
+       This 100req/15min is applicable on each address(IP) separately
+       If User A (with IP 123.45.67.1) sends requests → their counter is separate.
+       If User B (with IP 223.45.67.2) sends requests → they have a different counter.
+
+       If count > 100 → Express stops processing and sends back 429 Too Many Requests.
+
+
+// USE CASES
+
+    Login routes → prevent brute-force attacks.
+    APIs with free tiers → allow 100 requests/hour for free users.
+    Expensive operations → like file uploads, password resets, or payments.
+    Prevent scraping or spam → by limiting excessive requests from bots.
+
+
+
+
+// IMPORTANT NOTE : 
+
+Proxies / Load Balancers:
+If your app is behind something like Nginx, Cloudflare, or Heroku, the default IP detected may actually be the proxy’s IP (not the real user).
+
+To fix this, you need:     app.set("trust proxy", 1);
+This tells Express to look at headers (X-Forwarded-For) to get the real client IP.
+
+
+
+Case 1: Simple server (no proxy)
+If you just run your Express app on localhost or on a VPS (like DigitalOcean, AWS EC2), then:
+A user visits your site.
+The request comes directly to your Node/Express server.
+Express can see the real IP of the user (123.45.67.8 etc.).
+express-rate-limit works fine out of the box.
+
+
+
+🏗️ Case 2: Behind a proxy / load balancer / CDN
+In production, most websites are not directly exposed. They sit behind another server (proxy). Examples:
+Nginx / Apache → reverse proxy (commonly used).
+Heroku → has its own routing layer.
+Vercel / Netlify → sit in front of your Node app.
+Cloudflare → CDN + security proxy.
+
+👉 What happens then?
+
+The user’s request first hits the proxy (e.g., Cloudflare or Nginx).
+That proxy then forwards the request to your Node app.
+To your Express app, the request looks like it came from the proxy’s IP, not the real user.
+
+Example:
+Real user IP = 123.45.67.8
+But Express sees only: 10.0.0.5 (the IP of your Nginx proxy).
+So if you don’t fix this, all requests might look like they are coming from the same IP, and rate limiting will be useless.
+
+Fix: app.set("trust proxy", 1)
+This line tells Express:
+“Hey, I know I’m behind a proxy. Please don’t use the proxy’s IP. Instead, look at the special X-Forwarded-For header that proxies set, which contains the real client IP.”
+
+✅ Summary:
+If your app runs directly → you see real IPs (no problem).
+If your app runs behind Cloudflare/Heroku/Nginx/etc. → you need app.set("trust proxy", 1) so Express can get the real IP.
+
+
+
+🌍 Why can’t a request just hit your server.js directly?
+
+Because when you deploy to cloud platforms (like Vercel, Heroku, Netlify, etc.), your app is not exposed directly to the internet. Instead, these platforms put a proxy layer in front of your app for several reasons:
+
+🔑 Reasons why proxies exist in front of your server:
+
+Security
+If your Node server was directly exposed, attackers could scan and exploit it more easily.
+Proxies act as a shield between the public internet and your app.
+
+Load Balancing
+Big platforms don’t run just one server.js file.
+They run multiple copies (instances) of your app across many machines.
+The proxy decides which instance gets each incoming request.
+Without the proxy, you’d need to manually manage routing between many servers.
+
+SSL / HTTPS Handling
+TLS/SSL (the “https://” part) is usually terminated at the proxy.
+That means the proxy handles all encryption/decryption, so your app only deals with plain HTTP internally.
+This reduces CPU load on your app and centralizes certificate management.
+
+Caching & CDN
+Platforms like Vercel or Cloudflare can cache static assets (images, CSS, JS) at the proxy level.
+This makes them serve content much faster without hitting your server.
+Without proxies, every request (even static files) would reach your app → more load.
+
+Multi-region deployments
+If your users are worldwide, Vercel’s proxies/CDN nodes are everywhere.
+A user in India hits a proxy in Mumbai.
+That proxy decides whether to serve cached data or forward the request to your nearest app server.
+Without the proxy, every request would have to travel to wherever your app is hosted → slow.
+
+1. PUBLIC VS PRIVATE ADDRESS
+On Vercel (or AWS, GCP, etc.), your app is given one public address (like yourapp.vercel.app).
+But behind the scenes, there are many machines (servers) running copies of your app.
+Each machine has its own private/internal address, but the public never sees those.
+
+So from the outside world:
+👉 Everyone connects to yourapp.vercel.app.
+👉 The proxy/load balancer decides which machine actually handles the request.
+
+THE ROLE OF THE LOAD BALANCER
+The “trick” that makes this possible is the load balancer (a type of proxy).
+Think of it like a receptionist in a company:
+The company has one phone number (public address).
+Behind the receptionist, there are 100 employees (servers).
+When someone calls the number, the receptionist decides which employee should take the call.
+
+DNS MAGIC ✨
+When someone types yourapp.vercel.app, DNS always resolves to the load balancer’s IP (not the actual server where your Node code runs).
+The load balancer then forwards requests internally to whichever machine is free/near.
+So users never see the private IPs of your app instances. They only see the one public address.
+
+Similarly:
+Your app has one domain name (yourapp.vercel.app).
+The load balancer receives all requests.
+
+
+WHAT IS A CDN?
+
+A Content Delivery Network (CDN) is a geographically distributed network of servers that work together to deliver internet content (like HTML, CSS, JS, images, videos, fonts, etc.) to users faster, more reliably, and more securely.
+
+Instead of every request hitting your origin server (where your website/app is hosted), a CDN caches and serves content from servers located closer to the user (called edge servers).
+
+It forwards each request to one of the many running app instances (on different machines).
+Enterprise / Distributed Apps:
+If you run your app on multiple servers (behind a load balancer), you’ll want to use a shared store like Redis or Memcached for rate-limiting. Otherwise, each server tracks requests separately, and users could bypass limits by hitting different servers.
+
+
+4️⃣ DNS (DOMAIN NAME SYSTEM)
+
+DNS is like the phonebook of the Internet.
+Converts human-readable domain names (like example.com) into IP addresses (like 123.45.67.89) that computers use to route traffic.
+
+🔧 How DNS works (simplified)
+User types example.com in browser.
+Browser asks DNS resolver → “What’s the IP of example.com?”
+Resolver finds the IP (through hierarchy: root → TLD → authoritative server).
+Browser connects to that IP → request reaches the server.
+
+✅ Uses
+Makes the web human-friendly (we remember google.com, not 142.250.190.14).
+Allows load balancing (multiple IPs for same domain).
+Enables CDNs to route users to nearest edge server.
+
+1️⃣ REDIS
+
+Redis is an in-memory data store. Think of it as a super fast database that stores data in RAM instead of disks, so reading/writing is extremely quick.
+
+✅ Key Points
+
+Stores data in memory → very fast (microseconds).
+Supports key-value pairs, but also advanced structures: lists, sets, hashes, sorted sets, bitmaps, etc.
+Can persist data to disk (optional), but main use is caching and fast data access.
+Often used as a shared store for multiple app instances.
+
+🔧 Uses
+Caching → store frequently accessed data to reduce database load.
+Example:    Store user session info or API responses in Redis instead of querying DB every time
+Rate limiting → store request counts per user/IP across multiple servers.
+Message queues / pub-sub → apps can communicate asynchronously.
+Real-time analytics → counters, leaderboards, activity tracking.
