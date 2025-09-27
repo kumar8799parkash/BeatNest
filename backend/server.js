@@ -10,6 +10,7 @@ const dotenv = require('dotenv');            // Hide secrets (DB passwords, API 
 //const mongoose = require('mongoose');       // Mongoose allows you to define a schema, mongoDB is itself schema-less(no defined structure) although it is not needed here as are just using the schemas(like User)in server.js , but we are not defining them here and also we are not using any mongoose function here
 const app = express();
 const port = 5000;
+const playlistRoutes = require('./routes/playlistRoutes');
 
 //   app.use(cors());      to allow all the origins(even hackers can send request here)
 
@@ -24,6 +25,7 @@ dotenv.config();                            // This line reads your .env file an
 
 app.use(express.json());                     // Middleware to parse JSON data from frontend and store it in req.body
 
+app.use('/playlists' , playlistRoutes);
 
 connectDB();
 

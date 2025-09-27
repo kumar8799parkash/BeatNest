@@ -2,14 +2,20 @@ const mongoose = require('mongoose');
 
 const playlistSchema = new mongoose.Schema({
     title : {type : String , required : true , index : true},
-    description : String,
+    descriptionShort : String,
+    descriptionLong : String,
     songs : [{type : mongoose.Schema.Types.ObjectId , ref : 'Song'}],
     imageUrl : String,
     tags : [{String}],
     createdAt : {type : Date , default : Date.now}
+},{
+  timestamps : true         // auto adds createdAt and updatedAt fields on each playlist
 })
 
+playlistSchema.index({title : 'text' , tags : 1});
 
+const Playlist = mongoose.model('Playlist' , playlistSchema);
+module.exports = Playlist;
 
 
 
