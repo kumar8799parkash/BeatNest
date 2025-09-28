@@ -137,9 +137,10 @@
 .playlist-item-desc-cont {
     height: 70px;
     width: 160px;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 400;
-    color: rgba(255, 255, 255, 0.541);
+    color: rgba(255, 255, 255, 0.712);
+    text-overflow: ellipsis;
     overflow: hidden;
 }
 

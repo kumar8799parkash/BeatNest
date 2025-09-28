@@ -1,4 +1,4 @@
-fetch('data/playlists.json')
+fetch('http://localhost:5000/playlists')
   .then(res => res.json())
   .then(playlists => {
 
@@ -13,12 +13,12 @@ fetch('data/playlists.json')
       const playlistItemImageCont = document.createElement('div');
       playlistItemImageCont.classList.add('playlist-item-image-cont');
       const image = document.createElement('img');
-      image.src = `${playlist.cover}`;
+      image.src = `${playlist.imageUrl}`;
       playlistItemImageCont.appendChild(image);
 
       const playlistItemDescCont = document.createElement('div');
       playlistItemDescCont.classList.add('playlist-item-desc-cont');
-      playlistItemDescCont.textContent = `${playlist.playlistDesc}`;
+      playlistItemDescCont.textContent = `${playlist.descriptionShort}`;
 
       playlistItem.appendChild(playlistItemImageCont);
       playlistItem.appendChild(playlistItemDescCont);

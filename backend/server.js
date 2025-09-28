@@ -25,6 +25,8 @@ dotenv.config();                            // This line reads your .env file an
 
 app.use(express.json());                     // Middleware to parse JSON data from frontend and store it in req.body
 
+app.use('/images' , express.static('public/images'));
+
 app.use('/playlists' , playlistRoutes);
 
 connectDB();
