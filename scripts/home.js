@@ -8,7 +8,8 @@ fetch('http://localhost:5000/playlists')
       const playlistItem = document.createElement('div');                      // playlistItem = div in CHATGPT
       playlistItem.classList.add('playlist-item');
 
-      playlistItem.dataset.playlistIndex = index;
+      //playlistItem.dataset.playlistIndex = index;
+      playlistItem.dataset.playlistId = playlist._id;
 
       const playlistItemImageCont = document.createElement('div');
       playlistItemImageCont.classList.add('playlist-item-image-cont');
@@ -29,9 +30,10 @@ fetch('http://localhost:5000/playlists')
     const playlistItems = document.getElementsByClassName('playlist-item');
     Array.from(playlistItems).forEach(playList => {
       playList.addEventListener('click', () => {
-        const index = playList.dataset.playlistIndex;
+        const id = playList.dataset.playlistId
+        //const index = playList.dataset.playlistIndex;
         // Load the playlist page
-        window.history.pushState({}, '', `?playlistIndex=${index}`);
+        window.history.pushState({}, '', `?playlistId=${id}`);
         /*
         📌 1. When a user selects a playlist (e.g., clicks on a playlist card), you do something like:
               window.history.pushState({}, '', `?playlistIndex=${index}`);

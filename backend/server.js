@@ -25,7 +25,9 @@ dotenv.config();                            // This line reads your .env file an
 
 app.use(express.json());                     // Middleware to parse JSON data from frontend and store it in req.body
 
-app.use('/images' , express.static('public/images'));
+app.use(express.static('public'));                                    // eg Url : http://localhost:3000/images/pic.jpg
+//app.use('/static', express.static('public'));                       // it's same as above : eg Url : http://localhost:3000/static/images/pic.jpg
+//app.use('/images' , express.static('public/images'));               // if we want to serve images only
 
 app.use('/playlists' , playlistRoutes);
 

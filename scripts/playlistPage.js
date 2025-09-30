@@ -1,4 +1,7 @@
-fetch(`data/playlists.json`)
+const urlParams = new URLSearchParams(window.location.search);
+const id = urlParams.get('playlistId');
+if(!id) return;
+fetch(`http://localhost:5000/playlists/getPlaylistById/id=${id}`)                    // `data/playlists.json`
     .then(res => res.json())
     .then(playlists => {
         const urlPrams = new URLSearchParams(window.location.search);
