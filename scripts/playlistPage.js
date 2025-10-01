@@ -1,22 +1,26 @@
 const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get('playlistId');
-if(!id) return;
-fetch(`http://localhost:5000/playlists/getPlaylistById/id=${id}`)                    // `data/playlists.json`
-    .then(res => res.json())
-    .then(playlists => {
-        const urlPrams = new URLSearchParams(window.location.search);
-        const index = parseInt(urlPrams.get('playlistIndex'));
+if(!id){
+    alert('no playlist found in the URL!');
+    return;
+}
 
-        if (isNaN(index)) return;
+fetch(`http://localhost:5000/playlists/${id}`)                    // `data/playlists.json`
+    .then(res => res.json())
+    .then(playlist => {
+
+        /* const urlPrams = new URLSearchParams(window.location.search);
+        const index = parseInt(urlPrams.get('playlistIndex'));
+        if (isNaN(index)) return; */
 
         const playlistPageHeadingImage = document.getElementById('playlistPage-heading-image');
-        const imageSource = playlistPageHeadingImage.setAttribute('src' , `${playlists[index].cover}`);
+        playlistPageHeadingImage.src = playlist.imageUrl;
 
         const playlistPageHeadingText = document.getElementById('playlistPage-heading-text');
-        playlistPageHeadingText.textContent = `${playlists[index].name}`;
+        playlistPageHeadingText.textContent = playlist.title;
 
         const playlistPageHeadingDesc = document.getElementById('playlistPage-heading-desc');
-        playlistPageHeadingDesc.textContent = `${playlists[index].description}`;
+        playlistPageHeadingDesc.textContent = playlist.descriptionShort;
 
 
         const songItemsCont = document.getElementById('song-items-cont');
@@ -27,13 +31,13 @@ fetch(`http://localhost:5000/playlists/getPlaylistById/id=${id}`)               
 
         // songItemsCont.innerHTML = '';  clearing the existing HTML
 
-        const songsArray = playlists[index].songs;
+        const songsArray = playlist.songs;
         songsArray.forEach((song, songIndex) => {
             const songItem = document.createElement('div');
             songItem.classList.add('song-item');
-            songItem.dataset.audio = `songs/${playlists[index].folder}/${songsArray[songIndex].file}`;
+            songItem.dataset.audio = song.audioUrl;
 
-            songItem.dataset.id = `${index}-${songIndex}`;
+            songItem.dataset.id = song._id;
 
             const songNumberCont = document.createElement('div');
             songNumberCont.classList.add('song-number-cont');
@@ -42,31 +46,35 @@ fetch(`http://localhost:5000/playlists/getPlaylistById/id=${id}`)               
             const songCoverCont = document.createElement('div');
             songCoverCont.classList.add('song-cover-cont');
             const songCoverImage = document.createElement('img');
-            songCoverImage.src = `songs/${playlists[index].folder}/${songsArray[songIndex].songCover}`;
+            songCoverImage.src = song.coverUrl;
             songCoverCont.appendChild(songCoverImage);
 
             const songNameCont = document.createElement('div');
             songNameCont.classList.add('song-name-cont');
-            songNameCont.textContent = `${songsArray[songIndex].title}`
+            songNameCont.textContent = song.title;
 
 
 
             const songDurationCont = document.createElement('div');
             songDurationCont.classList.add('song-duration-cont');
 
-            const currAudio = document.createElement('audio');
-            currAudio.src = `songs/${playlists[index].folder}/${songsArray[songIndex].file}`;
+            const currSongDurationInSeconds = song.duration;
+            songDurationCont.textContent = formatTime(currSongDurationInSeconds);
+
+
+            /* const currAudio = document.createElement('audio');
+            currAudio.src = song.audioUrl;
             currAudio.preload = "metadata";
 
             currAudio.addEventListener('loadedmetadata' , ()=>{
                 const currDuration = currAudio.duration;
                 songDurationCont.textContent = formatTime(currDuration);
-            })
+            })*/
 
             function formatTime(seconds){
                 const minutes = Math.floor(seconds/60);
                 const secs = Math.floor(seconds%60);
-                return `${minutes} : ${secs.toString().padStart(2 , '0')}`
+                return `${minutes}:${secs.toString().padStart(2 , '0')}`
             }
 
 

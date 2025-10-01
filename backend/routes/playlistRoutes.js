@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const playlistController = require('../controllers/playlistController')
 
-router.get('/' , playlistController.getAllPlaylists);
+router.get('/' , playlistController.getAllPlaylists);                     // example : fetch('http://localhost:5000/playlists')
+router.get('/:id' , playlistController.getPlaylistById);      //example : fetch('http://localhost:5000/playlists/12345')
 
 module.exports = router;
 
