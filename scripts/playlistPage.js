@@ -1,5 +1,5 @@
-const urlParams = new URLSearchParams(window.location.search);
-const id = urlParams.get('playlistId');
+const url = new URL(window.location.href);
+const id = url.searchParams.get('playlistId');
 if(!id){
     alert('no playlist found in the URL!');
     return;
@@ -8,6 +8,7 @@ if(!id){
 fetch(`http://localhost:5000/playlists/${id}`)                    // `data/playlists.json`
     .then(res => res.json())
     .then(playlist => {
+        console.log(playlist);
 
         /* const urlPrams = new URLSearchParams(window.location.search);
         const index = parseInt(urlPrams.get('playlistIndex'));
@@ -58,7 +59,7 @@ fetch(`http://localhost:5000/playlists/${id}`)                    // `data/playl
             const songDurationCont = document.createElement('div');
             songDurationCont.classList.add('song-duration-cont');
 
-            const currSongDurationInSeconds = song.duration;
+            const currSongDurationInSeconds = song.durationSec;
             songDurationCont.textContent = formatTime(currSongDurationInSeconds);
 
 

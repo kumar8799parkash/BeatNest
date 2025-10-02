@@ -6,7 +6,7 @@ const playlistSchema = new mongoose.Schema({
     descriptionLong : String,
     songs : [{type : mongoose.Schema.Types.ObjectId , ref : 'Song'}],
     imageUrl : String,
-    tags : [{String}],
+    tags : [String],
     createdAt : {type : Date , default : Date.now}
 },{
   timestamps : true         // auto adds createdAt and updatedAt fields on each playlist

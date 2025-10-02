@@ -196,6 +196,29 @@
             loadRightCont('home');
         })
 
+        /*
+        When we are on home.js, and when user clicks on a particular playlist, this playlist's id get added to the url. and page changes to playlistPage.js(code is inside home.js)
+        now we want that when user clicks on the backward button, then page should change to home.js again and when clicks on forward button, then page should change to that particular playlist page again
+
+        to do this 'popstate' eventListener comes into play, 'popstate' triggers when:
+                You press the Back button.
+                You press the Forward button.
+                You call history.back(), history.forward(), or history.go(n).
+        **** it does not triggers on history.pushState() and history.replaceState().
+        */
+
+        window.addEventListener('popstate' , ()=>{
+            const url = new URL(window.location.href);
+            const id = url.searchParams.get('playlistId');
+
+            if(id){
+                loadRightCont('playlistPage');
+            }
+            else{
+                loadRightCont('home');
+            }
+        })
+
         /* artistCont = document.getElementsByClassName('artist-cont');
         Array.from(artistCont).forEach((artist, index) => {
             artist.addEventListener('click', () => {

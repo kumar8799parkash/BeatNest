@@ -14,7 +14,7 @@ exports.getPlaylistById = async(req , res)=>{
     try{
         const id = req.params.id;
 
-        if(!mongoose.Types.ObjectId.isValid(id)){                           // just checking if the id if valid(what ih user sent 123 as id)
+        if(!mongoose.Types.ObjectId.isValid(id)){                           // just checking if the id if valid(what if user sent 123 as id)
             return res.status(400).json({error : "Invalid playlist ID!"})
         }
 
