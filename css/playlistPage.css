@@ -223,15 +223,17 @@
     color: rgb(179, 179, 179);
 }
 
-.song-add-cont {
+.song-like-cont {
     height: 100%;
     width: 50px;
-    color: rgb(179, 179, 179);
-    font-size: 25px;
-    font-weight: lighter;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.song-like-heart-logo{
+    height: 40%;
+    width: 40%;
 }
 
 @media (max-width:600px) {

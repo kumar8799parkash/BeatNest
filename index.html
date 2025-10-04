@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="css/mainSlider.css">
     <link rel="stylesheet" href="css/volumeSlider.css">
     <link rel="stylesheet" href="css/playlistPage.css">
+    <link rel="icon" href="public/favicon.png" type="image/png">
 
     <style>
 
@@ -78,8 +79,8 @@
 
     <footer>
         <div class="left-footer-cont">
-            <div class="footer-image-cont"> <img id="footer-image" src="images/playlist images/playlistImage10.jpeg"
-                    alt=""></div>
+            <!-- <div class="footer-image-cont"> <img id="footer-image" src="images/playlist images/playlistImage10.jpeg" alt=""></div> -->
+            <div class="footer-image-cont"> <img id="footer-image" src="" alt=""></div>
             <div class="footer-text-cont" id="footer-text-cont">Lorem, ipsum dolor sit amet consectetu</div>
             <div class="playing-svg-cont"><img class="playing-svg-image" id="playing-svg-image" src="images/playing.gif"
                     alt=""></div>
@@ -107,7 +108,34 @@
     </footer>
 
 
+    <!-- WORKING OF CSS : link(or include) all the files inside the index.html and the respective css will be applied to the fetched html
+    WORKING OF JS : -> js code will run as soon as browser encounter it, the best practice is to keep the script code inside functions as functions will be invoked by our wish(ie when we call them)
+                    -> include(load) all the scripts in the index.html use defer keyword so that they do not run before html gets fully parsed
+                    -> so inside different pages(like home.js, playlistPage.js), i have defined functions which i will run when needed
+                    -> what does defer do?
+                                by default, the browser downloads and executes the script immediately as it encounters it. This means:
+                                HTML parsing pauses until the script finishes loading & running.
+                                This can slow down page rendering if the script is large or the network is slow.
 
+                                defer changes the behavior:
+                                Script is downloaded in parallel with HTML parsing.
+                                (It doesn’t block the browser from continuing to read your HTML.)
+
+                                Script execution is deferred until the HTML is completely parsed.
+                                (So, it always runs after the DOM is ready, but before the DOMContentLoaded event.)
+
+                                Execution order is preserved.
+                                If you have multiple script defer they run in the order they appear in the HTML.
+
+                                Difference vs. async
+                                defer = waits until HTML is fully parsed, preserves order.
+                                async = executes as soon as the script is downloaded, does not guarantee order. -->
+    
+
+    <script src="scripts/home.js" defer></script>
+    <script src="scripts/playlistPage.js" defer></script>
+    <script src="scripts/artistPage.js" defer></script>
+    <script src="scripts/leftCont.js" defer></script>
     <script>
 
         const bellCont = document.getElementById("bell-cont");
@@ -139,15 +167,21 @@
                     return response.text();                         // .text() converts to String
                 })
                 .then(data => {
-                    document.getElementById('right-cont').innerHTML = data;
+                    const rightCont = document.getElementById('right-cont');
+                    rightCont.innerHTML = '';
+                    rightCont.innerHTML = data;
 
-                    const oldScript = document.getElementById('right-dynamic-script');
+                    if(targetPage == 'home') initHomePage();
+                    else if(targetPage == 'playlistPage') initPlaylistPage();
+                    else if(targetPage == 'artistPage') initArtistPage();
+
+                    /* const oldScript = document.getElementById('right-dynamic-script');
                     if (oldScript) oldScript.remove();
 
                     const pageScript = document.createElement('script');
                     pageScript.src = `scripts/${targetPage}.js`;
                     pageScript.defer = true;        //Delays execution until HTML is parsed. Improves performance.(optional)
-                    pageScript.id = 'right-dynamic-script';  // 	Allows you to find/remove/replace this script easily in the DOM.(optional)
+                    pageScript.id = 'right-dynamic-script';  // 	Allows you to find/remove/replace this script easily in the DOM.(optional) */
 
                     /*
                     What it does: Sets the id attribute of the <script> element to 'dynamic-script'.
@@ -160,7 +194,7 @@
                     }
                     */
 
-                    document.body.appendChild(pageScript);
+                    /* document.body.appendChild(pageScript); */
                 })
         }
 
@@ -173,7 +207,10 @@
                 .then(data => {
                     document.getElementById('left-cont').innerHTML = data;
 
-                    const oldScript = document.getElementById('left-dynamic-script');
+                    if(targetPage == 'leftCont') initLeftCont();
+                    
+                    
+                    /* const oldScript = document.getElementById('left-dynamic-script');
                     if (oldScript) oldScript.remove();
 
                     const pageScript = document.createElement('script');
@@ -181,7 +218,7 @@
                     pageScript.defer = true;        //Delays execution until HTML is parsed. Improves performance.(optional)
                     pageScript.id = 'left-dynamic-script';  // 	Allows you to find/remove/replace this script easily in the DOM.(optional)
 
-                    document.body.appendChild(pageScript);
+                    document.body.appendChild(pageScript); */
                 })
         }
 
@@ -191,8 +228,15 @@
             loadLeftCont('leftCont');
         })
 
+
+        /*
+        URL(uniform resource locator) looks like : protocol://hostname:port/pathname?queryString#hash
+        */
         homeLogoCont = document.getElementById('home-logo-cont');
         homeLogoCont.addEventListener('click', () => {
+            const url = new URL(window.location.href);
+            url.searchParams.delete('playlistId');
+            window.history.pushState({} , '' , url.pathname , url.search);
             loadRightCont('home');
         })
 

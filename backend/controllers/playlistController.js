@@ -1,4 +1,6 @@
 const Playlist = require('../models/playlist');
+const mongoose = require('mongoose');
+const Song = require('../models/song');
 
 exports.getAllPlaylists = async(req , res)=>{
     try{
