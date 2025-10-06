@@ -11,6 +11,7 @@ const dotenv = require('dotenv');            // Hide secrets (DB passwords, API 
 const app = express();
 const port = 5000;
 const playlistRoutes = require('./routes/playlistRoutes');
+const artistRoutes = require('./routes/artistRoutes');
 
 //   app.use(cors());      to allow all the origins(even hackers can send request here)
 
@@ -30,10 +31,9 @@ app.use(express.static('public'));                                    // eg Url 
 //app.use('/images' , express.static('public/images'));               // if we want to serve images only
 
 app.use('/playlists' , playlistRoutes);
+app.use('/artists' , artistRoutes);
 
 connectDB();
-
-
 
 
 

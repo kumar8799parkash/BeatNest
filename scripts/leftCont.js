@@ -1,5 +1,5 @@
 function initLeftCont() {
-    fetch(`data/artistPlaylists.json`)
+    fetch(`http://localhost:5000/artists`)
         .then(res => res.json())
         .then(artistPlaylists => {
             const leftMainCont = document.getElementById('left-main-cont');
@@ -11,14 +11,14 @@ function initLeftCont() {
                 artistImageCont.classList.add('artist-image-cont');
 
                 const artistImage = document.createElement('img');
-                artistImage.src = `${artistPlaylists[index].artistCover}`;
+                artistImage.src = artistPlaylist.image;
 
                 const artistDetailCont = document.createElement('div');
                 artistDetailCont.classList.add('artist-detail-cont');
 
                 const nameCont = document.createElement('div');
                 nameCont.classList.add('name-cont');
-                nameCont.textContent = `${artistPlaylists[index].artistName}`;
+                nameCont.textContent = artistPlaylist.name;
 
                 const professionCont = document.createElement('div');
                 professionCont.classList.add('profession-cont');
