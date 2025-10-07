@@ -3,5 +3,6 @@ const router = express.Router();
 const artistController = require('../controllers/artistController');
 
 router.get('/' , artistController.getAllArtists);
+router.get('/:id' , artistController.getArtistById);
 
 module.exports = router;

@@ -4,6 +4,8 @@ const songSchema = new mongoose.Schema({
     title : {type : String , required : true , index : true},
     slug : {type : String , index : true},
     durationSec : Number,
+    artistName : String,
+    playlistName : String,
     audioUrl : {type : String , required : true},
     coverUrl : {type : String},
     artists : [{type : mongoose.Schema.Types.ObjectId , ref : 'Artist' , index : true}],

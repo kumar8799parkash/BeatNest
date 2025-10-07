@@ -6,6 +6,7 @@ function initLeftCont() {
             artistPlaylists.forEach((artistPlaylist, index) => {
                 const artistCont = document.createElement('div');
                 artistCont.classList.add('artist-cont');
+                artistCont.dataset.artistId = artistPlaylist._id;
 
                 const artistImageCont = document.createElement('div');
                 artistImageCont.classList.add('artist-image-cont');
@@ -47,7 +48,8 @@ function initLeftCont() {
             artistContsArray = Array.from(artistConts);
             artistContsArray.forEach((artistCont, index) => {
                 artistCont.addEventListener('click', () => {
-                    window.history.pushState({}, '', `?artistIndex=${index}`);
+                    const Id = artistCont.dataset.artistId;
+                    window.history.pushState({}, '', `?artistId=${Id}`);
                     loadRightCont('artistPage');
                 })
             })

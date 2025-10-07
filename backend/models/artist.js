@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Song = require('./song')
 
 const artistSchema = new mongoose.Schema({
     name : {type : String , required : true , index : true},
@@ -7,7 +8,7 @@ const artistSchema = new mongoose.Schema({
     bio : String,
     //images : {avatar : String , cover : String},
     image : String,
-    songs : [{type : mongoose.Schema.Types.ObjectId , ref : 'song'}],
+    songs : [{type : mongoose.Schema.Types.ObjectId , ref : 'Song'}],
     genres : [String],                                                      // [] means it can have many genres(like pop , jazz etc.)
     createdAt : {type : Date , default : Date.now}
 });

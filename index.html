@@ -236,6 +236,7 @@
         homeLogoCont.addEventListener('click', () => {
             const url = new URL(window.location.href);
             url.searchParams.delete('playlistId');
+            url.searchParams.delete('artistId');
             window.history.pushState({} , '' , url.pathname , url.search);
             loadRightCont('home');
         })
@@ -253,10 +254,14 @@
 
         window.addEventListener('popstate' , ()=>{
             const url = new URL(window.location.href);
-            const id = url.searchParams.get('playlistId');
+            const playlistId = url.searchParams.get('playlistId');
+            const artistId = url.searchParams.get('artistId');
 
-            if(id){
+            if(playlistId){
                 loadRightCont('playlistPage');
+            }
+            else if(artistId){
+                loadRightCont('artistPage');
             }
             else{
                 loadRightCont('home');
