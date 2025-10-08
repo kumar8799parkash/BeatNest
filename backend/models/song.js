@@ -4,11 +4,10 @@ const songSchema = new mongoose.Schema({
     title : {type : String , required : true , index : true},
     slug : {type : String , index : true},
     durationSec : Number,
-    artistName : String,
-    playlistName : String,
     audioUrl : {type : String , required : true},
     coverUrl : {type : String},
     artists : [{type : mongoose.Schema.Types.ObjectId , ref : 'Artist' , index : true}],
+    playlists : [{type : mongoose.Schema.Types.ObjectId , ref : 'Playlist' , index : true}],
     releaseDate : Date,
     genres : [String],              // like romantic, chappri , attitude, etc. etc.
     tags : [String]                 // like movie name, romantic etc. etc.

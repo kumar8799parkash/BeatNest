@@ -43,7 +43,7 @@ function initArtistPage() {
                 const songCoverCont = document.createElement('div');
                 songCoverCont.classList.add('song-cover-cont');
                 const songCoverImage = document.createElement('img');
-                songCoverImage.src = song.audioUrl;
+                songCoverImage.src = song.coverUrl;
                 songCoverCont.appendChild(songCoverImage);
 
                 const songNameCont = document.createElement('div');
@@ -101,5 +101,6 @@ function initArtistPage() {
                     songItem.classList.add('active-song-bg');
                 }
             })
+
         });
 }

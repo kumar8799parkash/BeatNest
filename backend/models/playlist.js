@@ -12,7 +12,8 @@ const playlistSchema = new mongoose.Schema({
   timestamps : true         // auto adds createdAt and updatedAt fields on each playlist
 })
 
-playlistSchema.index({title : 'text' , tags : 1});
+playlistSchema.index({title : 'text'});
+playlistSchema.index({tags : 'text'});
 
 const Playlist = mongoose.model('Playlist' , playlistSchema);
 module.exports = Playlist;
