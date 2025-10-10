@@ -3,8 +3,8 @@ const Song = require('./song')
 
 const artistSchema = new mongoose.Schema({
     name : {type : String , required : true , index : true},
-    descriptionLong : String,
     slug : {type : String , unique : true},               // for user friendly URLs
+    descriptionLong : String,
     bio : String,
     //images : {avatar : String , cover : String},
     image : String,
