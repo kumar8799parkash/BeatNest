@@ -2,7 +2,7 @@ function initArtistPage() {
     const url = new URL(window.location.href);
     const id = url.searchParams.get('artistId');
     if(!id) return;
-    fetch(`http://localhost:5000/artists/${id}`)
+    fetch(`http://beatnest-1.onrender.com/artists/${id}`)
         .then(res => res.json())
         .then(artistPlaylist => {                  // playlists = playlist
             /* const urlPrams = new URLSearchParams(window.location.search);
