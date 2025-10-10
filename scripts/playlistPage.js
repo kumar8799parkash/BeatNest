@@ -18,7 +18,7 @@ function initPlaylistPage() {
             playlistPageHeadingText.textContent = playlist.title;
 
             const playlistPageHeadingDesc = document.getElementById('playlistPage-heading-desc');
-            playlistPageHeadingDesc.textContent = playlist.descriptionShort;
+            playlistPageHeadingDesc.textContent = playlist.descriptionLong;
 
 
             const songItemsCont = document.getElementById('song-items-cont');

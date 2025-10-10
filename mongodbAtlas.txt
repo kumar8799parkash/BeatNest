@@ -1,0 +1,19 @@
+username : park1209kr99_db_user
+
+password : 9nFXiWBU5rxGTzqV
+
+
+
+
+username : parkashMongoDBAtlas
+
+password : parkashMongoDBAtlasPassword
+
+
+
+
+
+connection string : mongodb+srv://parkashMongoDBAtlas:<db_password>@beatnest.uvd3rgl.mongodb.net/
+
+Replace <db_password> with the password for the parkashMongoDBAtlas user. Ensure any options are URL encoded.  You can edit your database user password in Database Access. 
+
