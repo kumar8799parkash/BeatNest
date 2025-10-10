@@ -3,7 +3,7 @@ function initPlaylistPage() {
     const id = url.searchParams.get('playlistId');
     if (!id) return;
 
-    fetch(`http://beatnest-1.onrender.com/playlists/${id}`)                    // `data/playlists.json`
+    fetch(`https://beatnest-1.onrender.com/playlists/${id}`)                    // `data/playlists.json`
         .then(res => res.json())
         .then(playlist => {
 

@@ -1,5 +1,5 @@
 function initHomePage() {
-  fetch('http://beatnest-1.onrender.com/playlists')
+  fetch('https://beatnest-1.onrender.com/playlists')
     .then(res => res.json())
     .then(playlists => {
 

@@ -15,11 +15,13 @@ const artistRoutes = require('./routes/artistRoutes');
 
 //   app.use(cors());      to allow all the origins(even hackers can send request here)
 
-app.use(cors({
-  origin: ["http://127.0.0.1:3000", "http://localhost:3000"],
+
+app.use(cors({ origin: "*" }));
+/* app.use(cors({
+  origin: "*",
   methods: ['GET', 'POST'],
   allowedHeaders: ["Content-Type", "Authorization"]
-}))
+})) */
 
 dotenv.config();                            // This line reads your .env file and adds the variables inside it to process.env
 // So after dotenv.config(), you can use process.env.MY_VARIABLE anywhere in your app.

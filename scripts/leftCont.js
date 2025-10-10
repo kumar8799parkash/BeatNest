@@ -1,5 +1,5 @@
 function initLeftCont() {
-    fetch(`http://beatnest-1.onrender.com/artists`)
+    fetch(`https://beatnest-1.onrender.com/artists`)
         .then(res => res.json())
         .then(artistPlaylists => {
             const leftMainCont = document.getElementById('left-main-cont');
