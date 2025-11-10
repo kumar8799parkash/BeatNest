@@ -13,6 +13,7 @@ function initLeftCont() {
 
                 const artistImage = document.createElement('img');
                 artistImage.src = artistPlaylist.image;
+                artistImage.loading = 'lazy';
 
                 const artistDetailCont = document.createElement('div');
                 artistDetailCont.classList.add('artist-detail-cont');
