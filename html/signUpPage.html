@@ -76,11 +76,10 @@
 
                 if(res.ok){
                     messageCont.style.color = "green";
-                    messageCont.textContent = "Sign up successful! check your email to verify.";
-                    
+                    messageCont.textContent = data.msg;
                 }else{
                     messageCont.style.color = "red";
-                    messageCont.textContent = data.msg || "Signup failed";
+                    messageCont.textContent = data.msg || data.details || data.error || "Signup failed";
                 }
 
             }catch(err){

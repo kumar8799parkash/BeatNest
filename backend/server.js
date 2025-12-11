@@ -32,8 +32,8 @@ app.use(express.static('public'));                                    // eg Url 
 //app.use('/static', express.static('public'));                       // it's same as above : eg Url : http://localhost:3000/static/images/pic.jpg
 //app.use('/images' , express.static('public/images'));               // if we want to serve images only
 
-app.use('/playlists' , playlistRoutes);
-app.use('/artists' , artistRoutes);
+app.use('/playlists', playlistRoutes);
+app.use('/artists', artistRoutes);
 
 connectDB();
 
@@ -49,9 +49,9 @@ app.post('/signup', async (req, res) => {              // remember that here we 
       return res.status(400).json({ msg: "User already exists! Go and Log-in" });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);          // hashing the password
+    const hashedPassword = await bcrypt.hash(password, 10);          // hashing the password, 10 means 2**10 times hashing, hashing means changing the content(tokens/alphabets) randomly(without changing the length of the hash/password), each time we hash, we hash the previous hash again so final password is much deviated from the original password
 
-    const verificationToken = crypto.randomBytes(32).toString("hex");
+    const verificationToken = crypto.randomBytes(32).toString("hex");     // 32 means 32 bytes(means 32*8 = 256 bits). Hex means base-16 (0–9 + A–F) 32 bytes means 64 characters(thetswhy tokens are of 64 length because 1 hex character = 4 bits)
 
     const newUser = new User({
       email: email,
@@ -79,7 +79,7 @@ app.post('/signup', async (req, res) => {              // remember that here we 
       html: `<p>Click   <a href="${verificationURL}">here</a>   to verify your email</p>`
     });
 
-    res.json({ msg: "Sign up successful! please check your Gmail to verify." });
+    res.json({ msg: "Sign up successful! please check your Gmail to verify." });    // here res.status = 200 code by default unless we set it manually(res.json({ msg: ".." });   and  res.status(200).json({ msg: ".." }); are same)
 
 
     //const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
@@ -99,24 +99,29 @@ app.get('/verify/:token', async (req, res) => {
 
   try {
     const token = req.params.token;                         // destructuring(also okay) : const {token} = req.params;
-                                                            // for multiple params : const { userId, postId } = req.params;
+    // for multiple params : const { userId, postId } = req.params;
     const user = await User.findOne({
-      verificationToken : token,
-      verificationTokenExpiry : {$gt : Date.now() }         // find documents where verificationTokenExpiry time is greater than current time, this means that the token is not expired yet
+      verificationToken: token,
+      verificationTokenExpiry: { $gt: Date.now() }         // find documents where verificationTokenExpiry time is greater than current time, this means that the token is not expired yet
     });
 
     if (!user) {
-      return res.status(400).json({ error: "your time is expired, signUp again!" });
+      await User.updateOne(
+        { verificationToken: token },
+        { verificationToken: undefined, verificationTokenExpiry: undefined }
+      );
+      return res.status(400).json({ error: "Invalid or expired link" });
     }
+
 
     user.verified = true;
     user.verificationToken = undefined;
     user.verificationTokenExpiry = undefined;
     await user.save();
 
-    res.send("Email verified successfully! now you can log in");
-  }catch(err){
-    res.status(500).json({msg : "Error while user verification!" , details : err.message});
+    res.send("Email verified successfully! just wait a minute we are transferring you to log-in page");
+  } catch (err) {
+    res.status(500).json({ msg: "Error while user verification!", details: err.message });
   }
 
 })
@@ -134,9 +139,9 @@ app.post('/login', async (req, res) => {                 // remember that here w
     const user = await User.findOne({ email });
     if (!user) return res.status(400).json({ msg: "User does not exist!" })
 
-    
-    if(!user.verified){
-      return res.status(401).json({msg : "Please verify your email before logging in!"});
+
+    if (!user.verified) {
+      return res.status(401).json({ msg: "Please verify your email before logging in!" });
     }
 
     // if user exists the check if the current password(password) is equal to the user.password
@@ -149,14 +154,16 @@ app.post('/login', async (req, res) => {                 // remember that here w
       { expiresIn: "1h" }
     );
 
-    res.json({ token,
-      user: { id: user._id, email: user.email } 
+    res.json({
+      token,
+      user: { id: user._id, email: user.email }
     });
 
   } catch (err) {
-    res.status(500).json({ error: "Error in login logic!",
-    details: err.message
-  });
+    res.status(500).json({
+      error: "Error in login logic!",
+      details: err.message
+    });
   }
 
 });
