@@ -23,7 +23,8 @@ app.use(cors({ origin: "*" }));
   allowedHeaders: ["Content-Type", "Authorization"]
 })) */
 
-dotenv.config();                            // This line reads your .env file and adds the variables inside it to process.env
+dotenv.config({ path: __dirname + '/.env' });
+//dotenv.config();                            // This line reads your .env file and adds the variables inside it to process.env
 // So after dotenv.config(), you can use process.env.MY_VARIABLE anywhere in your app.
 
 app.use(express.json());                     // Middleware to parse JSON data from frontend and store it in req.body
