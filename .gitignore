@@ -1,0 +1,8 @@
+# ignore the environment variables:
+backend/.env
+
+#ignore node_modules                ***  node_modules is a folder, so we will use a slash(/) in last. Writing slash(/) means we are telling github that node_modules is a folder(slash(/) => folder  and  NO-slash => file) and ignore this folder and everything inside this folder(node_modules)
+backend/node_modules/
+
+#ignore my own notes
+backend/notes.txt
