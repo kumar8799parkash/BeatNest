@@ -1,4 +1,4 @@
-const CONFIG = require('../config/config.js');
+import CONFIG from '../config/config.js';
 function initHomePage() {
   fetch(`${CONFIG.BASE_URL}/playlists`)
     .then(res => res.json())

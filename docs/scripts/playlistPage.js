@@ -1,4 +1,4 @@
-const CONFIG = require('../config/config.js');
+import CONFIG from '../config/config.js';
 function initPlaylistPage() {
     const url = new URL(window.location.href);
     const id = url.searchParams.get('playlistId');

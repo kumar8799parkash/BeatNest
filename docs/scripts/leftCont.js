@@ -1,4 +1,4 @@
-const CONFIG = require('../config/config.js');
+import CONFIG from '../config/config.js';
 function initLeftCont() {
     fetch(`${CONFIG.BASE_URL}/artists`)
         .then(res => res.json())
