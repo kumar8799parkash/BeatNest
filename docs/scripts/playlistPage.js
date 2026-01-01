@@ -1,9 +1,10 @@
+const CONFIG = require('../config/config.js');
 function initPlaylistPage() {
     const url = new URL(window.location.href);
     const id = url.searchParams.get('playlistId');
     if (!id) return;
 
-    fetch(`https://beatnest-1.onrender.com/playlists/${id}`)                    // `data/playlists.json`
+    fetch(`${CONFIG.BASE_URL}/playlists/${id}`)                    // `data/playlists.json`
         .then(res => res.json())
         .then(playlist => {
 

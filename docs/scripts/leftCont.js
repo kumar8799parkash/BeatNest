@@ -1,5 +1,6 @@
+const CONFIG = require('../config/config.js');
 function initLeftCont() {
-    fetch(`https://beatnest-1.onrender.com/artists`)
+    fetch(`${CONFIG.BASE_URL}/artists`)
         .then(res => res.json())
         .then(artistPlaylists => {
             const leftMainCont = document.getElementById('left-main-cont');

@@ -1,5 +1,6 @@
+const CONFIG = require('../config/config.js');
 function initHomePage() {
-  fetch('https://beatnest-1.onrender.com/playlists')
+  fetch(`${CONFIG.BASE_URL}/playlists`)
     .then(res => res.json())
     .then(playlists => {
 

@@ -1,8 +1,9 @@
+const CONFIG = require('../config/config.js');
 function initArtistPage() {
     const url = new URL(window.location.href);
     const id = url.searchParams.get('artistId');
     if(!id) return;
-    fetch(`https://beatnest-1.onrender.com/artists/${id}`)
+    fetch(`${CONFIG.BASE_URL}/artists/${id}`)
         .then(res => res.json())
         .then(artistPlaylist => {                  // playlists = playlist
             /* const urlPrams = new URLSearchParams(window.location.search);
