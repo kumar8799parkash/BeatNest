@@ -1,4 +1,5 @@
 import CONFIG from '../config/config.js';
+import { loadRightCont } from './index.js';
 function initLeftCont() {
     fetch(`${CONFIG.BASE_URL}/artists`)
         .then(res => res.json())
@@ -46,8 +47,8 @@ function initLeftCont() {
 
             });
 
-            artistConts = document.getElementsByClassName('artist-cont');
-            artistContsArray = Array.from(artistConts);
+            const artistConts = document.getElementsByClassName('artist-cont');
+            const artistContsArray = Array.from(artistConts);
             artistContsArray.forEach((artistCont, index) => {
                 artistCont.addEventListener('click', () => {
                     const Id = artistCont.dataset.artistId;
@@ -58,3 +59,5 @@ function initLeftCont() {
 
         })
 }
+
+export default initLeftCont;

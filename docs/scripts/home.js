@@ -1,4 +1,5 @@
 import CONFIG from '../config/config.js';
+import { loadRightCont } from './index.js';
 function initHomePage() {
   fetch(`${CONFIG.BASE_URL}/playlists`)
     .then(res => res.json())
@@ -64,6 +65,7 @@ function initHomePage() {
     })
 }
 
+export default initHomePage;
 
 
 

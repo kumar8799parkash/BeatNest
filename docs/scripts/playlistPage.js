@@ -1,4 +1,5 @@
 import CONFIG from '../config/config.js';
+import { playSong } from './index.js';
 function initPlaylistPage() {
     const url = new URL(window.location.href);
     const id = url.searchParams.get('playlistId');
@@ -113,3 +114,5 @@ function initPlaylistPage() {
             })
         });
 }
+
+export default initPlaylistPage;
