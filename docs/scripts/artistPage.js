@@ -1,9 +1,10 @@
 import CONFIG from '../config/config.js';
+import { setSong, subscribe } from '../state/playerState.js';
 import { playSong } from './index.js';
 function initArtistPage() {
     const url = new URL(window.location.href);
     const id = url.searchParams.get('artistId');
-    if(!id) return;
+    if (!id) return;
     fetch(`${CONFIG.BASE_URL}/artists/${id}`)
         .then(res => res.json())
         .then(artistPlaylist => {                  // playlists = playlist
@@ -40,7 +41,7 @@ function initArtistPage() {
 
                 const songNumberCont = document.createElement('div');
                 songNumberCont.classList.add('song-number-cont');
-                songNumberCont.textContent = `${songIndex+1}`;
+                songNumberCont.textContent = `${songIndex + 1}`;
 
                 const songCoverCont = document.createElement('div');
                 songCoverCont.classList.add('song-cover-cont');
@@ -86,25 +87,34 @@ function initArtistPage() {
             });
 
 
+        });
 
 
-            // playing songs
-            const songItems = document.getElementsByClassName('song-item');
-            const songItemsArray = Array.from(songItems);
-            songItemsArray.forEach((songItem, songIndex) => {
-                songItem.addEventListener('click', () => {
+    // playing songs
+    const songItems = document.getElementsByClassName('song-item');
+    const songItemsArray = Array.from(songItems);
+    songItemsArray.forEach((songItem, songIndex) => {
+        songItem.addEventListener('click', () => {
 
-                    songItem.classList.add('active-song-bg');
-                    const audioSource = songItem.dataset.audio;
-                    playSong(songItem, audioSource);
-                });
-
-                if (songItem.dataset.id === currentSongId) {
-                    songItem.classList.add('active-song-bg');
-                }
+            const currPlaylist = songItemsArray.map((el) => {
+                return { id: el.dataset.id, audio: el.dataset.audio };
             })
+            setSong({ songId: songItem.dataset.id, playlist: currPlaylist });
 
         });
+    })
+
+    subscribe((state) => {
+        const songItems = document.getElementsByClassName('song-item');
+        [...songItems].forEach((songItem) => {
+            if (songItem.dataset.id == state.currentSongId) {
+                songItem.classList.add('active-song-bg');
+            }
+            else {
+                songItem.classList.remove('active-song-bg');
+            }
+        })
+    })
 }
 
 export default initArtistPage;

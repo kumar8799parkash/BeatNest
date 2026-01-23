@@ -1,4 +1,5 @@
 import CONFIG from '../config/config.js';
+import { setSong, subscribe } from '../state/playerState.js';
 import { playSong } from './index.js';
 function initPlaylistPage() {
     const url = new URL(window.location.href);
@@ -96,23 +97,37 @@ function initPlaylistPage() {
                 songItemsCont.appendChild(songItem);
             });
 
-
-            // playing songs
-            const songItems = document.getElementsByClassName('song-item');
-            const songItemsArray = Array.from(songItems);
-            songItemsArray.forEach((songItem, songIndex) => {
-                songItem.addEventListener('click', () => {
-
-                    songItem.classList.add('active-song-bg');
-                    const audioSource = songItem.dataset.audio;
-                    playSong(songItem, audioSource);
-                });
-
-                if (songItem.dataset.id === currentSongId) {
-                    songItem.classList.add('active-song-bg');
-                }
-            })
         });
+
+
+    // playing songs
+    const songItems = document.getElementsByClassName('song-item');
+    const songItemsArray = Array.from(songItems);
+    songItemsArray.forEach((songItem, songIndex) => {
+        songItem.addEventListener('click', () => {
+
+            const currPlaylist = songItemsArray.map((el) => {
+                return { id: el.dataset.id, audio: el.dataset.audio };
+            })
+            setSong({ songId: songItem.dataset.id, playlist: currPlaylist });
+
+        });
+    })
+
+    subscribe((state)=>{
+        const songItems = document.getElementsByClassName('song-item');
+        [...songItems].forEach( (songItem)=>{
+            if(songItem.dataset.id == state.currentSongId){
+                songItem.classList.add('active-song-bg');
+            }
+            else{
+                songItem.classList.remove('active-song-bg');
+            }
+        })
+    })
+
+
+
 }
 
 export default initPlaylistPage;
