@@ -2,6 +2,7 @@ const express = require('express');
 const connectDB = require('./config/db');
 const nodemailer = require('nodemailer');
 const User = require('./models/user');
+const Song = require('./models/song')
 const crypto = require('crypto');
 const cors = require('cors');                // CORS = Cross-Origin Resource Sharing. to specify frontend(3000 here) who can send requests
 const jwt = require('jsonwebtoken');         // To create login session tokens

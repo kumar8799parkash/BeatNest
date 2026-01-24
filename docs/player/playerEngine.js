@@ -11,17 +11,27 @@ subscribe((state) => {
     if (!sound || sound.src !== song.audioUrl) {
         if (sound) sound.pause();
         sound = new Audio(song.audioUrl);
-        sound.play();
     }
 
 })
 
+export function playSound(){
+    if(sound) sound.play();
+}
+
+export function pauseSound(){
+    if(sound) sound.pause();
+}
+
 function getSongById(songId) {
 
-    return fetch(`${CONFIG}/songs/${songId}`)
+    return fetch(`${CONFIG.BASE_URL}/songs/${songId}`)
         .then((res) => { return res.json() });
 
 }
+
+
+
 
 // below are both correct and learning approaches
 // FETCH RETURNS PROMISE

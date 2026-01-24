@@ -1,6 +1,9 @@
 import CONFIG from '../config/config.js';
 import { setSong, subscribe } from '../state/playerState.js';
 import { playSong } from './index.js';
+import { playSound } from '../player/playerEngine.js';
+
+
 function initPlaylistPage() {
     const url = new URL(window.location.href);
     const id = url.searchParams.get('playlistId');
@@ -110,6 +113,7 @@ function initPlaylistPage() {
                 return { id: el.dataset.id, audio: el.dataset.audio };
             })
             setSong({ songId: songItem.dataset.id, playlist: currPlaylist });
+            playSound();
 
         });
     })
@@ -126,7 +130,7 @@ function initPlaylistPage() {
         })
     })
 
-
+    
 
 }
 
