@@ -2,6 +2,9 @@ import initArtistPage from "./artistPage.js"
 import initHomePage from "./home.js"
 import initLeftCont from "./leftCont.js"
 import initPlaylistPage from "./playlistPage.js"
+import { subscribe } from "../state/playerState.js"
+import '../player/playerEngine.js'
+
 
 const bellCont = document.getElementById("bell-cont");
 const signUpButton = document.getElementById("sign-up-button");

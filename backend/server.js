@@ -7,7 +7,7 @@ const cors = require('cors');                // CORS = Cross-Origin Resource Sha
 const jwt = require('jsonwebtoken');         // To create login session tokens
 const bcrypt = require('bcrypt');            // bcrypt is a password-hashing function designed for securely storing passwords.
 const dotenv = require('dotenv');            // Hide secrets (DB passwords, API keys, JWT secrets).
-//const mongoose = require('mongoose');       // Mongoose allows you to define a schema, mongoDB is itself schema-less(no defined structure) although it is not needed here as are just using the schemas(like User)in server.js , but we are not defining them here and also we are not using any mongoose function here
+const mongoose = require('mongoose');       // Mongoose allows you to define a schema, mongoDB is itself schema-less(no defined structure) although it is not needed here as are just using the schemas(like User)in server.js , but we are not defining them here and also we are not using any mongoose function here
 const app = express();
 const port = 5000;
 const playlistRoutes = require('./routes/playlistRoutes');
@@ -15,6 +15,7 @@ const artistRoutes = require('./routes/artistRoutes');
 
 //   app.use(cors());      to allow all the origins(even hackers can send request here)
 
+connectDB();
 
 app.use(cors({ origin: "*" }));
 /* app.use(cors({
@@ -36,8 +37,27 @@ app.use(express.static('public'));                                    // eg Url 
 app.use('/playlists', playlistRoutes);
 app.use('/artists', artistRoutes);
 
-connectDB();
 
+app.get('/songs/:songId' , async(req , res)=>{
+  try{
+    const currentId = req.params.songId;
+
+    if(!mongoose.Types.ObjectId.isValid(currentId)){
+      return res.status(400).json({error : 'Invalid song Id!'})    // 400 is for bad request
+    }
+
+    const currentSong = await Song.findById(currentId);
+
+    if(!currentSong){
+      return res.status(404).json({error : 'song not found!'});
+    }
+    res.json(currentSong);
+
+  }
+  catch(err){
+    res.status(500).json({error : err.message});
+  }
+})
 
 
 
