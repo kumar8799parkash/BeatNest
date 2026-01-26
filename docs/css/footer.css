@@ -47,6 +47,7 @@ footer {
     width: 100%;
     cursor: pointer;
     filter: opacity(0);
+    transition: filter 0.3s ease-in-out;
 }
 
 

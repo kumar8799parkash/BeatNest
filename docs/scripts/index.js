@@ -1,9 +1,12 @@
+import '../state/playerState.js'
+import '../player/playerEngine.js'
+import './footerUpdate.js'
+
 import initArtistPage from "./artistPage.js"
 import initHomePage from "./home.js"
 import initLeftCont from "./leftCont.js"
 import initPlaylistPage from "./playlistPage.js"
 import { subscribe } from "../state/playerState.js"
-import '../player/playerEngine.js'
 
 
 const bellCont = document.getElementById("bell-cont");

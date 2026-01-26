@@ -6,6 +6,15 @@ let state = {
 
 const listeners = new Set();
 
+export function getState(){
+    return {...state};
+}
+
+export function setPlaying(isPlaying){
+    state.isPlaying = isPlaying;
+    notify();
+}
+
 export function setSong({songId , playlist}){
     state.currentSongId = songId;
     state.currentPlaylist = playlist;

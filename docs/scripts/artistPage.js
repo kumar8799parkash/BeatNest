@@ -1,7 +1,5 @@
 import CONFIG from '../config/config.js';
 import { setSong, subscribe } from '../state/playerState.js';
-import { playSong } from './index.js';
-import { playSound } from '../player/playerEngine.js';
 
 
 function initArtistPage() {
@@ -39,6 +37,8 @@ function initArtistPage() {
                 const songItem = document.createElement('div');
                 songItem.classList.add('song-item');
                 songItem.dataset.audio = song.audioUrl;
+
+                songItem.dataset.id = song._id;
 
                 //songItem.dataset.id = `${index}-${songIndex}`;
 
@@ -90,35 +90,34 @@ function initArtistPage() {
             });
 
 
-        });
+            // playing songs
+            const songItems = document.getElementsByClassName('song-item');
+            const songItemsArray = Array.from(songItems);
+            songItemsArray.forEach((songItem, songIndex) => {
+                songItem.addEventListener('click', () => {
 
+                    const currPlaylist = songItemsArray.map((el) => {
+                        return { id: el.dataset.id, audio: el.dataset.audio };
+                    })
+                    setSong({ songId: songItem.dataset.id, playlist: currPlaylist });
 
-    // playing songs
-    const songItems = document.getElementsByClassName('song-item');
-    const songItemsArray = Array.from(songItems);
-    songItemsArray.forEach((songItem, songIndex) => {
-        songItem.addEventListener('click', () => {
-
-            const currPlaylist = songItemsArray.map((el) => {
-                return { id: el.dataset.id, audio: el.dataset.audio };
+                });
             })
-            setSong({ songId: songItem.dataset.id, playlist: currPlaylist });
-            playSound();
+
+            subscribe((state) => {
+                const songItems = document.getElementsByClassName('song-item');
+                [...songItems].forEach((songItem) => {
+                    if (songItem.dataset.id === state.currentSongId) {
+                        songItem.classList.add('active-song-bg');
+                    }
+                    else {
+                        songItem.classList.remove('active-song-bg');
+                    }
+                })
+            })
+
 
         });
-    })
-
-    subscribe((state) => {
-        const songItems = document.getElementsByClassName('song-item');
-        [...songItems].forEach((songItem) => {
-            if (songItem.dataset.id == state.currentSongId) {
-                songItem.classList.add('active-song-bg');
-            }
-            else {
-                songItem.classList.remove('active-song-bg');
-            }
-        })
-    })
 
 
 }

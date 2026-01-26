@@ -1,27 +1,45 @@
-import { subscribe } from "../state/playerState.js";
+import { subscribe, setSong } from "../state/playerState.js";
 import CONFIG from "../config/config.js";
 
 let sound = null;
 
+function playNextSong(state) {
+    const len = (state.currentPlaylist).length;
+    if (len == 0) return;
+    const index = (state.currentPlaylist).findIndex((song) => {
+        return song.id === state.currentSongId;
+    })
+    if (index == -1) return;
+
+    const nextIndex = (index + 1) % (len);
+    const nextId = state.currentPlaylist[nextIndex].id
+    setSong({ songId: nextId, playlist: state.currentPlaylist });
+}
+
+
 subscribe((state) => {
     if (!state.currentSongId) return;
 
-    const song = getSongById(state.currentSongId);
+    getSongById(state.currentSongId).then((song) => {
+        if (!sound || sound.src !== song.audioUrl) {
+            if (sound) sound.pause();
+            sound = new Audio(song.audioUrl);
+            sound.play();
 
-    if (!sound || sound.src !== song.audioUrl) {
-        if (sound) sound.pause();
-        sound = new Audio(song.audioUrl);
-    }
+        }
+
+        if (state.isPlaying) {
+            sound.play();
+        }
+        else {
+            sound.pause();
+        }
+        sound.onended = () => {
+            playNextSong(state);
+        }
+    })
 
 })
-
-export function playSound(){
-    if(sound) sound.play();
-}
-
-export function pauseSound(){
-    if(sound) sound.pause();
-}
 
 function getSongById(songId) {
 
@@ -29,6 +47,7 @@ function getSongById(songId) {
         .then((res) => { return res.json() });
 
 }
+
 
 
 
