@@ -1,6 +1,6 @@
 import { subscribe , getState , setSong , setPlaying } from "../state/playerState.js";
 import CONFIG from "../config/config.js";
-import { subscribeEngine } from "../player/playerEngine.js";
+import { subscribeEngine , seek , setVolume} from "../player/playerEngine.js";
 
 const footerImage = document.getElementById('footer-image');
 const footerSongName = document.getElementById('footer-text-cont');
@@ -81,6 +81,21 @@ playPauseButton.addEventListener('click' , ()=>{
 const mainSlider = document.getElementById('main-slider');
 const volumeSlider = document.getElementById('volume-slider');
 
-subscribeEngine((event , payload)=>{
-    
+subscribeEngine((event , data)=>{
+    if(event === "metadata"){
+        mainSlider.max = data.duration;
+    }
+
+    if(event === "timeupdate"){
+        mainSlider.value = data.currentTime;
+    }
+})
+
+
+mainSlider.addEventListener('input' , ()=>{
+    seek(mainSlider.value);
+})
+
+volumeSlider.addEventListener('input' , ()=>{
+    setVolume(volumeSlider.value);
 })

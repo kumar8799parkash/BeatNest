@@ -19,6 +19,18 @@ function playNextSong(state) {
 
 let engineListeners = new Set();
 
+export function seek(time){
+    if(sound){
+        sound.currentTime = time;
+    }
+}
+
+export function setVolume(volume){
+    if(sound){
+        sound.volume = volume;
+    }
+}
+
 export function subscribeEngine(cb){
     engineListeners.add(cb);
 }
@@ -44,6 +56,14 @@ subscribe((state) => {
         else {
             sound.pause();
         }
+        
+        sound.addEventListener("loadedmetadata" , ()=>{
+            emit('metadata', {duration : sound.duration});
+        });
+
+        sound.addEventListener("timeupdate" , ()=>{
+            emit('timeupdate' , {currentTime : sound.currentTime})
+        })
 
         sound.onended = () => {
             playNextSong(state);

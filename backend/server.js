@@ -13,6 +13,7 @@ const app = express();
 const port = 5000;
 const playlistRoutes = require('./routes/playlistRoutes');
 const artistRoutes = require('./routes/artistRoutes');
+const { uptime } = require('process');
 
 //   app.use(cors());      to allow all the origins(even hackers can send request here)
 
@@ -37,6 +38,11 @@ app.use(express.static('public'));                                    // eg Url 
 
 app.use('/playlists', playlistRoutes);
 app.use('/artists', artistRoutes);
+
+
+app.get("/health" , (req , res)=>{
+  res.sendStatus(200);
+});
 
 
 app.get('/songs/:songId' , async(req , res)=>{
