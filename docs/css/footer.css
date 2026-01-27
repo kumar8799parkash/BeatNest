@@ -94,7 +94,7 @@ footer {
 .buttons-cont img {
     height: 30px;
     width: 30px;
-    filter: invert(0.7);
+    filter: invert(0.4);
     cursor: pointer;
     transition: filter, 0.2s ease;
 }

@@ -1,6 +1,6 @@
 let state = {
     currentSongId : localStorage.getItem('currentSongId'),
-    currentPlaylist : [],
+    currentPlaylist : JSON.parse(localStorage.getItem('currentPlaylist')) || [],
     isPlaying : false
 };
 
@@ -21,6 +21,7 @@ export function setSong({songId , playlist}){
     state.isPlaying = true;
 
     localStorage.setItem('currentSongId' , songId);
+    localStorage.setItem('currentPlaylist' , JSON.stringify(playlist));
 
     notify();
 }

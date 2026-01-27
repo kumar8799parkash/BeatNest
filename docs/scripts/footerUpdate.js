@@ -1,5 +1,6 @@
 import { subscribe , getState , setSong , setPlaying } from "../state/playerState.js";
 import CONFIG from "../config/config.js";
+import { subscribeEngine } from "../player/playerEngine.js";
 
 const footerImage = document.getElementById('footer-image');
 const footerSongName = document.getElementById('footer-text-cont');
@@ -74,4 +75,12 @@ forwardPlayButton.addEventListener('click' , ()=>{
 playPauseButton.addEventListener('click' , ()=>{
     const state = getState();
     setPlaying(!(state.isPlaying));
+})
+
+
+const mainSlider = document.getElementById('main-slider');
+const volumeSlider = document.getElementById('volume-slider');
+
+subscribeEngine((event , payload)=>{
+    
 })

@@ -17,6 +17,17 @@ function playNextSong(state) {
 }
 
 
+let engineListeners = new Set();
+
+export function subscribeEngine(cb){
+    engineListeners.add(cb);
+}
+
+function emit(event , payload={}){
+    engineListeners.forEach((cb)=>{ cb(event , payload) });
+}
+
+
 subscribe((state) => {
     if (!state.currentSongId) return;
 
@@ -25,7 +36,6 @@ subscribe((state) => {
             if (sound) sound.pause();
             sound = new Audio(song.audioUrl);
             sound.play();
-
         }
 
         if (state.isPlaying) {
@@ -34,6 +44,7 @@ subscribe((state) => {
         else {
             sound.pause();
         }
+
         sound.onended = () => {
             playNextSong(state);
         }
