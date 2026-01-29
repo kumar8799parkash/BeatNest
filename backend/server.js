@@ -99,7 +99,7 @@ app.post('/signup', async (req, res) => {              // remember that here we 
       }
     });
 
-    const verificationURL = `http://192.168.1.10:5000/verify/${verificationToken}`;
+    const verificationURL = `https://beatnest-version1-00.onrender.com/verify/${verificationToken}`;
     await transporter.sendMail({
       from: `"BeatNest" <${process.env.EMAIL_USER}>`,          //SYNTAX : "Display Name" <email@domain.com>  (Display name displayed in inbox)
       to: email,
@@ -153,8 +153,6 @@ app.get('/verify/:token', async (req, res) => {
   }
 
 })
-
-
 
 
 
