@@ -14,6 +14,7 @@ const port = 5000;
 const playlistRoutes = require('./routes/playlistRoutes');
 const artistRoutes = require('./routes/artistRoutes');
 const { uptime } = require('process');
+const { error } = require('console');
 
 //   app.use(cors());      to allow all the origins(even hackers can send request here)
 
@@ -40,29 +41,29 @@ app.use('/playlists', playlistRoutes);
 app.use('/artists', artistRoutes);
 
 
-app.get("/health" , (req , res)=>{
+app.get("/health", (req, res) => {
   res.sendStatus(200);
 });
 
 
-app.get('/songs/:songId' , async(req , res)=>{
-  try{
+app.get('/songs/:songId', async (req, res) => {
+  try {
     const currentId = req.params.songId;
 
-    if(!mongoose.Types.ObjectId.isValid(currentId)){
-      return res.status(400).json({error : 'Invalid song Id!'})    // 400 is for bad request
+    if (!mongoose.Types.ObjectId.isValid(currentId)) {
+      return res.status(400).json({ error: 'Invalid song Id!' })    // 400 is for bad request
     }
 
     const currentSong = await Song.findById(currentId);
 
-    if(!currentSong){
-      return res.status(404).json({error : 'song not found!'});
+    if (!currentSong) {
+      return res.status(404).json({ error: 'song not found!' });
     }
     res.json(currentSong);
 
   }
-  catch(err){
-    res.status(500).json({error : err.message});
+  catch (err) {
+    res.status(500).json({ error: err.message });
   }
 })
 
@@ -90,6 +91,7 @@ app.post('/signup', async (req, res) => {              // remember that here we 
     })
 
     await newUser.save();
+    console.log("new user saved successfully but still not verified!");
 
     const transporter = nodemailer.createTransport({
       service: "Gmail",
@@ -99,16 +101,24 @@ app.post('/signup', async (req, res) => {              // remember that here we 
       }
     });
 
-    const verificationURL = `https://beatnest-version1-00.onrender.com/verify/${verificationToken}`;
-    await transporter.sendMail({
-      from: `"BeatNest" <${process.env.EMAIL_USER}>`,          //SYNTAX : "Display Name" <email@domain.com>  (Display name displayed in inbox)
-      to: email,
-      subject: "Verify your BeatNest account",
-      html: `<p>Click   <a href="${verificationURL}">here</a>   to verify your email</p>`
-    });
+    const verificationURL = `https://beatnest-version1-00.onrender.com/verify/${encodeURIComponent(verificationToken)}`;
 
-    res.json({ msg: "Sign up successful! please check your Gmail to verify." });    // here res.status = 200 code by default unless we set it manually(res.json({ msg: ".." });   and  res.status(200).json({ msg: ".." }); are same)
+    try {
+      await transporter.sendMail({
+        from: `"BeatNest" <${process.env.EMAIL_USER}>`,          //SYNTAX : "Display Name" <email@domain.com>  (Display name displayed in inbox)
+        to: email,
+        subject: "Verify your BeatNest account",
+        html: `<p>Click   <a href="${verificationURL}">here</a>   to verify your email</p>`
+      });
+      console.log("Email sent successfully");
+    }
+    catch(mailError){
+      console.log("EMAIL SEND FAILED : " , mailError);
+      await User.deleteOne({email});
+      throw new Error("verification email could not be sent!")
+    }
 
+    res.status(201).json({ msg: "Sign up successful! please check your Gmail to verify." });    // here res.status = 200 code by default unless we set it manually(res.json({ msg: ".." });   and  res.status(200).json({ msg: ".." }); are same)
 
     //const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
     //res.json({ token, user: { id: newUser._id, email: newUser.email } });
