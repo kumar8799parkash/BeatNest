@@ -1,6 +1,6 @@
 const express = require('express');
 const connectDB = require('./config/db');
-const nodemailer = require('nodemailer');
+const sgMail = require('@sendgrid/mail')
 const User = require('./models/user');
 const Song = require('./models/song')
 const crypto = require('crypto');
@@ -19,6 +19,7 @@ const { error } = require('console');
 //   app.use(cors());      to allow all the origins(even hackers can send request here)
 
 connectDB();
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 app.use(cors({ origin: "*" }));
 /* app.use(cors({
@@ -93,31 +94,30 @@ app.post('/signup', async (req, res) => {              // remember that here we 
     await newUser.save();
     console.log("new user saved successfully but still not verified!");
 
-    const transporter = nodemailer.createTransport({
-      host : "smtp.sendgrid.net",
-      port : 587,
-      auth: {
-        user: "apikey",
-        pass: process.env.SENDGRID_API_KEY
-      }
-    });
-
     const verificationURL = `https://beatnest-version1-00.onrender.com/verify/${encodeURIComponent(verificationToken)}`;
 
+
+    const msg = {
+      to: email,
+      from: {
+        email: process.env.SENDGRID_FROM_EMAIL,
+        name: "BeatNest"
+      },
+      subject: "Verify your BeatNest account",
+      html: `<p>Click <a href="${verificationURL}">here</a> to verify your email</p>`
+    }
+
+
     try {
-      await transporter.sendMail({
-        from: `"BeatNest" <${process.env.SENDGRID_FROM_EMAIL}>`,          //SYNTAX : "Display Name" <email@domain.com>  (Display name displayed in inbox , email = login email on sendgrid which is : kumar8799parkash@gmail.com)
-        to: email,
-        subject: "Verify your BeatNest account",
-        html: `<p>Click   <a href="${verificationURL}">here</a>   to verify your email</p>`
-      });
+      await sgMail.send(msg);
       console.log("Email sent successfully");
+    } catch (mailError) {
+      console.error("EMAIL SEND FAILED:", mailError);
+      await User.deleteOne({ email });
+      throw new Error("Verification email could not be sent!");
     }
-    catch(mailError){
-      console.log("EMAIL SEND FAILED : " , mailError);
-      await User.deleteOne({email});
-      throw new Error("verification email could not be sent!")
-    }
+
+
 
     res.status(201).json({ msg: "Sign up successful! please check your Gmail to verify." });    // here res.status = 200 code by default unless we set it manually(res.json({ msg: ".." });   and  res.status(200).json({ msg: ".." }); are same)
 
