@@ -94,10 +94,11 @@ app.post('/signup', async (req, res) => {              // remember that here we 
     console.log("new user saved successfully but still not verified!");
 
     const transporter = nodemailer.createTransport({
-      service: "Gmail",
+      host : "smtp.sendgrid.net",
+      port : 587,
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
+        user: "apikey",
+        pass: process.env.SENDGRID_API_KEY
       }
     });
 
@@ -105,7 +106,7 @@ app.post('/signup', async (req, res) => {              // remember that here we 
 
     try {
       await transporter.sendMail({
-        from: `"BeatNest" <${process.env.EMAIL_USER}>`,          //SYNTAX : "Display Name" <email@domain.com>  (Display name displayed in inbox)
+        from: `"BeatNest" <${process.env.SENDGRID_FROM_EMAIL}>`,          //SYNTAX : "Display Name" <email@domain.com>  (Display name displayed in inbox , email = login email on sendgrid which is : kumar8799parkash@gmail.com)
         to: email,
         subject: "Verify your BeatNest account",
         html: `<p>Click   <a href="${verificationURL}">here</a>   to verify your email</p>`
