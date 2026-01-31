@@ -16,11 +16,16 @@ const artistRoutes = require('./routes/artistRoutes');
 const { uptime } = require('process');
 const { error } = require('console');
 
-//   app.use(cors());      to allow all the origins(even hackers can send request here)
+
+dotenv.config({ path: __dirname + '/.env' });
+//dotenv.config();                            // This line reads your .env file and adds the variables inside it to process.env
+// So after dotenv.config(), you can use process.env.MY_VARIABLE anywhere in your app.
 
 connectDB();
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
+
+//   app.use(cors());      to allow all the origins(even hackers can send request here)
 app.use(cors({ origin: "*" }));
 /* app.use(cors({
   origin: "*",
@@ -28,9 +33,7 @@ app.use(cors({ origin: "*" }));
   allowedHeaders: ["Content-Type", "Authorization"]
 })) */
 
-dotenv.config({ path: __dirname + '/.env' });
-//dotenv.config();                            // This line reads your .env file and adds the variables inside it to process.env
-// So after dotenv.config(), you can use process.env.MY_VARIABLE anywhere in your app.
+
 
 app.use(express.json());                     // Middleware to parse JSON data from frontend and store it in req.body
 
