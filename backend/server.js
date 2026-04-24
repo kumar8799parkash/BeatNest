@@ -1,14 +1,14 @@
 const express = require('express');
 const connectDB = require('./config/db');
-const sgMail = require('@sendgrid/mail')
+const sgMail = require('@sendgrid/mail');
 const User = require('./models/user');
-const Song = require('./models/song')
+const Song = require('./models/song');
 const crypto = require('crypto');
 const cors = require('cors');                // CORS = Cross-Origin Resource Sharing. to specify frontend(3000 here) who can send requests
 const jwt = require('jsonwebtoken');         // To create login session tokens
 const bcrypt = require('bcrypt');            // bcrypt is a password-hashing function designed for securely storing passwords.
 const dotenv = require('dotenv');            // Hide secrets (DB passwords, API keys, JWT secrets).
-const mongoose = require('mongoose');       // Mongoose allows you to define a schema, mongoDB is itself schema-less(no defined structure) although it is not needed here as are just using the schemas(like User)in server.js , but we are not defining them here and also we are not using any mongoose function here
+const mongoose = require('mongoose');        // Mongoose allows you to define a schema, mongoDB is itself schema-less(no defined structure) although it is not needed here as are just using the schemas(like User)in server.js , but we are not defining them here and also we are not using any mongoose function here
 const app = express();
 const port = 5000;
 const playlistRoutes = require('./routes/playlistRoutes');
